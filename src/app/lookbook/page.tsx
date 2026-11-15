@@ -8,17 +8,17 @@ import { LOOKBOOK_ITEMS, PRODUCTS } from "@/data/mockData";
 
 export default function LookbookPage() {
   return (
-    <div className="bg-[#0E0E0E] text-[#F4EFE8] min-h-screen py-16 px-4 sm:px-6 lg:px-8">
+    <div className="bg-[#F5F0E8] text-[#2B2620] min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#C9B8A3] font-medium block mb-2">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#8F6D2F] font-medium block mb-2">
             Editorial Fall / Winter
           </span>
-          <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#F4EFE8]">
+          <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
             Lookbook: Власть вертикали
           </h1>
-          <p className="text-sm text-[#F4EFE8]/70 mt-4 leading-relaxed font-light">
+          <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
             Каждая съёмка TALLORA проходит с участием моделей ростом от 178 до 188 см.
             Мы показываем реальные пропорции высокой женской фигуры, длинных ног и обуви 41–44 размера.
           </p>
@@ -31,7 +31,7 @@ export default function LookbookPage() {
             return (
               <div
                 key={item.id}
-                className="bg-[#141414] border border-[#222222] overflow-hidden flex flex-col group"
+                className="bg-[#141414] border border-[#E2E2E2] overflow-hidden flex flex-col group"
               >
                 {/* 9:16 High Fashion Image */}
                 <div className="relative aspect-[4/5] sm:aspect-[9/14] w-full overflow-hidden bg-[#0A0A0A]">
@@ -45,7 +45,7 @@ export default function LookbookPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-90" />
 
                   {/* Badges on photo */}
-                  <div className="absolute top-4 left-4 bg-[#6B0F1A] text-[#F4EFE8] text-[10px] uppercase tracking-wider px-3 py-1 font-mono">
+                  <div className="absolute top-4 left-4 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-wider px-3 py-1 font-mono">
                     Рост {item.modelHeight} см · Размер {item.modelShoeSize}
                   </div>
                 </div>
@@ -53,26 +53,26 @@ export default function LookbookPage() {
                 {/* Content info below */}
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-1">
                   <div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#C9B8A3] block mb-1">
+                    <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
                       Кадр 0{index + 1} · Модель: {item.modelName}
                     </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#F4EFE8] mb-3">
+                    <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] mb-3">
                       {item.title}
                     </h2>
-                    <blockquote className="text-xs sm:text-sm text-[#F4EFE8]/80 italic border-l-2 border-[#6B0F1A] pl-4 py-1 mb-6">
+                    <blockquote className="text-xs sm:text-sm text-[#2B2620]/80 italic border-l-2 border-[#DAB16B] pl-4 py-1 mb-6">
                       «{item.quote}»
                     </blockquote>
                   </div>
 
                   {/* Attached Product Box */}
-                  <div className="bg-[#1C1C1E] border border-[#2E2E2E] p-4 flex items-center justify-between gap-4">
+                  <div className="bg-white border border-[#E2E2E2] p-4 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-15 bg-[#0A0A0A] border border-[#333333] shrink-0 overflow-hidden">
+                      <div className="relative w-12 h-15 bg-[#0A0A0A] border border-[#E2E2E2] shrink-0 overflow-hidden">
                         <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
                       </div>
                       <div>
-                        <h4 className="font-serif text-sm text-[#F4EFE8]">{product.name}</h4>
-                        <span className="text-xs text-[#C9B8A3] font-mono">
+                        <h4 className="font-serif text-sm text-[#2B2620]">{product.name}</h4>
+                        <span className="text-xs text-[#8F6D2F] font-mono">
                           {product.price.toLocaleString("ru-RU")} ₽
                         </span>
                       </div>
@@ -80,7 +80,7 @@ export default function LookbookPage() {
 
                     <Link
                       href={`/catalog/${product.slug}`}
-                      className="bg-[#6B0F1A] hover:bg-[#8E1624] text-[#F4EFE8] text-xs uppercase tracking-wider py-2.5 px-4 transition-colors flex items-center gap-1.5 shrink-0"
+                      className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] text-xs uppercase tracking-wider py-2.5 px-4 transition-colors flex items-center gap-1.5 shrink-0"
                     >
                       <span>Купить</span>
                       <ArrowRight size={13} />
@@ -93,16 +93,16 @@ export default function LookbookPage() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center py-10 border-t border-[#222222]">
-          <h3 className="font-serif text-2xl text-[#F4EFE8] mb-3">
+        <div className="text-center py-10 border-t border-[#E2E2E2]">
+          <h3 className="font-serif text-2xl text-[#2B2620] mb-3">
             Хотите повторить образ?
           </h3>
-          <p className="text-xs text-[#F4EFE8]/70 max-w-md mx-auto mb-6">
+          <p className="text-xs text-[#2B2620]/70 max-w-md mx-auto mb-6">
             Выберите ваш размер стопы, и мы покажем только пары в наличии.
           </p>
           <Link
             href="/catalog"
-            className="inline-block bg-[#F4EFE8] hover:bg-[#C9B8A3] text-[#0E0E0E] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
+            className="inline-block bg-[#F3F3F3] hover:bg-[#E3C78F] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
           >
             Перейти в каталог (39–44)
           </Link>

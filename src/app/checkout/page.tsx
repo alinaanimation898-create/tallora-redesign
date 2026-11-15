@@ -41,30 +41,30 @@ export default function CheckoutPage() {
 
   if (orderComplete) {
     return (
-      <div className="min-h-screen bg-[#F4EFE8] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-[#F9F6F0] border border-[#E2D9CC] p-8 sm:p-10 text-center space-y-6 shadow-xl">
-          <div className="w-16 h-16 rounded-full bg-[#6B0F1A] text-[#F4EFE8] flex items-center justify-center mx-auto">
+      <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
+        <div className="max-w-md w-full bg-[#FFFFFF] border border-[#E2E2E2] p-8 sm:p-10 text-center space-y-6 shadow-xl">
+          <div className="w-16 h-16 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center mx-auto">
             <CheckCircle2 size={36} />
           </div>
 
-          <span className="text-xs uppercase tracking-[0.25em] text-[#6B0F1A] font-semibold block">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block">
             Заказ успешно оформлен!
           </span>
 
-          <h1 className="font-serif text-3xl text-[#0E0E0E]">
+          <h1 className="font-serif text-3xl text-[#2B2620]">
             Номер заказа: <br />
-            <span className="text-[#6B0F1A] font-bold">{orderNumber}</span>
+            <span className="text-[#8F6D2F] font-bold">{orderNumber}</span>
           </h1>
 
-          <p className="text-xs text-[#0E0E0E]/70 leading-relaxed">
+          <p className="text-xs text-[#2B2620]/70 leading-relaxed">
             Спасибо, <strong>{name}</strong>! Мы отправили детали заказа и трек-номер на <strong>{email || phone}</strong>.
             Наш менеджер и стилист свяжутся с вами для подтверждения удобного времени примерки.
           </p>
 
-          <div className="p-4 bg-[#F4EFE8] border border-[#E2D9CC] text-left text-xs space-y-1">
+          <div className="p-4 bg-[#F3F3F3] border border-[#E2E2E2] text-left text-xs space-y-1">
             <div className="flex justify-between">
               <span className="text-[#888888]">Сумма к оплате:</span>
-              <strong className="text-[#0E0E0E]">{finalPrice.toLocaleString("ru-RU")} ₽</strong>
+              <strong className="text-[#2B2620]">{finalPrice.toLocaleString("ru-RU")} ₽</strong>
             </div>
             <div className="flex justify-between">
               <span className="text-[#888888]">Способ доставки:</span>
@@ -72,13 +72,13 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-[#888888]">Гарантия:</span>
-              <span className="text-[#6B0F1A]">Бесплатный обмен размера</span>
+              <span className="text-[#8F6D2F]">Бесплатный обмен размера</span>
             </div>
           </div>
 
           <Link
             href="/"
-            className="block w-full bg-[#0E0E0E] hover:bg-[#6B0F1A] text-[#F4EFE8] py-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
+            className="block w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
           >
             Вернуться на главную
           </Link>
@@ -89,13 +89,13 @@ export default function CheckoutPage() {
 
   if (cart.length === 0) {
     return (
-      <div className="min-h-screen bg-[#F4EFE8] flex items-center justify-center p-4">
+      <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
         <div className="text-center py-20 space-y-4">
-          <h1 className="font-serif text-3xl text-[#0E0E0E]">Ваша корзина пуста</h1>
-          <p className="text-xs text-[#0E0E0E]/60">Выберите идеальную пару в каталоге TALLORA</p>
+          <h1 className="font-serif text-3xl text-[#2B2620]">Ваша корзина пуста</h1>
+          <p className="text-xs text-[#2B2620]/60">Выберите идеальную пару в каталоге TALLORA</p>
           <Link
             href="/catalog"
-            className="inline-block bg-[#0E0E0E] text-[#F4EFE8] px-8 py-3.5 text-xs uppercase tracking-[0.2em]"
+            className="inline-block bg-[#DAB16B] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em]"
           >
             В каталог
           </Link>
@@ -105,16 +105,16 @@ export default function CheckoutPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4EFE8] py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[#F3F3F3] py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-10 text-center sm:text-left">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#6B0F1A] font-semibold block mb-1">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
             Быстрое оформление
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-[#0E0E0E]">
+          <h1 className="font-serif text-3xl sm:text-5xl text-[#2B2620]">
             Оформление заказа
           </h1>
-          <p className="text-xs text-[#0E0E0E]/60 mt-1">
+          <p className="text-xs text-[#2B2620]/60 mt-1">
             Без обязательной регистрации · Оплата картой, СБП или в Сплит · Бесплатный обмен размера
           </p>
         </div>
@@ -123,15 +123,15 @@ export default function CheckoutPage() {
           {/* LEFT: FORM FIELDS (7 cols) */}
           <div className="lg:col-span-7 space-y-8">
             {/* Step 1: Contacts */}
-            <div className="bg-[#F9F6F0] p-6 sm:p-8 border border-[#E2D9CC]">
-              <h2 className="font-serif text-xl text-[#0E0E0E] mb-4 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#0E0E0E] text-[#F4EFE8] text-xs flex items-center justify-center font-sans font-bold">1</span>
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">1</span>
                 Контакты получателя
               </h2>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="text-[11px] uppercase tracking-wider text-[#0E0E0E]/70 block mb-1">
+                  <label className="text-[11px] uppercase tracking-wider text-[#2B2620]/70 block mb-1">
                     Ваше имя *
                   </label>
                   <input
@@ -140,12 +140,12 @@ export default function CheckoutPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Екатерина"
-                    className="w-full p-3 bg-white border border-[#E2D9CC] text-xs focus:outline-none focus:border-[#6B0F1A]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
                   />
                 </div>
 
                 <div>
-                  <label className="text-[11px] uppercase tracking-wider text-[#0E0E0E]/70 block mb-1">
+                  <label className="text-[11px] uppercase tracking-wider text-[#2B2620]/70 block mb-1">
                     Телефон *
                   </label>
                   <input
@@ -154,12 +154,12 @@ export default function CheckoutPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+7 (999) 000-00-00"
-                    className="w-full p-3 bg-white border border-[#E2D9CC] text-xs focus:outline-none focus:border-[#6B0F1A]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
                   />
                 </div>
 
                 <div className="sm:col-span-2">
-                  <label className="text-[11px] uppercase tracking-wider text-[#0E0E0E]/70 block mb-1">
+                  <label className="text-[11px] uppercase tracking-wider text-[#2B2620]/70 block mb-1">
                     E-mail для чека и трек-номера
                   </label>
                   <input
@@ -167,16 +167,16 @@ export default function CheckoutPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="ekaterina@example.com"
-                    className="w-full p-3 bg-white border border-[#E2D9CC] text-xs focus:outline-none focus:border-[#6B0F1A]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
                   />
                 </div>
               </div>
             </div>
 
             {/* Step 2: Delivery */}
-            <div className="bg-[#F9F6F0] p-6 sm:p-8 border border-[#E2D9CC]">
-              <h2 className="font-serif text-xl text-[#0E0E0E] mb-4 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#0E0E0E] text-[#F4EFE8] text-xs flex items-center justify-center font-sans font-bold">2</span>
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">2</span>
                 Способ доставки
               </h2>
 
@@ -205,8 +205,8 @@ export default function CheckoutPage() {
                     key={d.id}
                     className={`flex items-start justify-between p-4 border cursor-pointer transition-all ${
                       deliveryMethod === d.id
-                        ? "bg-white border-[#6B0F1A] ring-1 ring-[#6B0F1A]"
-                        : "bg-[#F4EFE8] border-[#E2D9CC]"
+                        ? "bg-white border-[#DAB16B] ring-1 ring-[#DAB16B]"
+                        : "bg-[#F3F3F3] border-[#E2E2E2]"
                     }`}
                   >
                     <div className="flex items-start gap-3">
@@ -215,14 +215,14 @@ export default function CheckoutPage() {
                         name="delivery"
                         checked={deliveryMethod === d.id}
                         onChange={() => setDeliveryMethod(d.id as any)}
-                        className="mt-1 accent-[#6B0F1A]"
+                        className="mt-1 accent-[#DAB16B]"
                       />
                       <div>
-                        <strong className="text-xs text-[#0E0E0E] block">{d.title}</strong>
-                        <span className="text-[11px] text-[#0E0E0E]/70">{d.desc}</span>
+                        <strong className="text-xs text-[#2B2620] block">{d.title}</strong>
+                        <span className="text-[11px] text-[#2B2620]/70">{d.desc}</span>
                       </div>
                     </div>
-                    <span className="text-xs font-semibold text-[#6B0F1A] shrink-0 ml-2">
+                    <span className="text-xs font-semibold text-[#8F6D2F] shrink-0 ml-2">
                       {d.price}
                     </span>
                   </label>
@@ -230,7 +230,7 @@ export default function CheckoutPage() {
               </div>
 
               <div>
-                <label className="text-[11px] uppercase tracking-wider text-[#0E0E0E]/70 block mb-1">
+                <label className="text-[11px] uppercase tracking-wider text-[#2B2620]/70 block mb-1">
                   Город и адрес доставки *
                 </label>
                 <input
@@ -239,15 +239,15 @@ export default function CheckoutPage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="г. Москва, ул. Большая Никитская, д. 14, кв. 22"
-                  className="w-full p-3 bg-white border border-[#E2D9CC] text-xs focus:outline-none focus:border-[#6B0F1A]"
+                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
                 />
               </div>
             </div>
 
             {/* Step 3: Payment */}
-            <div className="bg-[#F9F6F0] p-6 sm:p-8 border border-[#E2D9CC]">
-              <h2 className="font-serif text-xl text-[#0E0E0E] mb-4 flex items-center gap-2">
-                <span className="w-6 h-6 rounded-full bg-[#0E0E0E] text-[#F4EFE8] text-xs flex items-center justify-center font-sans font-bold">3</span>
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+                <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">3</span>
                 Способ оплаты
               </h2>
 
@@ -273,8 +273,8 @@ export default function CheckoutPage() {
                     key={p.id}
                     className={`p-4 border cursor-pointer flex flex-col justify-between transition-all ${
                       paymentMethod === p.id
-                        ? "bg-white border-[#6B0F1A] ring-1 ring-[#6B0F1A]"
-                        : "bg-[#F4EFE8] border-[#E2D9CC]"
+                        ? "bg-white border-[#DAB16B] ring-1 ring-[#DAB16B]"
+                        : "bg-[#F3F3F3] border-[#E2E2E2]"
                     }`}
                   >
                     <div>
@@ -283,11 +283,11 @@ export default function CheckoutPage() {
                         name="payment"
                         checked={paymentMethod === p.id}
                         onChange={() => setPaymentMethod(p.id as any)}
-                        className="accent-[#6B0F1A] mb-2"
+                        className="accent-[#DAB16B] mb-2"
                       />
-                      <strong className="text-xs text-[#0E0E0E] block">{p.title}</strong>
+                      <strong className="text-xs text-[#2B2620] block">{p.title}</strong>
                     </div>
-                    <span className="text-[10px] text-[#0E0E0E]/60 mt-1">{p.desc}</span>
+                    <span className="text-[10px] text-[#2B2620]/60 mt-1">{p.desc}</span>
                   </label>
                 ))}
               </div>
@@ -295,8 +295,8 @@ export default function CheckoutPage() {
           </div>
 
           {/* RIGHT: ORDER SUMMARY (5 cols) */}
-          <div className="lg:col-span-5 bg-[#F9F6F0] p-6 sm:p-8 border border-[#E2D9CC] shadow-md sticky top-28">
-            <h2 className="font-serif text-xl text-[#0E0E0E] pb-3 border-b border-[#E2D9CC] mb-4">
+          <div className="lg:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] shadow-md sticky top-28">
+            <h2 className="font-serif text-xl text-[#2B2620] pb-3 border-b border-[#E2E2E2] mb-4">
               Ваш заказ
             </h2>
 
@@ -305,19 +305,19 @@ export default function CheckoutPage() {
               {cart.map((item) => (
                 <div
                   key={`${item.product.id}-${item.selectedSize}`}
-                  className="flex gap-3 text-xs pb-3 border-b border-[#E2D9CC]/60"
+                  className="flex gap-3 text-xs pb-3 border-b border-[#E2E2E2]/60"
                 >
-                  <div className="relative w-14 h-18 bg-[#ECE4D8] shrink-0 border border-[#E2D9CC] overflow-hidden">
+                  <div className="relative w-14 h-18 bg-[#EAEAEA] shrink-0 border border-[#E2E2E2] overflow-hidden">
                     <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-serif font-medium text-[#0E0E0E] line-clamp-1">
+                    <h4 className="font-serif font-medium text-[#2B2620] line-clamp-1">
                       {item.product.name}
                     </h4>
-                    <span className="text-[11px] text-[#6B0F1A] font-semibold block mt-0.5">
+                    <span className="text-[11px] text-[#8F6D2F] font-semibold block mt-0.5">
                       Размер: {item.selectedSize} · {item.quantity} шт.
                     </span>
-                    <span className="text-xs font-mono font-medium text-[#0E0E0E] block mt-1">
+                    <span className="text-xs font-mono font-medium text-[#2B2620] block mt-1">
                       {(item.product.price * item.quantity).toLocaleString("ru-RU")} ₽
                     </span>
                   </div>
@@ -326,19 +326,19 @@ export default function CheckoutPage() {
             </div>
 
             {/* Promo code form */}
-            <div className="mb-5 pb-5 border-b border-[#E2D9CC]">
+            <div className="mb-5 pb-5 border-b border-[#E2E2E2]">
               <div className="flex gap-2">
                 <input
                   type="text"
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   placeholder="Промокод"
-                  className="flex-1 bg-white border border-[#E2D9CC] px-3 py-2 text-xs uppercase"
+                  className="flex-1 bg-white border border-[#E2E2E2] px-3 py-2 text-xs uppercase"
                 />
                 <button
                   type="button"
                   onClick={handleApplyPromo}
-                  className="bg-[#0E0E0E] text-[#F4EFE8] px-4 text-xs uppercase tracking-wider hover:bg-[#6B0F1A]"
+                  className="bg-[#DAB16B] text-[#2B2620] px-4 text-xs uppercase tracking-wider hover:bg-[#C99B4F]"
                 >
                   Применить
                 </button>
@@ -351,13 +351,13 @@ export default function CheckoutPage() {
             </div>
 
             {/* Price lines */}
-            <div className="space-y-2 text-xs text-[#0E0E0E]/80 pb-4 border-b border-[#E2D9CC]">
+            <div className="space-y-2 text-xs text-[#2B2620]/80 pb-4 border-b border-[#E2E2E2]">
               <div className="flex justify-between">
                 <span>Товары ({cart.length} поз.):</span>
                 <span>{cartTotal.toLocaleString("ru-RU")} ₽</span>
               </div>
               {promoApplied && (
-                <div className="flex justify-between text-[#6B0F1A] font-semibold">
+                <div className="flex justify-between text-[#8F6D2F] font-semibold">
                   <span>Скидка PRIVÉ (5%):</span>
                   <span>- {priveDiscount.toLocaleString("ru-RU")} ₽</span>
                 </div>
@@ -370,8 +370,8 @@ export default function CheckoutPage() {
 
             {/* Total */}
             <div className="pt-4 pb-6 flex justify-between items-baseline">
-              <span className="font-serif text-sm uppercase tracking-wider text-[#0E0E0E]">Итого:</span>
-              <span className="font-serif text-3xl font-bold text-[#0E0E0E]">
+              <span className="font-serif text-sm uppercase tracking-wider text-[#2B2620]">Итого:</span>
+              <span className="font-serif text-3xl font-bold text-[#2B2620]">
                 {finalPrice.toLocaleString("ru-RU")} ₽
               </span>
             </div>
@@ -379,7 +379,7 @@ export default function CheckoutPage() {
             {/* Submit CTA */}
             <button
               type="submit"
-              className="w-full bg-[#6B0F1A] hover:bg-[#8E1624] text-[#F4EFE8] py-4 text-xs uppercase tracking-[0.22em] font-medium transition-colors shadow-xl flex items-center justify-center gap-2 cursor-pointer"
+              className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-4 text-xs uppercase tracking-[0.22em] font-medium transition-colors shadow-xl flex items-center justify-center gap-2 cursor-pointer"
             >
               <span>Подтвердить заказ</span>
               <ArrowRight size={15} />

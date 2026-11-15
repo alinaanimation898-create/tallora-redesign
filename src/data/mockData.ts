@@ -2,13 +2,13 @@ import { Product, LookbookItem, Review, FAQItem } from "@/types";
 
 export const CATEGORIES = [
   { name: "Все модели", slug: "all" },
-  { name: "Туфли", slug: "tufli", image: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Босоножки", slug: "bosonozhki", image: "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Мюли", slug: "myuli", image: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Лоферы", slug: "lofery", image: "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Балетки", slug: "baletki", image: "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Ботильоны", slug: "botilony", image: "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=1200&auto=format&fit=crop" },
-  { name: "Сапоги", slug: "sapogi", image: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Туфли", slug: "tufli", image: "https://images.unsplash.com/photo-1611233299310-f6276ff55307?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Босоножки", slug: "bosonozhki", image: "https://images.unsplash.com/photo-1563112643-5b286536a949?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Мюли", slug: "myuli", image: "https://images.unsplash.com/photo-1718365837137-13cbd931068a?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Лоферы", slug: "lofery", image: "https://images.unsplash.com/photo-1678784973073-f6a227408e81?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Балетки", slug: "baletki", image: "https://images.unsplash.com/photo-1678784973559-43fb10550343?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Ботильоны", slug: "botilony", image: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?q=80&w=1200&auto=format&fit=crop" },
+  { name: "Сапоги", slug: "sapogi", image: "https://images.unsplash.com/photo-1667857002088-e827cff1cb7f?q=80&w=1200&auto=format&fit=crop" },
 ];
 
 export const PRODUCTS: Product[] = [
@@ -43,12 +43,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 1 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1611233299310-f6276ff55307?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1686668572519-1793f1f5f37f?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1651126581286-a6ae76cb5c78?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Культовая модель TALLORA. Острый выверенный мыс, который визуально не удлиняет стопу, а создаёт благородную непрерывную линию ноги. Каблук 8.5 см смещён строго под центр пятки — идеальный баланс при росте от 178 см.",
     details: [
@@ -93,10 +91,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: false, stockCount: 0 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1789110519446-77822570546e?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1718365837137-13cbd931068a?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1627140842568-87f1d07d08bd?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1627141792925-eddee39cf275?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Мюли для тех, кто привык приковывать взгляды. Скульптурный геометрический каблук устойчив на брусчатке и танцполе. Чистый силуэт в духе Khaite и The Attico.",
     details: [
@@ -140,10 +138,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 2 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678784973551-f38208de2529?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678784973073-f6a227408e81?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1559334417-01b38aec66bd?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678784973559-43fb10550343?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Безупречная маскулинная классика, переосмысленная для женственной высокой стати. Выглядит дорого и строго как в офисе с брючным костюмом, так и с джинсами оверсайз.",
     details: [
@@ -188,10 +186,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 1 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1763661300203-aa3e2702f510?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1667857002088-e827cff1cb7f?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1792588212232-18808dc7d63b?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1760615095065-33da9ea0aff9?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Сапоги, о которых мечтала каждая девушка выше 178 см. Забудьте о том, что голенище заканчивается посередине икры: Elena сшита с учётом увеличенной длины голени. Свободная посадка «труба» держит идеальную форму.",
     details: [
@@ -235,10 +233,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 1 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1786872951423-77b9040d5d7e?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1563112643-5b286536a949?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1789110519471-74ac17dd1cf6?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1654357996983-0bce5a598af3?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Воздушные босоножки для свиданий и летних вечеров. Тончайшие кожаные ремешки мягко обнимают щиколотку, не пережимая её. Удобный каблук 5.5 см позволяет танцевать до рассвета.",
     details: [
@@ -282,10 +280,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 1 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1678784973559-43fb10550343?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1654945419086-bcb1c1e1b875?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1776266100221-d11f77db0e0a?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1573100925118-870b8efc799d?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Балетки нового поколения. Никаких «лодочек-лаптей»: удлиненный овальный вырез обнажает изящный подъем, а деликатный мыс делает обувь 43-44 размера визуально компактной.",
     details: [
@@ -329,10 +327,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: true, stockCount: 1 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1582845512747-e42001c95638?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1621996659490-3275b4d0d951?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1763661300203-aa3e2702f510?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1651126581286-a6ae76cb5c78?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1770576568723-c557b096394b?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Бескомпромиссная рок-н-ролльная элегантность. Графичный скошенный каблук и вытянутый силуэт. Одинаково дерзко смотрятся с шелковым платьем комбинацией и кожаными брюками.",
     details: [
@@ -376,10 +374,10 @@ export const PRODUCTS: Product[] = [
       { size: 44, inStock: false, stockCount: 0 },
     ],
     images: [
-      "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1562273138-f46be4ebdf33?q=80&w=1000&auto=format&fit=crop",
-      "https://images.unsplash.com/photo-1535043934128-cf0b28d52f95?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1697647916715-f5b8bf94c8bf?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1617379799234-a23386fe3e91?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1575553088237-0ddd7b66109f?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1562687848-c1664eff566d?q=80&w=1000&auto=format&fit=crop",
     ],
     description: "Наш манифест уверенности. Шпилька 9 см, которая не пугает, а вдохновляет. Каблук спроектирован с математической точностью под центр тяжести высокой девушки.",
     details: [
@@ -402,7 +400,7 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
     modelName: "Полина",
     modelHeight: 181,
     modelShoeSize: 43,
-    imageUrl: "https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?q=80&w=1200&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1654357996983-0bce5a598af3?q=80&w=1200&auto=format&fit=crop",
     quote: "Когда твой рост 181, каблук — это не про добавление сантиметров. Это про осанку львицы.",
     featuredProductId: "prod-1",
   },
@@ -412,7 +410,7 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
     modelName: "Александра",
     modelHeight: 185,
     modelShoeSize: 44,
-    imageUrl: "https://images.unsplash.com/photo-1509631179647-0177331693ae?q=80&w=1200&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1792588212232-18808dc7d63b?q=80&w=1200&auto=format&fit=crop",
     quote: "Впервые в жизни мне не нужно оправдываться за 44 размер. Эта обувь выглядит роскошно.",
     featuredProductId: "prod-4",
   },
@@ -422,7 +420,7 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
     modelName: "Елизавета",
     modelHeight: 184,
     modelShoeSize: 42,
-    imageUrl: "https://images.unsplash.com/photo-1539109136881-3be0616acf4b?q=80&w=1200&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1576501362493-4ebbc9bc1030?q=80&w=1200&auto=format&fit=crop",
     quote: "Мюли Stella держат ногу так, будто сшиты персонально по моим меркам.",
     featuredProductId: "prod-2",
   },
@@ -432,7 +430,7 @@ export const LOOKBOOK_ITEMS: LookbookItem[] = [
     modelName: "Мария",
     modelHeight: 179,
     modelShoeSize: 41,
-    imageUrl: "https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=1200&auto=format&fit=crop",
+    imageUrl: "https://images.unsplash.com/photo-1730139783886-5b94fb768fa9?q=80&w=1200&auto=format&fit=crop",
     quote: "Строгий костюм мужского кроя и лоферы Roxie. Я чувствую себя абсолютной хозяйкой положения.",
     featuredProductId: "prod-3",
   },
@@ -449,7 +447,7 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: "12 октября 2026",
     text: "Девочки, это слёзы счастья! Всю жизнь в обувных мне предлагали «бабушкины туфли», если вообще был 43. В TALLORA надела Mia — и стопа выглядит изящно, пальцы не сжаты в тиски. Вера помогла определить размер по см, пришло тютелька в тютельку!",
-    photoUrl: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?q=80&w=400&auto=format&fit=crop",
+    photoUrl: "https://images.unsplash.com/photo-1696300104829-cc56b14b7873?q=80&w=400&auto=format&fit=crop",
   },
   {
     id: "rev-2",
@@ -461,7 +459,7 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: "28 сентября 2026",
     text: "Сапоги-трубы сели ровно под колено! Никаких компромиссов. Замша премиальная, мягкая как масло. Мой рост 185, и теперь я чувствую себя королевой подиума.",
-    photoUrl: "https://images.unsplash.com/photo-1608256246200-53e635b5b65f?q=80&w=400&auto=format&fit=crop",
+    photoUrl: "https://images.unsplash.com/photo-1591080137331-c80f30c5c9b1?q=80&w=400&auto=format&fit=crop",
   },
   {
     id: "rev-3",
@@ -473,7 +471,7 @@ export const REVIEWS: Review[] = [
     rating: 5,
     date: "5 сентября 2026",
     text: "Каблук архитектурный, устойчивый невероятно. Все коллеги на конференции спросили, что за бренд. Очень приятно получить скидку клуба PRIVÉ на первый заказ.",
-    photoUrl: "https://images.unsplash.com/photo-1596704017254-9b121068fb31?q=80&w=400&auto=format&fit=crop",
+    photoUrl: "https://images.unsplash.com/photo-1645477352686-8c2a686564f8?q=80&w=400&auto=format&fit=crop",
   },
 ];
 

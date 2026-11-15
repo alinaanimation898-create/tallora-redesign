@@ -1,31 +1,36 @@
 "use client";
 
 import React, { useState } from "react";
-import { Ruler, CheckCircle2, ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
 import { ShoeSize } from "@/types";
 import { useRouter } from "next/navigation";
+
+type Width = "narrow" | "standard" | "wide";
 
 export default function HomeSizeCalculator() {
   const { setSelectedSize, setIsVeraOpen } = useShop();
   const router = useRouter();
   const [cm, setCm] = useState(27.4);
-  const [width, setWidth] = useState<"narrow" | "standard" | "wide">("standard");
+  const [width, setWidth] = useState<Width>("standard");
 
   const calcSize = (): { size: ShoeSize; desc: string } => {
     let effective = cm;
     if (width === "wide") effective += 0.3;
     if (width === "narrow") effective -= 0.2;
 
-    if (effective < 25.4) return { size: 39, desc: "25.0 – 25.4 см · стопа сидит плотно без скольжения" };
+    if (effective < 25.4) return { size: 39, desc: "25.0 – 25.4 см · стопа сидит плотно, без скольжения" };
     if (effective < 26.1) return { size: 40, desc: "25.5 – 26.0 см · мягкая колодка" };
     if (effective < 26.8) return { size: 41, desc: "26.1 – 26.7 см · свободное движение пальцев" };
-    if (effective < 27.5) return { size: 42, desc: "26.8 – 27.4 см · оптимальный подъем" };
+    if (effective < 27.5) return { size: 42, desc: "26.8 – 27.4 см · оптимальный подъём" };
     if (effective < 28.3) return { size: 43, desc: "27.5 – 28.2 см · анатомическая поддержка свода" };
     return { size: 44, desc: "28.3 – 29.0 см · удлинённая стелька до 29 см" };
   };
 
   const result = calcSize();
+  const min = 24.8;
+  const max = 29.0;
+  const pct = ((cm - min) / (max - min)) * 100;
 
   const handleApply = () => {
     setSelectedSize(result.size);
@@ -33,109 +38,112 @@ export default function HomeSizeCalculator() {
   };
 
   return (
-    <div className="bg-[#0E0E0E] text-[#F4EFE8] py-20 px-4 sm:px-6 lg:px-8 border-y border-[#222222]">
-      <div className="max-w-5xl mx-auto">
-        <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#C9B8A3] font-medium block mb-2">
-            Точный подбор без страха «не подойдёт»
+    <section className="relative bg-[#F5F0E8] text-[#2B2620] py-20 lg:py-28 px-5 sm:px-8 overflow-hidden">
+      <div className="max-w-[1400px] mx-auto relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        {/* Left: controls */}
+        <div className="lg:col-span-7">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-5">
+            Точный подбор без «не подойдёт»
           </span>
-          <h2 className="font-serif text-3xl sm:text-5xl font-light tracking-wide text-[#F4EFE8]">
-            Калькулятор размера стопы
+          <h2 className="font-serif font-light text-[clamp(44px,6vw,96px)] leading-[0.9]">
+            Твой размер <span className="italic text-[#B8914A]">в сантиметрах</span>
           </h2>
-          <p className="text-[#F4EFE8]/70 text-sm mt-3">
-            Укажите длину стопы в сантиметрах — мы мгновенно рассчитаем ваш размер в колодках TALLORA.
+          <p className="text-[#2B2620]/60 text-[15px] mt-5 max-w-md leading-relaxed">
+            Встань на лист бумаги, отметь пятку и самый длинный палец — и передвинь ползунок.
           </p>
-        </div>
 
-        <div className="bg-[#171717] border border-[#2B2B2B] p-6 sm:p-10 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-          {/* Controls */}
-          <div className="md:col-span-7 space-y-6">
-            <div>
-              <div className="flex justify-between items-baseline mb-2">
-                <span className="text-xs uppercase tracking-wider text-[#C9B8A3] flex items-center gap-1.5">
-                  <Ruler size={16} /> Длина стопы:
-                </span>
-                <span className="font-serif text-3xl font-bold text-[#F4EFE8]">
-                  {cm.toFixed(1)} <span className="text-sm font-sans font-normal text-[#C9B8A3]">см</span>
-                </span>
-              </div>
+          <div className="mt-12">
+            <div className="flex items-end justify-between mb-5">
+              <span className="text-[11px] uppercase tracking-[0.25em] text-[#2B2620]/50">Длина стопы</span>
+              <span className="font-display text-6xl leading-none">
+                {cm.toFixed(1)}
+                <span className="text-lg text-[#2B2620]/50 ml-1.5">см</span>
+              </span>
+            </div>
+
+            <div className="relative h-10 flex items-center">
+              <div className="absolute inset-x-0 h-[3px] rounded-full bg-[#2B2620]/10" />
+              <div className="absolute left-0 h-[3px] rounded-full bg-[#DAB16B]" style={{ width: `${pct}%` }} />
+              <div
+                className="absolute w-7 h-7 -ml-3.5 rounded-full bg-white shadow-[0_0_0_6px_rgba(218,177,107,0.35)] pointer-events-none"
+                style={{ left: `${pct}%` }}
+              />
               <input
                 type="range"
-                min="24.8"
-                max="29.0"
+                min={min}
+                max={max}
                 step="0.1"
                 value={cm}
                 onChange={(e) => setCm(parseFloat(e.target.value))}
-                className="w-full accent-[#6B0F1A] cursor-pointer h-2 bg-[#333333] rounded-lg"
+                aria-label="Длина стопы в сантиметрах"
+                className="absolute inset-0 w-full opacity-0 cursor-pointer"
               />
-              <div className="flex justify-between text-[11px] text-[#777777] mt-1 font-mono">
-                <span>25.0 см (р. 39)</span>
-                <span>27.0 см (р. 42)</span>
-                <span>29.0 см (р. 44)</span>
-              </div>
             </div>
-
-            <div>
-              <span className="text-xs uppercase tracking-wider text-[#C9B8A3] block mb-2">
-                Полнота стопы:
-              </span>
-              <div className="grid grid-cols-3 gap-2">
-                {[
-                  { id: "narrow", label: "Узкая" },
-                  { id: "standard", label: "Стандарт" },
-                  { id: "wide", label: "Широкая" },
-                ].map((w) => (
-                  <button
-                    key={w.id}
-                    type="button"
-                    onClick={() => setWidth(w.id as any)}
-                    className={`py-2 px-3 text-xs tracking-wider uppercase border transition-all ${
-                      width === w.id
-                        ? "bg-[#6B0F1A] text-[#F4EFE8] border-[#6B0F1A] font-semibold"
-                        : "bg-[#222222] text-[#F4EFE8]/80 border-[#333333] hover:border-[#6B0F1A]"
-                    }`}
-                  >
-                    {w.label}
-                  </button>
-                ))}
-              </div>
+            <div className="flex justify-between text-[11px] text-[#2B2620]/40 mt-2 font-display tracking-wider">
+              <span>25 см · 39</span>
+              <span>27 см · 42</span>
+              <span>29 см · 44</span>
             </div>
           </div>
 
-          {/* Result Card */}
-          <div className="md:col-span-5 bg-[#202020] border border-[#333333] p-6 text-center flex flex-col justify-between h-full">
-            <div>
-              <span className="text-[10px] uppercase tracking-[0.25em] text-[#C9B8A3] block mb-1">
-                Ваш идеальный размер
-              </span>
-              <div className="font-serif text-6xl font-bold text-[#F4EFE8] my-1">
-                {result.size}
-              </div>
-              <p className="text-xs text-[#F4EFE8]/70 leading-relaxed mb-4">
-                {result.desc}
-              </p>
-            </div>
-
-            <div className="space-y-3">
-              <button
-                onClick={handleApply}
-                className="w-full bg-[#6B0F1A] hover:bg-[#8E1624] text-[#F4EFE8] py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>Смотреть обувь {result.size} размера</span>
-                <ArrowRight size={14} />
-              </button>
-
-              <button
-                onClick={() => setIsVeraOpen(true)}
-                className="w-full text-center text-[11px] text-[#C9B8A3] hover:underline flex items-center justify-center gap-1.5"
-              >
-                <Sparkles size={12} />
-                <span>Спросить стилиста Веру о посадке этой пары</span>
-              </button>
+          <div className="mt-10">
+            <span className="text-[11px] uppercase tracking-[0.25em] text-[#2B2620]/50 block mb-3">Полнота</span>
+            <div className="inline-flex p-1 rounded-full border border-[#2B2620]/15">
+              {([
+                { id: "narrow", label: "Узкая" },
+                { id: "standard", label: "Стандарт" },
+                { id: "wide", label: "Широкая" },
+              ] as { id: Width; label: string }[]).map((w) => (
+                <button
+                  key={w.id}
+                  type="button"
+                  onClick={() => setWidth(w.id)}
+                  className={`h-11 px-5 sm:px-7 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all cursor-pointer ${
+                    width === w.id ? "bg-[#DAB16B] text-[#2B2620]" : "text-[#2B2620]/70 hover:text-[#2B2620]"
+                  }`}
+                >
+                  {w.label}
+                </button>
+              ))}
             </div>
           </div>
         </div>
+
+        {/* Right: result */}
+        <div className="lg:col-span-5">
+          <div className="relative rounded-[32px] bg-[#DAB16B] p-8 sm:p-10 overflow-hidden">
+            <div
+              aria-hidden
+              className="absolute -right-6 -bottom-16 font-display text-[280px] leading-none text-[#2B2620]/10 select-none"
+            >
+              {result.size}
+            </div>
+            <span className="relative text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/70">Твой размер Tallora</span>
+            <div key={result.size} className="relative font-display text-[150px] sm:text-[180px] leading-[0.85] mt-4 fade-swap text-[#2B2620]">
+              {result.size}
+            </div>
+            <p className="relative text-sm text-[#2B2620]/75 mt-4 max-w-[260px]">{result.desc}</p>
+
+            <button
+              onClick={handleApply}
+              className="group relative mt-8 w-full h-14 pl-7 pr-2 rounded-full bg-white text-[#2B2620] flex items-center justify-between text-[12px] uppercase tracking-[0.2em] font-semibold cursor-pointer"
+            >
+              Обувь {result.size} размера
+              <span className="w-10 h-10 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-500">
+                <ArrowRight size={16} />
+              </span>
+            </button>
+
+            <button
+              onClick={() => setIsVeraOpen(true)}
+              className="relative mt-4 w-full text-center text-[11px] uppercase tracking-[0.18em] text-[#2B2620]/75 hover:text-[#2B2620] flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Sparkles size={13} />
+              Спросить Веру о посадке
+            </button>
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
   );
 }

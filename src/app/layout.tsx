@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Inter } from "next/font/google";
+import { Cormorant_Garamond, Oswald, Manrope } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/Providers";
 import Header from "@/components/Header";
@@ -7,16 +7,23 @@ import Footer from "@/components/Footer";
 import VeraChatWidget from "@/components/VeraChatWidget";
 import SizeCalculatorModal from "@/components/SizeCalculatorModal";
 
-const bodoni = Bodoni_Moda({
-  variable: "--font-bodoni",
-  subsets: ["latin"],
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin", "cyrillic"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"],
+  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
 });
 
-const inter = Inter({
-  variable: "--font-inter",
+const oswald = Oswald({
+  variable: "--font-oswald",
+  subsets: ["latin", "cyrillic"],
+  display: "swap",
+  weight: ["300", "400", "500", "600"],
+});
+
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin", "cyrillic"],
   display: "swap",
   weight: ["300", "400", "500", "600", "700"],
@@ -40,8 +47,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ru" className={`${bodoni.variable} ${inter.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#F4EFE8] text-[#0E0E0E] selection:bg-[#6B0F1A] selection:text-[#F4EFE8]">
+    <html lang="ru" className={`${cormorant.variable} ${oswald.variable} ${manrope.variable}`}>
+      <body className="min-h-screen flex flex-col bg-[#F3F3F3] text-[#2B2620]">
         <Providers>
           <Header />
           <main className="flex-grow">{children}</main>

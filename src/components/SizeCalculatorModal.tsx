@@ -41,36 +41,36 @@ export default function SizeCalculatorModal() {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#0E0E0E]/80 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-xl bg-[#F9F6F0] border border-[#E2D9CC] shadow-2xl p-6 sm:p-8 rounded-sm max-h-[90vh] overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2B2620]/45 backdrop-blur-sm animate-fadeIn">
+      <div className="relative w-full max-w-xl bg-[#FFFFFF] border border-[#E2E2E2] shadow-2xl p-6 sm:p-8 rounded-sm max-h-[90vh] overflow-y-auto">
         <button
           onClick={() => setIsSizeModalOpen(false)}
-          className="absolute top-5 right-5 text-[#0E0E0E]/60 hover:text-[#6B0F1A] transition-colors p-1"
+          className="absolute top-5 right-5 text-[#2B2620]/60 hover:text-[#8F6D2F] transition-colors p-1"
           aria-label="Закрыть"
         >
           <X size={22} />
         </button>
 
         <div className="text-center mb-6">
-          <span className="text-[11px] uppercase tracking-[0.25em] text-[#6B0F1A] font-semibold block mb-1">
+          <span className="text-[11px] uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
             Безупречная посадка
           </span>
-          <h2 className="font-serif text-2xl sm:text-3xl text-[#0E0E0E]">
+          <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620]">
             Калькулятор размера стопы
           </h2>
-          <p className="text-xs text-[#0E0E0E]/70 mt-1 max-w-md mx-auto">
+          <p className="text-xs text-[#2B2620]/70 mt-1 max-w-md mx-auto">
             Никаких сюрпризов: колодки TALLORA разработаны с учетом анатомии высокой стопы от 39 до 44 размера.
           </p>
         </div>
 
         {/* Step 1: Foot length slider */}
-        <div className="bg-[#F4EFE8] p-5 border border-[#E2D9CC] mb-5">
+        <div className="bg-[#F3F3F3] p-5 border border-[#E2E2E2] mb-5">
           <div className="flex justify-between items-center mb-3">
-            <label className="text-xs uppercase tracking-wider font-medium text-[#0E0E0E] flex items-center gap-1.5">
-              <Ruler size={15} className="text-[#6B0F1A]" />
+            <label className="text-xs uppercase tracking-wider font-medium text-[#2B2620] flex items-center gap-1.5">
+              <Ruler size={15} className="text-[#8F6D2F]" />
               Длина стопы:
             </label>
-            <span className="font-serif text-xl font-bold text-[#6B0F1A]">
+            <span className="font-serif text-xl font-bold text-[#8F6D2F]">
               {lengthCm.toFixed(1)} см
             </span>
           </div>
@@ -82,10 +82,10 @@ export default function SizeCalculatorModal() {
             step="0.1"
             value={lengthCm}
             onChange={(e) => setLengthCm(parseFloat(e.target.value))}
-            className="w-full accent-[#6B0F1A] cursor-pointer h-2 bg-[#E2D9CC] rounded-lg"
+            className="w-full accent-[#DAB16B] cursor-pointer h-2 bg-[#E2E2E2] rounded-lg"
           />
 
-          <div className="flex justify-between text-[10px] text-[#0E0E0E]/50 mt-2 font-mono">
+          <div className="flex justify-between text-[10px] text-[#2B2620]/50 mt-2 font-mono">
             <span>25.0 см (р. 39)</span>
             <span>27.0 см (р. 42)</span>
             <span>29.0 см (р. 44)</span>
@@ -94,7 +94,7 @@ export default function SizeCalculatorModal() {
 
         {/* Step 2: Width selector */}
         <div className="mb-6">
-          <label className="text-xs uppercase tracking-wider font-medium text-[#0E0E0E] block mb-2">
+          <label className="text-xs uppercase tracking-wider font-medium text-[#2B2620] block mb-2">
             Полнота стопы:
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -109,8 +109,8 @@ export default function SizeCalculatorModal() {
                 onClick={() => setWidthType(w.id as any)}
                 className={`py-2 px-3 text-xs tracking-wider uppercase border transition-all ${
                   widthType === w.id
-                    ? "bg-[#0E0E0E] text-[#F4EFE8] border-[#0E0E0E]"
-                    : "bg-[#F4EFE8] text-[#0E0E0E] border-[#E2D9CC] hover:border-[#0E0E0E]"
+                    ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
+                    : "bg-[#F3F3F3] text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
                 }`}
               >
                 {w.label}
@@ -120,21 +120,21 @@ export default function SizeCalculatorModal() {
         </div>
 
         {/* Result banner */}
-        <div className="p-4 bg-[#6B0F1A]/10 border border-[#6B0F1A] rounded-sm mb-6 flex items-center justify-between">
+        <div className="p-4 bg-[#DAB16B]/10 border border-[#DAB16B] rounded-sm mb-6 flex items-center justify-between">
           <div>
-            <span className="text-[10px] uppercase tracking-widest text-[#6B0F1A] font-bold block">
+            <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block">
               Твой точный размер TALLORA:
             </span>
             <div className="flex items-baseline gap-2 mt-0.5">
-              <span className="font-serif text-3xl font-bold text-[#6B0F1A]">
+              <span className="font-serif text-3xl font-bold text-[#8F6D2F]">
                 {recommendation.size}
               </span>
-              <span className="text-xs text-[#0E0E0E]/80">
+              <span className="text-xs text-[#2B2620]/80">
                 ({recommendation.note})
               </span>
             </div>
           </div>
-          <div className="w-8 h-8 rounded-full bg-[#6B0F1A] text-[#F4EFE8] flex items-center justify-center shrink-0">
+          <div className="w-8 h-8 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center shrink-0">
             <Check size={18} />
           </div>
         </div>
@@ -143,19 +143,19 @@ export default function SizeCalculatorModal() {
         <div className="space-y-3">
           <button
             onClick={handleApplySize}
-            className="w-full bg-[#6B0F1A] hover:bg-[#8E1624] text-[#F4EFE8] py-3.5 px-6 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-3.5 px-6 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors cursor-pointer"
           >
             <span>Показать модели в {recommendation.size} размере</span>
             <ArrowRight size={15} />
           </button>
 
-          <div className="flex items-center justify-between pt-2 text-[11px] text-[#0E0E0E]/70">
+          <div className="flex items-center justify-between pt-2 text-[11px] text-[#2B2620]/70">
             <button
               onClick={() => {
                 setIsSizeModalOpen(false);
                 setIsVeraOpen(true);
               }}
-              className="flex items-center gap-1.5 text-[#6B0F1A] hover:underline"
+              className="flex items-center gap-1.5 text-[#8F6D2F] hover:underline"
             >
               <Sparkles size={13} />
               Сомневаетесь? Спросить стилиста Веру
@@ -165,9 +165,9 @@ export default function SizeCalculatorModal() {
         </div>
 
         {/* Measurement mini guide */}
-        <div className="mt-6 pt-5 border-t border-[#E2D9CC] text-xs text-[#0E0E0E]/70 space-y-1">
-          <p className="font-semibold text-[#0E0E0E] flex items-center gap-1">
-            <HelpCircle size={14} className="text-[#6B0F1A]" />
+        <div className="mt-6 pt-5 border-t border-[#E2E2E2] text-xs text-[#2B2620]/70 space-y-1">
+          <p className="font-semibold text-[#2B2620] flex items-center gap-1">
+            <HelpCircle size={14} className="text-[#8F6D2F]" />
             Как замерить стопу за 1 минуту:
           </p>
           <p className="text-[11px] leading-relaxed">

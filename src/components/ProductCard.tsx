@@ -1,25 +1,23 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { Eye, ShoppingBag, Sparkles } from "lucide-react";
+import { Plus, ArrowUpRight } from "lucide-react";
 import { Product, ShoeSize } from "@/types";
 import { useShop } from "@/context/ShopContext";
 
 interface ProductCardProps {
   product: Product;
+  /** Visual tone of the surface the card sits on. */
+  tone?: "light" | "dark";
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
-  const { selectedSize, addToCart, setQuickViewProduct, setIsSizeModalOpen } = useShop();
-  const [isHovered, setIsHovered] = useState(false);
-  const [selectedCardSize, setSelectedCardSize] = useState<ShoeSize | null>(selectedSize);
+export default function ProductCard({ product, tone = "light" }: ProductCardProps) {
+  const { selectedSize, addToCart, setQuickViewProduct } = useShop();
+  const dark = tone === "dark";
 
-  // Check if user's selected size has low stock
-  const userSizeStock = selectedSize
-    ? product.sizes.find((s) => s.size === selectedSize)
-    : null;
+  const userSizeStock = selectedSize ? product.sizes.find((s) => s.size === selectedSize) : null;
   const isLastPairInUserSize = userSizeStock && userSizeStock.stockCount === 1 && userSizeStock.inStock;
 
   const handleQuickAdd = (e: React.MouseEvent, sz: ShoeSize) => {
@@ -28,135 +26,154 @@ export default function ProductCard({ product }: ProductCardProps) {
     addToCart(product, sz);
   };
 
+  // Split "Лодочки Mia в цвете Deep Bordeaux" → type "Лодочки", model "Mia", rest.
+  const [type, model, ...rest] = product.name.split(" ");
+
   return (
-    <div
-      className="group flex flex-col relative"
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-    >
-      {/* Visual Image Container - Vertical 3:4 Aspect Ratio */}
-      <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#ECE4D8] border border-[#E2D9CC]">
+    <div className="group flex flex-col relative">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[22px] bg-[#E8E8E8]">
         <Link href={`/catalog/${product.slug}`} className="block w-full h-full relative">
           <Image
-            src={isHovered && product.images[1] ? product.images[1] : product.images[0]}
+            src={product.images[0]}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-            className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            className="object-cover transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
           />
+          {product.images[1] && (
+            <Image
+              src={product.images[1]}
+              alt=""
+              fill
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
+            />
+          )}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-80" />
         </Link>
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
-          {product.isHit && (
-            <span className="bg-[#0E0E0E] text-[#F4EFE8] text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 font-medium">
-              Хит
-            </span>
-          )}
+        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
           {product.isNew && (
-            <span className="bg-[#6B0F1A] text-[#F4EFE8] text-[9px] uppercase tracking-[0.2em] px-2.5 py-1 font-medium">
+            <span className="bg-[#F3F3F3] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
               New
             </span>
           )}
+          {product.isHit && (
+            <span className="bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
+              Bestseller
+            </span>
+          )}
           {isLastPairInUserSize && (
-            <span className="bg-[#6B0F1A] text-[#F4EFE8] text-[9px] tracking-wider uppercase px-2.5 py-1 font-semibold animate-pulse shadow-md">
-              Последняя пара в р. {selectedSize}
+            <span className="bg-white text-[#2B2620] text-[10px] tracking-[0.12em] uppercase px-3 py-1.5 rounded-full font-semibold">
+              Последняя в {selectedSize}
             </span>
           )}
         </div>
 
-        {/* Quick View Button on hover */}
+        {/* Quick view */}
         <button
           onClick={(e) => {
             e.preventDefault();
             setQuickViewProduct(product);
           }}
-          className="absolute bottom-3 right-3 w-9 h-9 rounded-full bg-[#F4EFE8]/90 hover:bg-[#0E0E0E] hover:text-[#F4EFE8] text-[#0E0E0E] flex items-center justify-center transition-all opacity-0 group-hover:opacity-100 shadow-md z-10 cursor-pointer"
+          className="absolute top-3 right-3 w-10 h-10 rounded-full glass text-[#F3F3F3] flex items-center justify-center transition-all opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-[#F3F3F3] hover:text-[#2B2620] z-10 cursor-pointer"
           aria-label="Быстрый просмотр"
           title="Быстрый просмотр"
         >
-          <Eye size={16} />
+          <ArrowUpRight size={17} />
         </button>
 
-        {/* Quick size selection drawer on hover (desktop) */}
-        <div className="absolute bottom-0 inset-x-0 bg-[#0E0E0E]/90 backdrop-blur-xs p-2.5 text-center transform translate-y-full group-hover:translate-y-0 transition-transform duration-300 hidden sm:block z-10">
-          <span className="text-[10px] text-[#C9B8A3] uppercase tracking-widest block mb-1.5">
-            Быстрое добавление размера:
+        {/* Heel tag bottom-left */}
+        <div className="absolute bottom-3 left-3 z-10 pointer-events-none transition-opacity duration-300 sm:group-hover:opacity-0">
+          <span className="font-display text-[11px] tracking-[0.2em] uppercase text-[#F3F3F3]">
+            Каблук {product.heelHeight}
           </span>
-          <div className="flex justify-center gap-1.5">
-            {product.sizes.map((s) => (
-              <button
-                key={s.size}
-                disabled={!s.inStock}
-                onClick={(e) => handleQuickAdd(e, s.size)}
-                className={`w-7 h-7 text-xs font-serif flex items-center justify-center transition-all ${
-                  !s.inStock
-                    ? "opacity-30 line-through text-gray-500 cursor-not-allowed"
-                    : selectedSize === s.size
-                    ? "bg-[#6B0F1A] text-[#F4EFE8] font-bold"
-                    : "bg-[#F4EFE8] text-[#0E0E0E] hover:bg-[#6B0F1A] hover:text-[#F4EFE8]"
-                }`}
-                title={s.inStock ? `Купить размер ${s.size}` : "Нет в наличии"}
-              >
-                {s.size}
-              </button>
-            ))}
+        </div>
+
+        {/* Quick-add sizes (desktop) */}
+        <div className="absolute bottom-3 inset-x-3 z-10 hidden sm:block translate-y-[130%] group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
+          <div className="glass rounded-2xl p-2">
+            <div className="flex items-center justify-between px-1.5 pb-1.5">
+              <span className="text-[9px] text-[#F3F3F3]/80 uppercase tracking-[0.2em]">В корзину</span>
+              <Plus size={11} className="text-[#F3F3F3]/80" />
+            </div>
+            <div className="grid grid-cols-6 gap-1">
+              {product.sizes.map((s) => (
+                <button
+                  key={s.size}
+                  disabled={!s.inStock}
+                  onClick={(e) => handleQuickAdd(e, s.size)}
+                  className={`h-8 rounded-full font-display text-[13px] flex items-center justify-center transition-all ${
+                    !s.inStock
+                      ? "text-[#F3F3F3]/30 line-through cursor-not-allowed"
+                      : selectedSize === s.size
+                      ? "bg-[#DAB16B] text-[#2B2620]"
+                      : "bg-[#F3F3F3] text-[#2B2620] hover:bg-[#DAB16B] hover:text-[#F3F3F3]"
+                  }`}
+                  title={s.inStock ? `Купить размер ${s.size}` : "Нет в наличии"}
+                >
+                  {s.size}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Model height & shoe size reference note */}
-      <div className="pt-3 pb-1 flex items-center justify-between text-[11px] text-[#0E0E0E]/60 border-b border-[#E2D9CC]/60">
-        <span>{product.modelInfo.text}</span>
-        <span className="text-[#6B0F1A] font-medium">{product.heelHeight}</span>
-      </div>
-
-      {/* Product Title and Price */}
-      <div className="pt-2">
-        <Link href={`/catalog/${product.slug}`} className="block">
-          <h3 className="font-serif text-base text-[#0E0E0E] group-hover:text-[#6B0F1A] transition-colors leading-snug">
-            {product.name}
-          </h3>
-        </Link>
-
-        <div className="flex items-baseline justify-between mt-1">
-          <div className="flex items-baseline gap-2">
-            <span className="font-serif text-lg font-semibold text-[#0E0E0E]">
+      {/* Info */}
+      <Link href={`/catalog/${product.slug}`} className="pt-4 px-1 block">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <span className={`text-[10px] uppercase tracking-[0.22em] ${dark ? "text-[#F3F3F3]/50" : "text-[#2B2620]/45"}`}>
+              {type}
+            </span>
+            <h3 className={`font-serif text-[26px] leading-[1] mt-1 ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
+              <span className="italic">{model}</span>
+              {rest.length > 0 && (
+                <span className={`block text-[15px] leading-snug mt-1 not-italic truncate ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
+                  {rest.join(" ")}
+                </span>
+              )}
+            </h3>
+          </div>
+          <div className="text-right shrink-0">
+            <span className={`font-display text-lg tracking-wide ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
               {product.price.toLocaleString("ru-RU")} ₽
             </span>
             {product.oldPrice && (
-              <span className="text-xs text-[#888888] line-through font-serif">
+              <span className={`block text-xs line-through ${dark ? "text-[#F3F3F3]/40" : "text-[#2B2620]/35"}`}>
                 {product.oldPrice.toLocaleString("ru-RU")} ₽
               </span>
             )}
           </div>
-          <span className="text-[10px] text-[#6B0F1A] tracking-wider uppercase font-medium">
-            +{product.clubBonus} бонусов
-          </span>
         </div>
+        <div className={`mt-3 pt-3 border-t flex items-center justify-between text-[11px] ${dark ? "border-white/10 text-[#F3F3F3]/55" : "border-[#2B2620]/10 text-[#2B2620]/50"}`}>
+          <span>Модель {product.modelInfo.height} см · р. {product.modelInfo.shoeSize}</span>
+          <span className="text-[#C99B4F] font-medium">+{product.clubBonus} ✦</span>
+        </div>
+      </Link>
 
-        {/* Mobile quick size buttons */}
-        <div className="sm:hidden mt-2.5 pt-2 border-t border-[#E2D9CC]/60 flex items-center justify-between">
-          <span className="text-[10px] uppercase tracking-wider text-[#0E0E0E]/60">Размеры:</span>
-          <div className="flex gap-1">
-            {product.sizes.map((s) => (
-              <button
-                key={s.size}
-                disabled={!s.inStock}
-                onClick={(e) => handleQuickAdd(e, s.size)}
-                className={`w-6 h-6 text-[10px] font-serif border ${
-                  !s.inStock
-                    ? "opacity-30 line-through border-transparent"
-                    : selectedSize === s.size
-                    ? "bg-[#6B0F1A] text-[#F4EFE8] border-[#6B0F1A]"
-                    : "border-[#D4C7B5] text-[#0E0E0E]"
-                }`}
-              >
-                {s.size}
-              </button>
-            ))}
-          </div>
-        </div>
+      {/* Mobile quick sizes */}
+      <div className="sm:hidden mt-3 px-1 flex gap-1">
+        {product.sizes.map((s) => (
+          <button
+            key={s.size}
+            disabled={!s.inStock}
+            onClick={(e) => handleQuickAdd(e, s.size)}
+            className={`flex-1 h-8 rounded-full font-display text-xs border ${
+              !s.inStock
+                ? "opacity-30 line-through border-transparent"
+                : selectedSize === s.size
+                ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
+                : dark
+                ? "border-white/20 text-[#F3F3F3]"
+                : "border-[#2B2620]/15 text-[#2B2620]"
+            }`}
+          >
+            {s.size}
+          </button>
+        ))}
       </div>
     </div>
   );
