@@ -44,7 +44,7 @@ export default function CheckoutPage() {
   if (orderComplete) {
     return (
       <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-[#FFFFFF] border border-[#E2E2E2] p-8 sm:p-10 text-center space-y-6 shadow-xl">
+        <div className="max-w-md w-full bg-[#FFFFFF] border border-[#E2E2E2] p-8 sm:p-10 text-center space-y-6 shadow-xl rounded-[24px]">
           <div className="w-16 h-16 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center mx-auto">
             <CheckCircle2 size={36} />
           </div>
@@ -63,7 +63,7 @@ export default function CheckoutPage() {
             Менеджер свяжется с вами, чтобы подтвердить заказ и доставку.
           </p>
 
-          <div className="p-4 bg-[#F3F3F3] border border-[#E2E2E2] text-left text-xs space-y-1">
+          <div className="p-4 bg-[#F3F3F3] border border-[#E2E2E2] text-left text-xs space-y-1 rounded-2xl">
             <div className="flex justify-between">
               <span className="text-[#888888]">Сумма к оплате:</span>
               <strong className="text-[#2B2620]">{finalPrice.toLocaleString("ru-RU")} ₽</strong>
@@ -93,11 +93,11 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
         <div className="text-center py-20 space-y-4">
-          <h1 className="font-serif text-3xl text-[#2B2620]">Ваша корзина пуста</h1>
-          <p className="text-xs text-[#2B2620]/60">Выберите идеальную пару в каталоге TALLORA</p>
+          <h1 className="font-serif text-3xl text-[#2B2620]">Корзина ждёт твою пару</h1>
+          <p className="text-xs text-[#2B2620]/60">Туфли, ботильоны, лоферы — 37–44, натуральная кожа</p>
           <Link
             href="/catalog"
-            className="inline-block bg-[#DAB16B] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em]"
+            className="inline-block bg-[#DAB16B] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] rounded-full"
           >
             В каталог
           </Link>
@@ -125,7 +125,7 @@ export default function CheckoutPage() {
           {/* LEFT: FORM FIELDS (7 cols) */}
           <div className="lg:col-span-7 space-y-8">
             {/* Step 1: Contacts */}
-            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
               <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">1</span>
                 Контакты получателя
@@ -142,7 +142,7 @@ export default function CheckoutPage() {
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     placeholder="Екатерина"
-                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                   />
                 </div>
 
@@ -156,7 +156,7 @@ export default function CheckoutPage() {
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     placeholder="+7 (999) 000-00-00"
-                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                   />
                 </div>
 
@@ -169,14 +169,14 @@ export default function CheckoutPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="ekaterina@example.com"
-                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
+                    className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                   />
                 </div>
               </div>
             </div>
 
             {/* Step 2: Delivery */}
-            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
               <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">2</span>
                 Способ доставки
@@ -241,13 +241,13 @@ export default function CheckoutPage() {
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                   placeholder="г. Москва, ул. Большая Никитская, д. 14, кв. 22"
-                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B]"
+                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                 />
               </div>
             </div>
 
             {/* Step 3: Payment */}
-            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+            <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
               <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] text-xs flex items-center justify-center font-sans font-bold">3</span>
                 Способ оплаты
@@ -292,7 +292,7 @@ export default function CheckoutPage() {
           </div>
 
           {/* RIGHT: ORDER SUMMARY (5 cols) */}
-          <div className="lg:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] shadow-md sticky top-28">
+          <div className="lg:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] shadow-md sticky top-28 rounded-[24px]">
             <h2 className="font-serif text-xl text-[#2B2620] pb-3 border-b border-[#E2E2E2] mb-4">
               Ваш заказ
             </h2>
@@ -330,7 +330,7 @@ export default function CheckoutPage() {
                   value={promoCode}
                   onChange={(e) => setPromoCode(e.target.value)}
                   placeholder="Промокод"
-                  className="flex-1 bg-white border border-[#E2E2E2] px-3 py-2 text-xs uppercase"
+                  className="flex-1 bg-white border border-[#E2E2E2] px-3 py-2 text-xs uppercase rounded-2xl"
                 />
                 <button
                   type="button"

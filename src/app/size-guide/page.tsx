@@ -34,16 +34,16 @@ export default function SizeGuidePage() {
             Идеальная посадка
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Гид по размерам TALLORA
+            Твой <span className="italic text-[#B8914A]">идеальный</span> размер
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 leading-relaxed">
-            Размер обуви зависит не только от длины стопы, но и от её ширины, подъёма и особенностей
+            Размер обуви зависит от длины стопы, а ещё от её ширины, подъёма и особенностей
             строения. Поэтому у каждой модели Tallora мы указываем длину стельки для каждого размера — от 37 до 44.
           </p>
         </div>
 
         {/* Interactive Calculator Section */}
-        <div className="bg-[#F5F0E8] text-[#2B2620] p-8 sm:p-12 border border-[#E2E2E2] shadow-2xl">
+        <div className="bg-[#F5F0E8] text-[#2B2620] p-8 sm:p-12 border border-[#E2E2E2] shadow-2xl rounded-[24px]">
           <div className="text-center mb-8">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] block mb-1">
               Шаг 1. Онлайн-расчёт
@@ -102,7 +102,7 @@ export default function SizeGuidePage() {
               </div>
             </div>
 
-            <div className="md:col-span-5 bg-white border border-[#E2E2E2] p-6 text-center flex flex-col justify-between">
+            <div className="md:col-span-5 bg-white border border-[#E2E2E2] p-6 text-center flex flex-col justify-between rounded-[24px]">
               <div>
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[#8F6D2F] block mb-1">
                   Рекомендуемый размер
@@ -118,7 +118,7 @@ export default function SizeGuidePage() {
               <div className="space-y-3">
                 <button
                   onClick={handleApply}
-                  className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-3.5 px-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer rounded-full"
                 >
                   <span>Показать модели {calculated.size} размера</span>
                   <ArrowRight size={14} />
@@ -136,7 +136,7 @@ export default function SizeGuidePage() {
         </div>
 
         {/* Step 2: How to measure */}
-        <div className="bg-[#FFFFFF] p-8 sm:p-12 border border-[#E2E2E2]">
+        <div className="bg-[#FFFFFF] p-8 sm:p-12 border border-[#E2E2E2] rounded-[24px]">
           <div className="text-center mb-10">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
               Инструкция
@@ -180,7 +180,7 @@ export default function SizeGuidePage() {
         </div>
 
         {/* Step 3: Full Size Chart Table */}
-        <div className="bg-[#FFFFFF] p-8 sm:p-12 border border-[#E2E2E2]">
+        <div className="bg-[#FFFFFF] p-8 sm:p-12 border border-[#E2E2E2] rounded-[24px]">
           <div className="text-center mb-8">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
               По всем моделям каталога
@@ -223,7 +223,7 @@ export default function SizeGuidePage() {
             </table>
           </div>
 
-          <div className="mt-8 p-4 bg-[#F3F3F3] border border-[#E2E2E2] flex items-center justify-between text-xs">
+          <div className="mt-8 p-4 bg-[#F3F3F3] border border-[#E2E2E2] flex items-center justify-between text-xs rounded-2xl">
             <div className="flex items-center gap-2 text-[#2B2620]">
               <ShieldCheck size={18} className="text-[#8F6D2F] shrink-0" />
               <span>Длина стельки отличается от модели к модели — точное значение смотрите в карточке товара. Сомневаетесь? Напишите нам.</span>

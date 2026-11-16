@@ -54,7 +54,7 @@ export default function Header() {
             <div key={k} className="flex gap-12 shrink-0">
               {[...Array(3)].map((__, i) => (
                 <React.Fragment key={i}>
-                  <span>Размеры 37 — 44</span>
+                  <span>Walk loud · 37 — 44</span>
                   <span className="text-[#B8914A]">●</span>
                   <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#8F6D2F] cursor-pointer">
                     Калькулятор стопы
@@ -71,14 +71,8 @@ export default function Header() {
         </div>
       </div>
 
-      <div className="px-3 sm:px-5 pt-3">
-        <div
-          className={`max-w-[1400px] mx-auto h-16 rounded-full flex items-center justify-between pl-3 pr-2 sm:pl-6 sm:pr-3 transition-all duration-500 ${
-            onDark
-              ? "glass"
-              : "bg-[#FFFFFF]/85 backdrop-blur-xl border border-[#2B2620]/8 shadow-[0_10px_40px_-20px_rgba(11,10,10,0.35)]"
-          }`}
-        >
+      <div className="bg-[#FFFFFF]/88 backdrop-blur-xl border-b border-[#2B2620]/8">
+        <div className="max-w-[1400px] mx-auto h-14 sm:h-16 flex items-center justify-between px-3 sm:px-8">
           {/* Left: burger + nav */}
           <div className="flex items-center gap-6 flex-1">
             <button
@@ -115,7 +109,7 @@ export default function Header() {
 
           {/* Center: logo */}
           <Link href="/" className={`group flex flex-col items-center leading-none ${ink}`}>
-            <span className="font-serif text-[26px] sm:text-[32px] tracking-[0.32em] font-medium uppercase pl-[0.32em] group-hover:text-[#C99B4F] transition-colors">
+            <span className="font-serif text-[22px] sm:text-[30px] tracking-[0.32em] font-medium uppercase pl-[0.32em] group-hover:text-[#C99B4F] transition-colors">
               Tallora
             </span>
             <span className="font-display text-[8px] tracking-[0.6em] text-[#C99B4F] mt-0.5 pl-[0.6em]">37—44</span>
@@ -167,7 +161,7 @@ export default function Header() {
                     }}
                     className="w-full text-center text-[10px] tracking-[0.18em] uppercase text-[#8F6D2F] hover:underline pt-3 border-t border-[#2B2620]/8"
                   >
-                    Не знаю размер — посчитать
+                    Посчитать размер в см
                   </button>
                 </div>
               )}
@@ -204,7 +198,7 @@ export default function Header() {
 
       {/* Mobile menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden mx-3 mt-2 rounded-3xl bg-white text-[#2B2620] border border-[#2B2620]/8 px-6 py-7 animate-fadeIn shadow-2xl">
+        <div className="lg:hidden mx-3 mt-2 rounded-3xl bg-white max-h-[calc(100svh-120px)] overflow-y-auto text-[#2B2620] border border-[#2B2620]/8 px-6 py-7 animate-fadeIn shadow-2xl">
           <nav className="flex flex-col">
             {navLinks.map((link, i) => (
               <Link

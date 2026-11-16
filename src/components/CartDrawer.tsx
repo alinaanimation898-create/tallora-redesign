@@ -117,7 +117,7 @@ export default function CartDrawer() {
                       </div>
 
                       <div className="flex items-center gap-2 mt-1 text-xs">
-                        <span className="font-semibold px-2 py-0.5 bg-[#F3F3F3] border border-[#E2E2E2] text-[#8F6D2F]">
+                        <span className="font-semibold px-2 py-0.5 bg-[#F3F3F3] border border-[#E2E2E2] text-[#8F6D2F] rounded-2xl">
                           Размер: {item.selectedSize}
                         </span>
                         <span className="text-[#888888]">{item.product.heelHeight}</span>

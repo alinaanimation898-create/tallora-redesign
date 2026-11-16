@@ -54,7 +54,7 @@ export default function SizeCalculatorModal() {
         </div>
 
         {/* Step 1: Foot length slider */}
-        <div className="bg-[#F3F3F3] p-5 border border-[#E2E2E2] mb-5">
+        <div className="bg-[#F3F3F3] p-5 border border-[#E2E2E2] mb-5 rounded-2xl">
           <div className="flex justify-between items-center mb-3">
             <label className="text-xs uppercase tracking-wider font-medium text-[#2B2620] flex items-center gap-1.5">
               <Ruler size={15} className="text-[#8F6D2F]" />
@@ -133,7 +133,7 @@ export default function SizeCalculatorModal() {
         <div className="space-y-3">
           <button
             onClick={handleApplySize}
-            className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-3.5 px-6 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors cursor-pointer"
+            className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-3.5 px-6 text-xs uppercase tracking-[0.2em] font-medium flex items-center justify-center gap-2 transition-colors cursor-pointer rounded-full"
           >
             <span>Показать модели в {recommendation.size} размере</span>
             <ArrowRight size={15} />

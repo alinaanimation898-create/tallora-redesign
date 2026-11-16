@@ -81,7 +81,7 @@ export default function VeraChatWidget() {
           label: "Смотреть вечернюю капсулу",
         };
       } else if (lower.includes("обмен") || lower.includes("возврат") || lower.includes("доставк")) {
-        replyText = "Доставляем по всей России через СДЭК (2–6 дней), по Москве — курьером за 700 ₽, от 3 пар бесплатно и с примеркой. Вернуть пару можно в течение 14 дней, если она не была в носке.";
+        replyText = "Доставляем по всей России через СДЭК (2–6 дней), по Москве — курьером за 700 ₽, от 3 пар бесплатно и с примеркой. Вернуть пару можно в течение 14 дней, если на ней нет следов носки.";
       }
 
       const veraReply: Message = {
@@ -237,7 +237,7 @@ export default function VeraChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Напишите вопрос Вере..."
-              className="flex-1 bg-white border border-[#D4D4D4] px-3 py-2 text-xs text-[#2B2620] placeholder:text-[#999999] focus:outline-none focus:border-[#DAB16B]"
+              className="flex-1 bg-white border border-[#D4D4D4] px-3 py-2 text-xs text-[#2B2620] placeholder:text-[#999999] focus:outline-none focus:border-[#DAB16B] rounded-xl"
             />
             <button
               type="submit"

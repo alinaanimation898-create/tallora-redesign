@@ -102,7 +102,7 @@ export default function QuickViewModal() {
             </div>
 
             {/* Fit guidance banner */}
-            <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] mb-5 text-xs">
+            <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] mb-5 text-xs rounded-2xl">
               <span className="font-semibold text-[#2B2620] block mb-0.5">
                 Посадка по колодке:
               </span>
@@ -125,7 +125,7 @@ export default function QuickViewModal() {
                   className="text-xs text-[#8F6D2F] underline flex items-center gap-1 hover:opacity-80"
                 >
                   <HelpCircle size={13} />
-                  Не знаю свой размер
+                  Подобрать размер в см
                 </button>
               </div>
 

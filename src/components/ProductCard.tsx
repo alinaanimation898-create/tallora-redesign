@@ -35,13 +35,13 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
 
   return (
     <div className="group flex flex-col relative">
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[22px] bg-[#E8E8E8]">
+      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[16px] sm:rounded-[22px] bg-[#E8E8E8]">
         <Link href={`/catalog/${product.slug}`} className="block w-full h-full relative">
           <Image
             src={product.images[0]}
             alt={product.name}
             fill
-            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+            sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
             className="object-cover transition-all duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06]"
           />
           {product.images[1] && (
@@ -49,7 +49,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               src={product.images[1]}
               alt=""
               fill
-              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 50vw, 25vw"
               className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
           )}
@@ -57,7 +57,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
         </Link>
 
         {/* Badges */}
-        <div className="absolute top-3 left-3 flex flex-wrap gap-1.5 z-10 pointer-events-none">
+        <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-wrap gap-1 sm:gap-1.5 z-10 pointer-events-none [&>span]:text-[9px] sm:[&>span]:text-[10px] [&>span]:px-2 sm:[&>span]:px-3 [&>span]:py-1 sm:[&>span]:py-1.5 [&>span]:tracking-[0.14em] sm:[&>span]:tracking-[0.2em]">
           {product.isNew && (
             <span className="bg-[#F3F3F3] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
               New
@@ -70,7 +70,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
           )}
           {soldOut && (
             <span className="bg-white/90 text-[#2B2620]/70 text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
-              Нет в наличии
+              Скоро снова
             </span>
           )}
           {isLastPairInUserSize && (
@@ -94,8 +94,8 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
         </button>
 
         {/* Heel tag bottom-left */}
-        <div className="absolute bottom-3 left-3 z-10 pointer-events-none transition-opacity duration-300 sm:group-hover:opacity-0">
-          <span className="font-display text-[11px] tracking-[0.2em] uppercase text-[#2B2620]/70 bg-white/80 backdrop-blur px-2.5 py-1 rounded-full">
+        <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10 pointer-events-none transition-opacity duration-300 sm:group-hover:opacity-0">
+          <span className="font-display text-[9px] sm:text-[11px] tracking-[0.14em] sm:tracking-[0.2em] uppercase text-[#2B2620]/70 bg-white/80 backdrop-blur px-2.5 py-1 rounded-full">
             {product.heelHeight === "Без каблука" ? "Без каблука" : `Каблук ${product.heelHeight}`}
           </span>
         </div>
@@ -120,7 +120,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
                       ? "bg-[#DAB16B] text-[#2B2620]"
                       : "bg-[#F3F3F3] text-[#2B2620] hover:bg-[#DAB16B] hover:text-[#2B2620]"
                   }`}
-                  title={s.inStock ? `Купить размер ${s.size}` : "Нет в наличии"}
+                  title={s.inStock ? `Купить размер ${s.size}` : "Размер разобрали"}
                 >
                   {s.size}
                 </button>
@@ -131,23 +131,23 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
       </div>
 
       {/* Info */}
-      <Link href={`/catalog/${product.slug}`} className="pt-4 px-1 block">
-        <div className="flex items-start justify-between gap-3">
+      <Link href={`/catalog/${product.slug}`} className="pt-3 sm:pt-4 px-0.5 sm:px-1 block">
+        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-1 sm:gap-3">
           <div className="min-w-0">
             <span className={`text-[10px] uppercase tracking-[0.22em] ${dark ? "text-[#F3F3F3]/50" : "text-[#2B2620]/45"}`}>
               {type}
             </span>
-            <h3 className={`font-serif text-[26px] leading-[1] mt-1 ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
+            <h3 className={`font-serif text-[22px] sm:text-[26px] leading-[1] mt-1 ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
               <span className={product.model ? "italic" : ""}>{model}</span>
               {rest.length > 0 && (
-                <span className={`block text-[15px] leading-snug mt-1 not-italic truncate first-letter:uppercase ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
+                <span className={`block text-[13px] sm:text-[15px] leading-snug mt-1 not-italic truncate first-letter:uppercase ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
                   {rest.join(" ")}
                 </span>
               )}
             </h3>
           </div>
-          <div className="text-right shrink-0">
-            <span className={`font-display text-lg tracking-wide ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
+          <div className="sm:text-right shrink-0 flex sm:block items-baseline gap-2">
+            <span className={`font-display text-base sm:text-lg tracking-wide ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
               {product.price.toLocaleString("ru-RU")} ₽
             </span>
             {product.oldPrice && (
@@ -157,33 +157,12 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
             )}
           </div>
         </div>
-        <div className={`mt-3 pt-3 border-t flex items-center justify-between text-[11px] ${dark ? "border-white/10 text-[#F3F3F3]/55" : "border-[#2B2620]/10 text-[#2B2620]/50"}`}>
-          <span>{soldOut ? "Ожидается поступление" : `Размеры ${sizeRange}`}</span>
-          <span className="text-[#C99B4F] font-medium">+{product.clubBonus} ✦</span>
+        <div className={`mt-2 sm:mt-3 pt-2 sm:pt-3 border-t flex items-center justify-between text-[10px] sm:text-[11px] ${dark ? "border-white/10 text-[#F3F3F3]/55" : "border-[#2B2620]/10 text-[#2B2620]/50"}`}>
+          <span>{soldOut ? "Скоро снова" : `Размеры ${sizeRange}`}</span>
+          <span className="hidden sm:inline text-[#C99B4F] font-medium">+{product.clubBonus} ✦</span>
         </div>
       </Link>
 
-      {/* Mobile quick sizes */}
-      <div className="sm:hidden mt-3 px-1 flex flex-wrap gap-1">
-        {product.sizes.map((s) => (
-          <button
-            key={s.size}
-            disabled={!s.inStock}
-            onClick={(e) => handleQuickAdd(e, s.size)}
-            className={`flex-1 min-w-[2.25rem] h-8 rounded-full font-display text-xs border ${
-              !s.inStock
-                ? "opacity-30 line-through border-transparent"
-                : selectedSize === s.size
-                ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
-                : dark
-                ? "border-white/20 text-[#F3F3F3]"
-                : "border-[#2B2620]/15 text-[#2B2620]"
-            }`}
-          >
-            {s.size}
-          </button>
-        ))}
-      </div>
     </div>
   );
 }

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { Phone, Mail, Truck, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
-import { CONTACTS } from "@/data/mockData";
+import { CONTACTS, SHOWROOM } from "@/data/mockData";
 
 export default function ContactsPage() {
   const [sent, setSent] = useState(false);
@@ -22,16 +22,16 @@ export default function ContactsPage() {
             Связь с нами
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Контакты Tallora
+            Мы <span className="italic text-[#B8914A]">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
-            Напишите нам в Telegram или MAX, позвоните или оставьте контакты — мы перезвоним.
+            Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок — или приезжай примерить в шоурум.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
           {/* Left info (5 cols) */}
-          <div className="md:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] space-y-6">
+          <div className="md:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] space-y-6 rounded-[24px]">
             <div>
               <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block mb-1">
                 Интернет-магазин
@@ -40,6 +40,17 @@ export default function ContactsPage() {
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
                 СДЭК — до двери или пункта выдачи. По Москве — курьером, примерка при заказе от 3 пар.
               </p>
+            </div>
+
+            <div className="pt-2 border-t border-[#E2E2E2]">
+              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block mb-1 mt-4">
+                Примерка вживую
+              </span>
+              <h3 className="font-serif text-xl text-[#2B2620]">{SHOWROOM.name}</h3>
+              <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
+                {SHOWROOM.address}, {SHOWROOM.metro}. {SHOWROOM.hours}.
+              </p>
+              <p className="text-[11px] text-[#2B2620]/55 mt-1 leading-relaxed">{SHOWROOM.hint}</p>
             </div>
 
             <div className="space-y-3 text-xs text-[#2B2620]/80 pt-2 border-t border-[#E2E2E2]">
@@ -89,7 +100,7 @@ export default function ContactsPage() {
           </div>
 
           {/* Right message form (7 cols) */}
-          <div className="md:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
+          <div className="md:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
             <h3 className="font-serif text-2xl text-[#2B2620] mb-2">
               Заказать обратный звонок
             </h3>
@@ -116,7 +127,7 @@ export default function ContactsPage() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Ваше имя"
-                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B]"
+                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                     />
                   </div>
 
@@ -130,7 +141,7 @@ export default function ContactsPage() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+7 (999) 000-00-00"
-                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B]"
+                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                     />
                   </div>
                 </div>
@@ -144,7 +155,7 @@ export default function ContactsPage() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Подскажите, как сядут туфли Lana на стопу 27 см?"
-                    className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B]"
+                    className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
                   />
                 </div>
 

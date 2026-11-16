@@ -21,7 +21,7 @@ export default function FAQPage() {
             Служба заботы TALLORA
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Часто задаваемые вопросы
+            Спрашивай <span className="italic text-[#B8914A]">смело</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-lg mx-auto">
             Всё о подборе размера 37–44, доставке, возврате и клубе Privé.
@@ -79,11 +79,11 @@ export default function FAQPage() {
         </div>
 
         {/* Vera Stylist Assistance Card */}
-        <div className="bg-[#EFE6D6] text-[#2B2620] p-8 border border-[#E2E2E2] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+        <div className="bg-[#EFE6D6] text-[#2B2620] p-8 border border-[#E2E2E2] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left rounded-[24px]">
           <div>
             <h3 className="font-serif text-xl sm:text-2xl text-[#2B2620] flex items-center gap-2 justify-center sm:justify-start">
               <Sparkles size={20} className="text-[#8F6D2F]" />
-              Не нашли ответ на свой вопрос?
+              Остались вопросы? Напишите нам
             </h3>
             <p className="text-xs text-[#2B2620]/70 mt-1 max-w-md">
               Спросите стилиста Веру прямо сейчас в онлайн-чате или напишите нам в Telegram.
@@ -91,7 +91,7 @@ export default function FAQPage() {
           </div>
           <button
             onClick={() => setIsVeraOpen(true)}
-            className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] px-6 py-3.5 text-xs uppercase tracking-[0.2em] font-medium shrink-0 cursor-pointer"
+            className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] px-6 py-3.5 text-xs uppercase tracking-[0.2em] font-medium shrink-0 cursor-pointer rounded-full"
           >
             Спросить Веру
           </button>

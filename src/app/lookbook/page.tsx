@@ -13,10 +13,10 @@ export default function LookbookPage() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-xs uppercase tracking-[0.3em] text-[#8F6D2F] font-medium block mb-2">
-            Галерея образов
+            Lookbook Tallora
           </span>
           <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
-            Lookbook <span className="italic">Tallora</span>
+            Власть <span className="italic">вертикали</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
             Для повседневной жизни и особых случаев. Мы объединили стиль и удобство, чтобы каждая девушка
@@ -100,7 +100,7 @@ export default function LookbookPage() {
           </p>
           <Link
             href="/catalog"
-            className="inline-block bg-[#F3F3F3] hover:bg-[#E3C78F] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
+            className="inline-block bg-[#F3F3F3] hover:bg-[#E3C78F] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors rounded-full"
           >
             Перейти в каталог (37–44)
           </Link>

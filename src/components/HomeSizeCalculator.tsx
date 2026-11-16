@@ -33,7 +33,7 @@ export default function HomeSizeCalculator() {
         {/* Left: controls */}
         <div className="lg:col-span-7">
           <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-5">
-            Точный подбор без «не подойдёт»
+            Точный подбор с первого раза
           </span>
           <h2 className="font-serif font-light text-[clamp(44px,6vw,96px)] leading-[0.9]">
             Твой размер <span className="italic text-[#B8914A]">в сантиметрах</span>

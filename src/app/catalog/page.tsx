@@ -51,15 +51,16 @@ function CatalogContent() {
   return (
     <div className="min-h-screen bg-[#F3F3F3] pb-24">
       {/* Editorial Title Banner */}
-      <div className="bg-[#F5F0E8] text-[#2B2620] py-14 px-4 sm:px-6 lg:px-8 border-b border-[#E2E2E2]">
+      <div className="bg-[#F5F0E8] text-[#2B2620] py-10 sm:py-14 px-5 sm:px-6 lg:px-8 border-b border-[#E2E2E2]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] block mb-2 font-medium">
               Размеры 37 — 44
             </span>
-            <h1 className="font-serif text-3xl sm:text-6xl font-light tracking-wide text-[#2B2620]">
-              Каталог обуви
+            <h1 className="font-serif text-[44px] leading-[0.95] sm:text-7xl font-light tracking-[-0.01em] text-[#2B2620]">
+              Выбирай <span className="italic text-[#B8914A]">смело</span>
             </h1>
+            <p className="mt-3 text-sm text-[#2B2620]/65 max-w-md">Все модели — от 37 до 44. Отметь свой размер, и мы покажем только твои пары.</p>
           </div>
 
           <div className="flex items-center gap-4 text-xs text-[#2B2620]/70">
@@ -83,17 +84,17 @@ function CatalogContent() {
       </div>
 
       {/* STICKY TOP SIZE BAR */}
-      <div className="sticky top-20 z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E2E2E2] py-3 px-4 sm:px-6 lg:px-8 shadow-xs">
-        <div className="max-w-7xl mx-auto flex items-center justify-between gap-4">
-          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5">
+      <div className="sticky top-[88px] sm:top-[96px] z-30 bg-[#FFFFFF]/95 backdrop-blur-md border-b border-[#E2E2E2] py-3 px-4 sm:px-6 lg:px-8 shadow-xs">
+        <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0 -ml-1 pl-1">
             <span className="text-[11px] uppercase tracking-wider font-semibold text-[#2B2620] shrink-0 mr-1 flex items-center gap-1">
               <Ruler size={13} className="text-[#8F6D2F]" />
-              Размер:
+              <span className="hidden sm:inline">Размер:</span>
             </span>
 
             <button
               onClick={() => setSelectedSize(null)}
-              className={`px-3 py-1.5 text-xs font-serif uppercase tracking-wider transition-all border shrink-0 ${
+              className={`px-3.5 h-8 rounded-full text-[11px] uppercase tracking-wider transition-all border shrink-0 ${
                 selectedSize === null
                   ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
                   : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
@@ -106,7 +107,7 @@ function CatalogContent() {
               <button
                 key={sz}
                 onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
-                className={`w-9 h-8 text-xs font-serif transition-all border shrink-0 flex items-center justify-center ${
+                className={`w-9 h-8 rounded-full font-display text-sm transition-all border shrink-0 flex items-center justify-center ${
                   selectedSize === sz
                     ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B] font-bold shadow-xs"
                     : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
@@ -125,10 +126,10 @@ function CatalogContent() {
             )}
             <button
               onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-              className="md:hidden flex items-center gap-1.5 text-xs uppercase tracking-wider border border-[#E2E2E2] px-3 py-1.5 bg-white text-[#2B2620]"
+              className="md:hidden shrink-0 w-9 h-9 rounded-full flex items-center justify-center border border-[#E2E2E2] bg-white text-[#2B2620]"
+              aria-label="Фильтры"
             >
-              <Filter size={13} />
-              Фильтры
+              <Filter size={15} />
             </button>
           </div>
         </div>
@@ -163,7 +164,7 @@ function CatalogContent() {
               <select
                 value={activeHeel}
                 onChange={(e) => setActiveHeel(e.target.value)}
-                className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none"
+                className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none rounded-xl"
               >
                 <option value="all">Любой каблук</option>
                 <option value="flat">Без каблука (до 3 см)</option>
@@ -179,7 +180,7 @@ function CatalogContent() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none"
+                className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none rounded-xl"
               >
                 <option value="popular">Как в магазине</option>
                 <option value="new">Сначала новинки</option>
@@ -192,7 +193,7 @@ function CatalogContent() {
 
         {/* Mobile Filter Drawer */}
         {mobileFilterOpen && (
-          <div className="md:hidden bg-white p-5 border border-[#E2E2E2] my-4 shadow-lg space-y-4 animate-fadeIn">
+          <div className="md:hidden bg-white p-5 border border-[#E2E2E2] my-4 shadow-lg space-y-4 animate-fadeIn rounded-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-[#E2E2E2]">
               <span className="text-xs uppercase tracking-wider font-semibold">Фильтры</span>
               <button onClick={() => setMobileFilterOpen(false)}><X size={18} /></button>
@@ -225,7 +226,7 @@ function CatalogContent() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full bg-[#FFFFFF] border border-[#E2E2E2] p-2 text-xs"
+                className="w-full bg-[#FFFFFF] border border-[#E2E2E2] p-2 text-xs rounded-2xl"
               >
                 <option value="popular">Как в магазине</option>
                 <option value="new">Сначала новинки</option>
@@ -283,7 +284,7 @@ function CatalogContent() {
             </div>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 sm:gap-x-6 gap-y-8 sm:gap-y-10">
             {filteredProducts.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}

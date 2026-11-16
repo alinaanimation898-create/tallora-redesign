@@ -61,7 +61,7 @@ export default function PriveClubPage() {
         </div>
 
         {/* Join form card */}
-        <div className="bg-white border border-[#E2E2E2] p-8 sm:p-12 max-w-2xl mx-auto text-center">
+        <div className="bg-white border border-[#E2E2E2] p-8 sm:p-12 max-w-2xl mx-auto text-center rounded-[24px]">
           <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620] mb-2">
             Вступить в клуб TALLORA PRIVÉ
           </h2>
