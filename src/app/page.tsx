@@ -116,8 +116,6 @@ const ANATOMY = [
   { n: "03", title: "Весь размерный ряд – твой", text: "Каждая модель от 37 до 44, а в карточке – точная длина стельки для каждого размера. Выбираешь уверенно, с первого раза.", spec: "Стелька 23-29.5 см", img: sitePhoto("tild6164-3932-4739-a265-383539303531"), pos: "50% 55%" },
 ];
 
-const PAIN = ["брала «лишь бы налезло»", "прятала ноги под брюками", "проходила мимо самых красивых пар"];
-
 function ArrowPill({ children, href, onClick }: { children: React.ReactNode; href?: string; onClick?: () => void }) {
   const cls =
     "btn-shine group h-14 pl-7 pr-2 rounded-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] inline-flex items-center justify-between gap-6 text-[12px] uppercase tracking-[0.22em] font-semibold transition-colors cursor-pointer";
@@ -253,38 +251,28 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────── 4. MANIFESTO - «Хватит.» ───────────── */}
-      <section className="bg-[#F5F0E8] py-20 lg:py-32 px-5 sm:px-8">
+      {/* ───────────── 13. FOUNDER ───────────── */}
+      <section className="bg-[#F5F0E8] py-16 lg:py-28 px-5 sm:px-8">
         <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <Reveal className="lg:col-span-7">
-            <p className="font-serif italic text-[clamp(28px,3.6vw,52px)] leading-[1.1] text-[#2B2620]/45">
-              «Ну у тебя просто нога большая…»
-            </p>
-            <p className="mt-8 text-[15px] sm:text-base text-[#2B2620]/70 max-w-lg leading-relaxed">
-              Сколько раз ты это слышала? И сколько раз из-за этого:
-            </p>
-            <ul className="mt-4 space-y-2">
-              {PAIN.map((t) => (
-                <li key={t} className="flex items-center gap-4 font-serif text-2xl sm:text-3xl text-[#2B2620]/55">
-                  <span aria-hidden className="w-5 h-px bg-[#C99B4F] shrink-0" />
-                  <span className="line-through decoration-[#C99B4F] decoration-1">{t}</span>
-                </li>
-              ))}
-            </ul>
-            <h2 className="mt-10 font-display uppercase text-[clamp(88px,15vw,220px)] leading-[0.8] tracking-[-0.03em] text-[#2B2620]">
-              Хватит
-            </h2>
-            <p className="mt-8 font-serif text-[clamp(24px,2.6vw,38px)] leading-[1.15] max-w-xl">
-              Твоя нога – <span className="italic text-[#8F6D2F]">твоя гордость</span>
-              <br />
-              Твой рост – <span className="italic text-[#8F6D2F]">твоя сила</span>
-            </p>
-          </Reveal>
-          <Reveal delay={150} className="lg:col-span-5 relative aspect-[4/5] w-full rounded-[28px] overflow-hidden bg-[#E9E4DE]">
-            <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-bottom" />
-            <span className="absolute top-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-              Натуральная кожа · шпилька
+          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
+            <Image src={SITE_PHOTOS.founder} alt={`${CONTACTS.founder} - основательница Tallora`} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            <span className="absolute bottom-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+              {CONTACTS.founder} · основательница
             </span>
+          </Reveal>
+          <Reveal delay={150} className="lg:col-span-7">
+            <Eyebrow>Какое чувство дарит Tallora?</Eyebrow>
+            <blockquote className="mt-6 font-serif font-light text-[clamp(34px,4.4vw,68px)] leading-[1.02] tracking-[-0.01em]">
+              «Лёгкость. Спокойствие. Уверенность. То, что это её.{" "}
+              <span className="italic text-[#8F6D2F]">Её стиль. Её размер. Её шаг.</span>»
+            </blockquote>
+            <p className="mt-8 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
+              Tallora родилась из личной истории Яны: красивые пары в магазинах заканчивались на 39 размере.
+              Сегодня это бренд для женщин, которые выбирают – смело, со вкусом и по своему размеру.
+            </p>
+            <Link href="/about#interview" className="inline-flex items-center gap-3 mt-8 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]">
+              Читать интервью <ArrowRight size={14} />
+            </Link>
           </Reveal>
         </div>
       </section>
@@ -523,32 +511,6 @@ export default function HomePage() {
 
       {/* ───────────── 9. SIZE CALCULATOR ───────────── */}
       <HomeSizeCalculator />
-
-      {/* ───────────── 13. FOUNDER ───────────── */}
-      <section className="bg-[#F3F3F3] py-16 lg:py-32 px-5 sm:px-8">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
-            <Image src={SITE_PHOTOS.founder} alt={`${CONTACTS.founder} - основательница Tallora`} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
-            <span className="absolute bottom-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-              {CONTACTS.founder} · основательница
-            </span>
-          </Reveal>
-          <Reveal delay={150} className="lg:col-span-7">
-            <Eyebrow>Какое чувство дарит Tallora?</Eyebrow>
-            <blockquote className="mt-6 font-serif font-light text-[clamp(34px,4.4vw,68px)] leading-[1.02] tracking-[-0.01em]">
-              «Лёгкость. Спокойствие. Уверенность. То, что это её.{" "}
-              <span className="italic text-[#8F6D2F]">Её стиль. Её размер. Её шаг.</span>»
-            </blockquote>
-            <p className="mt-8 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
-              Tallora родилась из личной истории Яны: красивые пары в магазинах заканчивались на 39 размере.
-              Сегодня это бренд для женщин, которые выбирают – смело, со вкусом и по своему размеру.
-            </p>
-            <Link href="/about#interview" className="inline-flex items-center gap-3 mt-8 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]">
-              Читать интервью <ArrowRight size={14} />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
 
       {/* ───────────── 10. CLIENT VOICES ───────────── */}
       <section className="py-16 lg:py-28 bg-[#F5F0E8]">
