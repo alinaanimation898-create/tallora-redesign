@@ -46,7 +46,7 @@ const SPOTLIGHT = SPOTLIGHT_DEF.flatMap((d) => {
 
 /** Lifestyle photos from tallora.ru for the category panels. */
 const CATEGORY_PHOTOS: Record<string, string> = {
-  tufli: sitePhoto("tild6634-3062-4132-b736-386465323239"),
+  tufli: sitePhoto("tild6634-3032-4464-b162-623562666232"),
   bosonozhki: sitePhoto("tild3433-6461-4166-b136-393765613461"),
   sandali: sitePhoto("tild6638-3263-4430-b561-326366643963"),
   shlepki: sitePhoto("tild3864-3662-4531-b934-363839353366"),
@@ -59,7 +59,7 @@ const CATEGORY_PHOTOS: Record<string, string> = {
 
 /** Focal point per category photo so the shoes stay centred in every crop. */
 const CATEGORY_FOCUS: Record<string, string> = {
-  tufli: "50% 72%",
+  tufli: "50% 75%",
   bosonozhki: "50% 62%",
   sandali: "50% 78%",
   shlepki: "50% 88%",
@@ -111,9 +111,9 @@ const CATEGORY_MOOD: Record<string, string> = {
 };
 
 const ANATOMY = [
-  { n: "01", title: "Посадка, в которой хочется жить", text: "Каждую пару мы носим сами: проверяем, как нога чувствует себя к вечеру. Ходишь, бежишь, танцуешь - и забываешь, что на тебе каблук.", spec: "Тест каждой пары", img: sitePhoto("tild3666-3730-4262-b466-393230646133"), pos: "50% 70%" },
-  { n: "02", title: "Натуральная кожа, замша и мех", text: "Мягкие материалы, которые дышат, держат форму и красиво стареют вместе с тобой. Формы - дольше одного сезона.", spec: "Кожа · замша · мех", img: sitePhoto("tild3065-3033-4731-b433-326233616138"), pos: "50% 55%" },
-  { n: "03", title: "Весь размерный ряд - твой", text: "Каждая модель от 37 до 44, а в карточке - точная длина стельки для каждого размера. Выбираешь уверенно, с первого раза.", spec: "Стелька 23-29.5 см", img: sitePhoto("tild6164-3932-4739-a265-383539303531"), pos: "50% 55%" },
+  { n: "01", title: "Посадка, в которой хочется жить", text: "Каждую пару мы носим сами: проверяем, как нога чувствует себя к вечеру. Ходишь, бежишь, танцуешь – и забываешь, что на тебе каблук.", spec: "Тест каждой пары", img: sitePhoto("tild3666-3730-4262-b466-393230646133"), pos: "50% 70%" },
+  { n: "02", title: "Натуральная кожа, замша и мех", text: "Мягкие материалы, которые дышат, держат форму и красиво стареют вместе с тобой. Формы – дольше одного сезона.", spec: "Кожа · замша · мех", img: sitePhoto("tild3065-3033-4731-b433-326233616138"), pos: "50% 55%" },
+  { n: "03", title: "Весь размерный ряд – твой", text: "Каждая модель от 37 до 44, а в карточке – точная длина стельки для каждого размера. Выбираешь уверенно, с первого раза.", spec: "Стелька 23-29.5 см", img: sitePhoto("tild6164-3932-4739-a265-383539303531"), pos: "50% 55%" },
 ];
 
 const PAIN = ["брала «лишь бы налезло»", "прятала ноги под брюками", "проходила мимо самых красивых пар"];
@@ -172,53 +172,41 @@ export default function HomePage() {
 
   return (
     <div className="flex flex-col w-full overflow-hidden">
-      {/* ───────────── 1. HERO - editorial triptych ───────────── */}
-      <section className="relative h-[100svh] min-h-[620px] bg-[#E8DFD2] overflow-hidden">
-        <div className="absolute inset-0 grid grid-cols-1 md:grid-cols-3">
-          {[
-            { src: SITE_PHOTOS.queen, alt: "Девушка в кресле выбирает туфли Tallora", pos: "object-[50%_40%]", cls: "" },
-            { src: SITE_PHOTOS.muse, alt: "Девушка среди красных и нюдовых лодочек Tallora", pos: "object-[40%_40%]", cls: "hidden md:block" },
-            { src: SITE_PHOTOS.power, alt: "Девушка в чёрном костюме с туфлями Tallora", pos: "object-[50%_35%]", cls: "hidden md:block" },
-          ].map((img, i) => (
-            <div key={img.src} className={`relative overflow-hidden ${img.cls}`}>
-              <Image
-                src={img.src}
-                alt={img.alt}
-                fill
-                preload={i === 0}
-                sizes="(max-width: 768px) 100vw, 34vw"
-                className={`object-cover ${img.pos} slow-zoom`}
-              />
-            </div>
-          ))}
+      {/* ───────────── 1. HERO - text panel + two photos ───────────── */}
+      <section className="relative grid grid-cols-1 md:grid-cols-[1.3fr_1fr_1fr] md:h-[100svh] md:min-h-[640px] bg-[#EFE6D6] overflow-hidden">
+        <div className="relative min-h-[100svh] md:min-h-0 md:order-2 overflow-hidden">
+          <Image src={SITE_PHOTOS.queen} alt="Девушка в кресле выбирает туфли Tallora" fill preload sizes="(max-width: 768px) 100vw, 30vw" className="object-cover object-[50%_40%] slow-zoom" />
+          <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#2B2620]/90 via-[#2B2620]/35 to-[#2B2620]/10" />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#2B2620]/90 via-[#2B2620]/35 to-[#2B2620]/10" />
-        <div className="hidden md:block absolute inset-y-0 left-0 w-[62%] bg-gradient-to-r from-[#2B2620]/80 via-[#2B2620]/45 to-transparent" />
+        <div className="hidden md:block relative md:order-3 overflow-hidden">
+          <Image src={SITE_PHOTOS.muse} alt="Девушка среди красных и нюдовых лодочек Tallora" fill sizes="30vw" className="object-cover object-[40%_40%] slow-zoom" />
+        </div>
 
-        <div className="relative z-10 h-full max-w-[1400px] mx-auto px-5 sm:px-8 flex flex-col justify-end pb-10 sm:pb-14 text-white">
+        <div className="absolute inset-0 md:static md:order-1 flex flex-col justify-end px-5 sm:px-8 lg:px-12 xl:px-16 pt-32 pb-10 sm:pb-14 text-white md:text-[#2B2620] md:bg-[linear-gradient(160deg,#F7F2EA_0%,#EFE6D6_55%,#E6D3B0_100%)]">
           <div className="hero-in" style={{ animationDelay: "100ms" }}>
-            <Eyebrow light>Walk loud. Stay unforgettable.</Eyebrow>
+            <span className="inline-flex items-center gap-3 text-[10px] sm:text-[11px] uppercase tracking-[0.35em] text-[#F5E6C8] md:text-[#8F6D2F]">
+              <span className="w-8 h-px bg-current" />
+              Walk loud · Stay unforgettable
+            </span>
           </div>
-          <h1 className="mt-5 font-serif font-light leading-[0.88] tracking-[-0.02em] text-[clamp(50px,6.2vw,104px)] [text-shadow:0_2px_30px_rgba(43,38,32,0.45)]">
-            <span className="hero-in block" style={{ animationDelay: "200ms" }}>Твой размер.</span>
-            <span className="hero-in block italic" style={{ animationDelay: "320ms" }}>Твоя пара.</span>
-            <span className="hero-in block italic text-[#E8C88A]" style={{ animationDelay: "440ms" }}>Твой момент.</span>
+          <h1 className="mt-5 font-serif font-light leading-[0.9] tracking-[-0.02em] text-[clamp(48px,5.6vw,92px)] [text-shadow:0_2px_30px_rgba(43,38,32,0.45)] md:[text-shadow:none]">
+            <span className="hero-in block" style={{ animationDelay: "200ms" }}>Твой размер</span>
+            <span className="hero-in block italic" style={{ animationDelay: "320ms" }}>Твоя пара</span>
+            <span className="hero-in block italic text-[#E8C88A] md:text-[#B8914A]" style={{ animationDelay: "440ms" }}>Твой момент</span>
           </h1>
-          <div className="mt-7 flex flex-col gap-7 max-w-xl">
-            <p className="hero-in max-w-md text-[15px] leading-relaxed text-white/90 [text-shadow:0_1px_12px_rgba(43,38,32,0.5)]" style={{ animationDelay: "560ms" }}>
-              Туфли, ботильоны, лоферы и сапоги 37–44 размера из натуральной кожи. Для женщин, которые
-              выбирают себя - каждый день и на любом каблуке.
-            </p>
-            <div className="hero-in flex flex-col sm:flex-row gap-3" style={{ animationDelay: "680ms" }}>
-              <ArrowPill href="/catalog">Выбрать свою пару</ArrowPill>
-              <button
-                onClick={() => setIsSizeModalOpen(true)}
-                className="h-14 px-7 rounded-full border border-white/50 bg-white/10 backdrop-blur-md hover:bg-white hover:text-[#2B2620] text-white text-[12px] uppercase tracking-[0.22em] font-semibold flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
-              >
-                <Ruler size={15} />
-                Подобрать размер
-              </button>
-            </div>
+          <p className="hero-in mt-7 max-w-sm text-[15px] leading-relaxed text-white/90 md:text-[#2B2620]/70" style={{ animationDelay: "560ms" }}>
+            Туфли, ботильоны, лоферы и сапоги 37–44 размера из натуральной кожи. Для женщин, которые
+            выбирают себя – каждый день и на любом каблуке.
+          </p>
+          <div className="hero-in mt-8 flex flex-col sm:flex-row md:flex-col 2xl:flex-row sm:items-start gap-3" style={{ animationDelay: "680ms" }}>
+            <ArrowPill href="/catalog">Выбрать свою пару</ArrowPill>
+            <button
+              onClick={() => setIsSizeModalOpen(true)}
+              className="h-14 px-7 rounded-full border border-white/50 bg-white/10 backdrop-blur-md text-white md:border-[#2B2620]/25 md:bg-transparent md:text-[#2B2620] hover:bg-white hover:text-[#2B2620] text-[12px] uppercase tracking-[0.22em] font-semibold flex items-center justify-center gap-2.5 transition-colors cursor-pointer"
+            >
+              <Ruler size={15} />
+              Подобрать размер
+            </button>
           </div>
         </div>
       </section>
@@ -277,22 +265,23 @@ export default function HomePage() {
             </p>
             <ul className="mt-4 space-y-2">
               {PAIN.map((t) => (
-                <li key={t} className="flex items-baseline gap-4 font-serif text-2xl sm:text-3xl text-[#2B2620]/55 line-through decoration-[#C99B4F] decoration-1">
-                  <span className="font-display text-xs not-italic text-[#C99B4F] no-underline">-</span>
-                  {t}
+                <li key={t} className="flex items-center gap-4 font-serif text-2xl sm:text-3xl text-[#2B2620]/55">
+                  <span aria-hidden className="w-5 h-px bg-[#C99B4F] shrink-0" />
+                  <span className="line-through decoration-[#C99B4F] decoration-1">{t}</span>
                 </li>
               ))}
             </ul>
             <h2 className="mt-10 font-display uppercase text-[clamp(88px,15vw,220px)] leading-[0.8] tracking-[-0.03em] text-[#2B2620]">
-              Хватит<span className="text-[#DAB16B]">.</span>
+              Хватит
             </h2>
             <p className="mt-8 font-serif text-[clamp(24px,2.6vw,38px)] leading-[1.15] max-w-xl">
-              Твоя нога - <span className="italic text-[#8F6D2F]">твоя гордость.</span> Твой рост -{" "}
-              <span className="italic text-[#8F6D2F]">твоя сила.</span>
+              Твоя нога – <span className="italic text-[#8F6D2F]">твоя гордость</span>
+              <br />
+              Твой рост – <span className="italic text-[#8F6D2F]">твоя сила</span>
             </p>
           </Reveal>
-          <Reveal delay={150} className="lg:col-span-5 relative aspect-[2/3] max-h-[82vh] w-full mx-auto rounded-[28px] overflow-hidden bg-[#E9E4DE]">
-            <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-[50%_60%]" />
+          <Reveal delay={150} className="lg:col-span-5 relative aspect-[4/5] w-full rounded-[28px] overflow-hidden bg-[#E9E4DE]">
+            <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-bottom" />
             <span className="absolute top-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
               Натуральная кожа · шпилька
             </span>
@@ -395,10 +384,10 @@ export default function HomePage() {
             </span>
             <h2 className="mt-5 font-display uppercase text-[clamp(64px,9vw,148px)] leading-[0.82] tracking-[-0.03em]">
               Время
-              <span className="block font-serif normal-case italic font-light tracking-normal text-[#E8C88A] lg:text-[#B8914A]">выделяться.</span>
+              <span className="block font-serif normal-case italic font-light tracking-normal text-[#E8C88A] lg:text-[#B8914A]">выделяться</span>
             </h2>
             <p className="mt-6 max-w-sm text-[15px] text-white/85 lg:text-[#2B2620]/70 leading-relaxed">
-              Шаг, который слышно. Каблук, который держит. Пара, которую запоминают - вместе с тобой.
+              Шаг, который слышно. Каблук, который держит. Пара, которую запоминают – вместе с тобой.
             </p>
             <div className="mt-8">
               <ArrowPill href="/catalog?category=tufli">Смотреть туфли</ArrowPill>
@@ -416,7 +405,7 @@ export default function HomePage() {
               <span className="block font-serif normal-case italic font-light text-[#8F6D2F] tracking-normal">выход</span>
             </h2>
             <p className="max-w-xs text-sm text-[#2B2620]/60 leading-relaxed">
-              Офис, свидание, бранч, вечеринка до утра. Для каждого сценария - своя пара, и в каждой ты главная.
+              Офис, свидание, бранч, вечеринка до утра. Для каждого сценария – своя пара, и в каждой ты главная.
             </p>
           </Reveal>
 
@@ -437,12 +426,12 @@ export default function HomePage() {
                     <Image src={cat.image} alt={cat.name} fill sizes="50vw" style={{ objectPosition: CATEGORY_FOCUS[cat.slug] ?? "50% 50%" }} className={`object-cover transition-all duration-700 ${open ? "opacity-100 scale-100" : "opacity-35 grayscale scale-110 mix-blend-multiply"}`} />
                   )}
                   <div className="absolute inset-0 transition-opacity duration-700" style={{ backgroundColor: color, opacity: open ? 0 : 0.35 }} />
-                  <div className="absolute inset-0 transition-opacity duration-700" style={{ background: `linear-gradient(to top, ${color} 0%, transparent 55%)`, opacity: open ? 0.9 : 0 }} />
+                  <div className="absolute inset-0 transition-opacity duration-700" style={{ background: `linear-gradient(to bottom, ${color} 0%, transparent 45%)`, opacity: open ? 0.95 : 0 }} />
                   <div className={`absolute inset-x-0 bottom-6 flex flex-col items-center gap-4 transition-opacity duration-500 ${open ? "opacity-0" : "opacity-100"}`}>
                     <span className="font-display uppercase text-2xl tracking-[0.08em] [writing-mode:vertical-rl] rotate-180">{cat.name}</span>
                     <span className="text-[10px] font-semibold">{String(i + 1).padStart(2, "0")}</span>
                   </div>
-                  <div className={`absolute inset-x-0 bottom-0 p-7 flex items-end justify-between gap-4 transition-all duration-700 ${open ? "opacity-100 translate-y-0 delay-200" : "opacity-0 translate-y-6"}`}>
+                  <div className={`absolute inset-x-0 top-0 p-7 transition-all duration-700 ${open ? "opacity-100 translate-y-0 delay-200" : "opacity-0 -translate-y-6"}`}>
                     <div>
                       <span className="text-[10px] uppercase tracking-[0.3em] opacity-70">
                         {String(i + 1).padStart(2, "0")} · {PRODUCTS.filter((p) => p.categorySlug === cat.slug).length} моделей
@@ -450,10 +439,10 @@ export default function HomePage() {
                       <h3 className="font-display uppercase text-6xl xl:text-7xl leading-none mt-2 whitespace-nowrap">{cat.name}</h3>
                       <p className="font-serif italic text-xl mt-2 whitespace-nowrap">{CATEGORY_MOOD[cat.slug]}</p>
                     </div>
-                    <span className="w-14 h-14 shrink-0 rounded-full flex items-center justify-center bg-white text-[#2B2620]">
-                      <ArrowUpRight size={20} />
-                    </span>
                   </div>
+                  <span className={`absolute bottom-6 right-6 w-14 h-14 rounded-full flex items-center justify-center bg-white text-[#2B2620] transition-opacity duration-500 ${open ? "opacity-100" : "opacity-0"}`}>
+                    <ArrowUpRight size={20} />
+                  </span>
                 </Link>
               );
             })}
@@ -472,8 +461,8 @@ export default function HomePage() {
                   style={{ backgroundColor: color }}
                 >
                   {cat.image && <Image src={cat.image} alt={cat.name} fill sizes={wide ? "100vw" : "50vw"} style={{ objectPosition: CATEGORY_FOCUS[cat.slug] ?? "50% 50%" }} className="object-cover" />}
-                  <div className="absolute inset-0" style={{ background: `linear-gradient(to top, ${color} 8%, transparent 55%)` }} />
-                  <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-2">
+                  <div className="absolute inset-0" style={{ background: `linear-gradient(to bottom, ${color} 6%, transparent 45%)` }} />
+                  <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2">
                     <div className="min-w-0">
                       <h3 className={`font-display uppercase leading-none ${wide ? "text-4xl" : "text-[22px]"}`}>{cat.name}</h3>
                       {wide && <p className="font-serif italic text-lg mt-1">{CATEGORY_MOOD[cat.slug]}</p>}
@@ -494,7 +483,7 @@ export default function HomePage() {
             <React.Fragment key={i}>
               <span>Время выделяться</span>
               <span className="font-display not-italic text-xl sm:text-2xl">✦</span>
-              <span>Твой рост - твоя сила</span>
+              <span>Твой рост – твоя сила</span>
               <span className="font-display not-italic text-xl sm:text-2xl">✦</span>
               <span>37 - 44</span>
               <span className="font-display not-italic text-xl sm:text-2xl">✦</span>
@@ -512,24 +501,19 @@ export default function HomePage() {
             <div>
               <Eyebrow>Анатомия Tallora</Eyebrow>
               <h2 className="mt-5 font-serif font-light text-[clamp(40px,5.5vw,84px)] leading-[0.92] tracking-[-0.02em]">
-                Сделано <span className="italic">для тебя.</span> По твоим правилам.
+                Сделано <span className="italic">для тебя</span>
               </h2>
             </div>
-            <p className="max-w-sm text-sm text-[#2B2620]/60 leading-relaxed">
-              Три вещи, на которых держится каждая пара Tallora - от первой примерки до последнего танца.
-            </p>
           </Reveal>
           <div className="flex md:grid md:grid-cols-3 gap-3 sm:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-5 px-5 scroll-px-5 md:mx-0 md:px-0">
             {ANATOMY.map((f, i) => (
               <Reveal key={f.n} delay={i * 100} className="group snap-start shrink-0 w-[80vw] md:w-auto bg-white rounded-[28px] overflow-hidden flex flex-col">
                 <div className="relative aspect-[4/5] overflow-hidden bg-[#E8E8E8]">
                   <Image src={f.img} alt={f.title} fill sizes="(max-width: 768px) 80vw, 33vw" style={{ objectPosition: f.pos }} className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
-                  <span className="absolute top-4 left-4 w-12 h-12 rounded-full bg-white/85 backdrop-blur flex items-center justify-center font-display text-lg text-[#2B2620]">{f.n}</span>
                 </div>
                 <div className="p-6 sm:p-7 flex flex-col flex-1">
                   <h3 className="font-serif text-[28px] sm:text-3xl leading-tight">{f.title}</h3>
                   <p className="mt-3 text-[15px] text-[#2B2620]/65 leading-relaxed flex-1">{f.text}</p>
-                  <span className="self-start mt-5 text-[10px] uppercase tracking-[0.25em] px-4 py-2 rounded-full border border-[#2B2620]/20">{f.spec}</span>
                 </div>
               </Reveal>
             ))}
@@ -540,14 +524,40 @@ export default function HomePage() {
       {/* ───────────── 9. SIZE CALCULATOR ───────────── */}
       <HomeSizeCalculator />
 
+      {/* ───────────── 13. FOUNDER ───────────── */}
+      <section className="bg-[#F3F3F3] py-16 lg:py-32 px-5 sm:px-8">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
+            <Image src={SITE_PHOTOS.founder} alt={`${CONTACTS.founder} - основательница Tallora`} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            <span className="absolute bottom-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+              {CONTACTS.founder} · основательница
+            </span>
+          </Reveal>
+          <Reveal delay={150} className="lg:col-span-7">
+            <Eyebrow>Какое чувство дарит Tallora?</Eyebrow>
+            <blockquote className="mt-6 font-serif font-light text-[clamp(34px,4.4vw,68px)] leading-[1.02] tracking-[-0.01em]">
+              «Лёгкость. Спокойствие. Уверенность. То, что это её.{" "}
+              <span className="italic text-[#8F6D2F]">Её стиль. Её размер. Её шаг.</span>»
+            </blockquote>
+            <p className="mt-8 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
+              Tallora родилась из личной истории Яны: красивые пары в магазинах заканчивались на 39 размере.
+              Сегодня это бренд для женщин, которые выбирают – смело, со вкусом и по своему размеру.
+            </p>
+            <Link href="/about#interview" className="inline-flex items-center gap-3 mt-8 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]">
+              Читать интервью <ArrowRight size={14} />
+            </Link>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ───────────── 10. CLIENT VOICES ───────────── */}
       <section className="py-16 lg:py-28 bg-[#F5F0E8]">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-10">
             <div>
               <Eyebrow>Из нашего Telegram</Eyebrow>
-              <h2 className="mt-4 font-serif font-light text-[clamp(40px,6.5vw,96px)] leading-[0.9] tracking-[-0.02em]">
-                Говорят <span className="italic text-[#B8914A]">они</span>
+              <h2 className="mt-4 font-display uppercase text-[clamp(44px,7vw,110px)] leading-[0.85] tracking-[-0.02em]">
+                Вы говорите
               </h2>
             </div>
             <a href="https://t.me/tallora" target="_blank" rel="noreferrer" className="self-start md:self-end text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]">
@@ -648,32 +658,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────── 13. FOUNDER ───────────── */}
-      <section className="bg-[#F3F3F3] py-16 lg:py-32 px-5 sm:px-8">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
-            <Image src={SITE_PHOTOS.founder} alt={`${CONTACTS.founder} - основательница Tallora`} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
-            <span className="absolute bottom-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-              {CONTACTS.founder} · основательница
-            </span>
-          </Reveal>
-          <Reveal delay={150} className="lg:col-span-7">
-            <Eyebrow>Какое чувство дарит Tallora?</Eyebrow>
-            <blockquote className="mt-6 font-serif font-light text-[clamp(34px,4.4vw,68px)] leading-[1.02] tracking-[-0.01em]">
-              «Лёгкость. Спокойствие. Уверенность. То, что это её.{" "}
-              <span className="italic text-[#8F6D2F]">Её стиль. Её размер. Её шаг.</span>»
-            </blockquote>
-            <p className="mt-8 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
-              Tallora родилась из личной истории Яны: красивые пары в магазинах заканчивались на 39 размере.
-              Сегодня это бренд для женщин, которые выбирают - смело, со вкусом и по своему размеру.
-            </p>
-            <Link href="/about#interview" className="inline-flex items-center gap-3 mt-8 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]">
-              Читать интервью <ArrowRight size={14} />
-            </Link>
-          </Reveal>
-        </div>
-      </section>
-
       {/* ───────────── 14. PRIVÉ ───────────── */}
       <section className="relative lg:min-h-[88vh] lg:flex lg:items-center bg-[#F5F0E8] text-[#2B2620] overflow-hidden">
         <div className="relative h-[64svh] lg:h-auto lg:absolute lg:inset-y-0 lg:right-0 lg:w-[48%]">
@@ -689,7 +673,7 @@ export default function HomePage() {
             </span>
             <h2 className="font-display uppercase leading-[0.8] tracking-[-0.03em] text-[clamp(88px,17vw,280px)]">Privé</h2>
             <p className="font-serif italic text-[28px] sm:text-4xl font-light mt-4 max-w-xl">
-              Первой - к новинкам. Первой - к распродаже. Всегда - со скидкой.
+              Первой – к новинкам. Первой – к распродаже. Всегда – со скидкой.
             </p>
             <div className="mt-8 grid grid-cols-3 max-w-xl border-y border-[#2B2620]/15">
               {[

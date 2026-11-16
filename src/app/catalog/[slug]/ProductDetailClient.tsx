@@ -212,7 +212,7 @@ export default function ProductDetailClient({ product }: Props) {
                     Выбран размер: <strong className="text-[#2B2620]">{chosenSize}</strong>
                     {product.sizes.find((s) => s.size === chosenSize)?.stockCount === 1 && (
                       <span className="text-[#8F6D2F] font-semibold ml-2">
-                        - последняя пара!
+                        – последняя пара!
                       </span>
                     )}
                   </span>
@@ -250,7 +250,7 @@ export default function ProductDetailClient({ product }: Props) {
             <div className="space-y-3 pt-4 border-t border-[#E2E2E2] text-xs text-[#2B2620]/80">
               <div className="flex items-center gap-3">
                 <RefreshCw size={16} className="text-[#8F6D2F] shrink-0" />
-                <span><strong>Возврат 14 дней</strong> - если пара без следов носки</span>
+                <span><strong>Возврат 14 дней</strong> – если пара без следов носки</span>
               </div>
               <div className="flex items-center gap-3">
                 <Truck size={16} className="text-[#8F6D2F] shrink-0" />

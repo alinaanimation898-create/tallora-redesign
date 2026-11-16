@@ -94,7 +94,7 @@ export default function CheckoutPage() {
       <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
         <div className="text-center py-20 space-y-4">
           <h1 className="font-serif text-3xl text-[#2B2620]">Корзина ждёт твою пару</h1>
-          <p className="text-xs text-[#2B2620]/60">Туфли, ботильоны, лоферы - 37–44, натуральная кожа</p>
+          <p className="text-xs text-[#2B2620]/60">Туфли, ботильоны, лоферы – 37–44, натуральная кожа</p>
           <Link
             href="/catalog"
             className="inline-block bg-[#DAB16B] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] rounded-full"
@@ -186,20 +186,20 @@ export default function CheckoutPage() {
                 {[
                   {
                     id: "cdek_pvz",
-                    title: "СДЭК - пункт выдачи",
+                    title: "СДЭК – пункт выдачи",
                     desc: "По всей России, 2–6 дней. Стоимость рассчитывается по тарифу СДЭК",
                     price: "По тарифу",
                   },
                   {
                     id: "cdek_courier",
-                    title: "СДЭК - до двери",
+                    title: "СДЭК – до двери",
                     desc: "По всей России, 2–6 дней. Стоимость рассчитывается по тарифу СДЭК",
                     price: "По тарифу",
                   },
                   {
                     id: "msk_courier",
                     title: "Курьер по Москве",
-                    desc: "1–2 рабочих дня. От 3 пар - бесплатно и с примеркой",
+                    desc: "1–2 рабочих дня. От 3 пар – бесплатно и с примеркой",
                     price: pairs >= 3 ? "Бесплатно" : "700 ₽",
                   },
                 ].map((d) => (

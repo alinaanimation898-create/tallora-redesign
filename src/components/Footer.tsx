@@ -24,11 +24,11 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
           <div className="lg:col-span-7 space-y-5">
             <span className="text-[#8F6D2F] text-xs uppercase tracking-[0.3em] font-medium block">
-              Tallora - обувь для высоких девушек
+              Tallora – обувь для высоких девушек
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl font-light leading-[0.95] text-[#2B2620]">
-              Мой стиль. Мой размер. <br className="hidden sm:inline" />
-              <span className="italic font-normal text-[#8F6D2F]">Моя свобода.</span>
+              Мой стиль · Мой размер <br className="hidden sm:inline" />
+              <span className="italic font-normal text-[#8F6D2F]">Моя свобода</span>
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">
               Стильная и удобная женская обувь 37–44 размера из натуральной кожи и замши. Без пластика.

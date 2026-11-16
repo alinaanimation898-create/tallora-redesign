@@ -55,7 +55,7 @@ export default function Header() {
             <div key={k} className="flex gap-12 shrink-0">
               {[...Array(3)].map((__, i) => (
                 <React.Fragment key={i}>
-                  <span>Размеры 37 - 44</span>
+                  <span>Размеры 37 – 44</span>
                   <span className="text-[#B8914A]">●</span>
                   <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#8F6D2F] cursor-pointer">
                     Калькулятор стопы
@@ -109,7 +109,7 @@ export default function Header() {
           </div>
 
           {/* Center: logo */}
-          <Link href="/" aria-label="Tallora - на главную" className={`flex items-center hover:text-[#B8914A] transition-colors ${ink}`}>
+          <Link href="/" aria-label="Tallora – на главную" className={`flex items-center hover:text-[#B8914A] transition-colors ${ink}`}>
             <Logo className="h-[20px] sm:h-[28px] w-auto" />
           </Link>
 

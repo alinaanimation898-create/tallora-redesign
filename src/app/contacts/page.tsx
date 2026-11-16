@@ -25,7 +25,7 @@ export default function ContactsPage() {
             Мы <span className="italic text-[#B8914A]">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
-            Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок - или приезжай примерить в шоурум.
+            Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок – или приезжай примерить в шоурум.
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export default function ContactsPage() {
               </span>
               <h3 className="font-serif text-xl text-[#2B2620]">Доставка по всей России</h3>
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
-                СДЭК - до двери или пункта выдачи. По Москве - курьером, примерка при заказе от 3 пар.
+                СДЭК – до двери или пункта выдачи. По Москве – курьером, примерка при заказе от 3 пар.
               </p>
             </div>
 
