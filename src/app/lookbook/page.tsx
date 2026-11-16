@@ -16,11 +16,11 @@ export default function LookbookPage() {
             Lookbook Tallora
           </span>
           <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
-            Власть <span className="italic">вертикали</span>
+            Lookbook <span className="italic">Tallora</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
             Для повседневной жизни и особых случаев. Мы объединили стиль и удобство, чтобы каждая девушка
-            чувствовала себя уверенно. Отмечайте нас в социальных сетях — вдохновим других вместе!
+            чувствовала себя уверенно. Отмечайте нас в социальных сетях - вдохновим других вместе!
           </p>
         </div>
 

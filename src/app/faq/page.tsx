@@ -93,7 +93,7 @@ export default function FAQPage() {
             onClick={() => setIsVeraOpen(true)}
             className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] px-6 py-3.5 text-xs uppercase tracking-[0.2em] font-medium shrink-0 cursor-pointer rounded-full"
           >
-            Спросить Веру
+            Спросить стилиста Веру
           </button>
         </div>
       </div>

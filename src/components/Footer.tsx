@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { CONTACTS } from "@/data/mockData";
+import Logo from "@/components/Logo";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -23,7 +24,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
           <div className="lg:col-span-7 space-y-5">
             <span className="text-[#8F6D2F] text-xs uppercase tracking-[0.3em] font-medium block">
-              Tallora — обувь для высоких девушек
+              Tallora - обувь для высоких девушек
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl font-light leading-[0.95] text-[#2B2620]">
               Мой стиль. Мой размер. <br className="hidden sm:inline" />
@@ -169,8 +170,8 @@ export default function Footer() {
       </div>
 
       {/* Giant wordmark */}
-      <div aria-hidden className="mt-10 select-none pointer-events-none font-serif font-light uppercase text-center leading-[0.75] tracking-[0.04em] text-[23vw] text-[#2B2620]/[0.06] translate-y-[12%]">
-        Tallora
+      <div aria-hidden className="mt-12 px-5 sm:px-8 select-none pointer-events-none text-[#2B2620]/[0.07] translate-y-[18%]">
+        <Logo className="w-full h-auto max-w-[1400px] mx-auto" />
       </div>
     </footer>
   );

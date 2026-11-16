@@ -39,7 +39,7 @@ export default function HomeSizeCalculator() {
             Твой размер <span className="italic text-[#B8914A]">в сантиметрах</span>
           </h2>
           <p className="text-[#2B2620]/60 text-[15px] mt-5 max-w-md leading-relaxed">
-            Встань на лист бумаги, отметь пятку и самый длинный палец — и передвинь ползунок.
+            Встань на лист бумаги, отметь пятку и самый длинный палец - и передвинь ползунок.
           </p>
 
           <div className="mt-12">
@@ -129,7 +129,7 @@ export default function HomeSizeCalculator() {
               className="relative mt-4 w-full text-center text-[11px] uppercase tracking-[0.18em] text-[#2B2620]/75 hover:text-[#2B2620] flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles size={13} />
-              Спросить Веру о посадке
+              Спросить стилиста Веру о посадке
             </button>
           </div>
         </div>

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ShoppingBag, Ruler, Menu, X, Sparkles, ChevronDown } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
+import Logo from "@/components/Logo";
 import { ShoeSize } from "@/types";
 
 export default function Header() {
@@ -54,7 +55,7 @@ export default function Header() {
             <div key={k} className="flex gap-12 shrink-0">
               {[...Array(3)].map((__, i) => (
                 <React.Fragment key={i}>
-                  <span>Walk loud · 37 — 44</span>
+                  <span>Размеры 37 - 44</span>
                   <span className="text-[#B8914A]">●</span>
                   <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#8F6D2F] cursor-pointer">
                     Калькулятор стопы
@@ -108,11 +109,8 @@ export default function Header() {
           </div>
 
           {/* Center: logo */}
-          <Link href="/" className={`group flex flex-col items-center leading-none ${ink}`}>
-            <span className="font-serif text-[22px] sm:text-[30px] tracking-[0.32em] font-medium uppercase pl-[0.32em] group-hover:text-[#C99B4F] transition-colors">
-              Tallora
-            </span>
-            <span className="font-display text-[8px] tracking-[0.6em] text-[#C99B4F] mt-0.5 pl-[0.6em]">37—44</span>
+          <Link href="/" aria-label="Tallora - на главную" className={`flex items-center hover:text-[#B8914A] transition-colors ${ink}`}>
+            <Logo className="h-[20px] sm:h-[28px] w-auto" />
           </Link>
 
           {/* Right: size, Vera, cart */}
@@ -127,7 +125,7 @@ export default function Header() {
                 }`}
               >
                 <Ruler size={13} className="text-[#C99B4F]" />
-                <span>{selectedSize ? `Размер ${selectedSize}` : "Мой размер"}</span>
+                <span>{selectedSize ? `Размер ${selectedSize}` : "Подобрать размер"}</span>
                 <ChevronDown size={12} className="opacity-60" />
               </button>
 
@@ -172,10 +170,10 @@ export default function Header() {
               className={`hidden md:flex items-center gap-1.5 h-10 px-3 rounded-full transition-colors ${
                 onDark ? "text-[#F3F3F3] hover:bg-white/10" : "text-[#2B2620] hover:bg-[#2B2620]/5"
               }`}
-              title="Спросить стилиста Веру"
+              title="Помощь стилиста Веры"
             >
               <Sparkles size={15} className="text-[#C99B4F]" />
-              <span className="hidden xl:inline tracking-[0.18em] uppercase text-[11px] font-medium">Вера</span>
+              <span className="hidden xl:inline tracking-[0.18em] uppercase text-[11px] font-medium">Помощь стилиста</span>
             </button>
 
             <button
@@ -251,7 +249,7 @@ export default function Header() {
             className="mt-6 w-full h-12 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-[11px] font-semibold"
           >
             <Sparkles size={15} className="text-[#8F6D2F]" />
-            ИИ-стилист Вера
+            Помощь стилиста
           </button>
         </div>
       )}
