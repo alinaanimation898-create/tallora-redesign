@@ -4,44 +4,68 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowRight, ArrowUpRight, Ruler, ChevronRight, ChevronLeft, Sparkles } from "lucide-react";
-import { PRODUCTS, CATEGORIES, LOOKBOOK_ITEMS, REVIEWS } from "@/data/mockData";
+import { PRODUCTS, CATEGORIES, LOOKBOOK_ITEMS, SITE_PHOTOS, sitePhoto, CONTACTS } from "@/data/mockData";
 import ProductCard from "@/components/ProductCard";
 import HomeSizeCalculator from "@/components/HomeSizeCalculator";
 import Reveal from "@/components/Reveal";
 import { useShop } from "@/context/ShopContext";
 
-const img = (id: string, w = 1600) =>
-  `https://images.unsplash.com/photo-${id}?q=80&w=${w}&auto=format&fit=crop`;
+const HERO_IMG = SITE_PHOTOS.hero;
+const ANATOMY_IMG = SITE_PHOTOS.anatomy;
+const FOUNDER_IMG = SITE_PHOTOS.founder;
+const PRIVE_IMG = SITE_PHOTOS.prive;
 
-const HERO_IMG = img("1773840356557-f8617677f2d9", 1800);
-const ANATOMY_IMG = img("1770576568723-c557b096394b", 1200);
-const FOUNDER_IMG = img("1623601980707-d19cca08fb9e", 1200);
-const PRIVE_IMG = img("1654357996983-0bce5a598af3", 2000);
+const byId = (id: string) => PRODUCTS.find((p) => p.id === id);
 
-/** SSENSE-style spotlight: product shots on light backgrounds blend into the page. */
+/** SSENSE-style spotlight: real packshots on light backgrounds blend into the page. */
 const SPOTLIGHT_DEF = [
-  { word: "Туфли", product: "mia-bordeaux-pump", image: img("1596703263926-eb0762ee17e4", 1200) },
-  { word: "Босоножки", product: "daria-minimal-strappy-sandal", image: img("1789110519471-74ac17dd1cf6", 1200) },
-  { word: "Мюли", product: "stella-architectural-mule", image: img("1789110519446-77822570546e", 1200) },
-  { word: "Ботильоны", product: "valerie-structured-ankle-boot", image: img("1621996659490-3275b4d0d951", 1200) },
-  { word: "Сапоги", product: "elena-suede-overknee", image: img("1763661300203-aa3e2702f510", 1200) },
+  { word: "Туфли", id: "p-671428309603" },
+  { word: "Босоножки", id: "p-768470466472" },
+  { word: "Лоферы", id: "p-737994879652" },
+  { word: "Ботильоны", id: "p-470361396772" },
+  { word: "Сапоги", id: "p-599342227272" },
 ];
 const SPOTLIGHT = SPOTLIGHT_DEF.flatMap((d) => {
-  const p = PRODUCTS.find((x) => x.slug === d.product);
+  const p = byId(d.id);
   if (!p) return [];
-  const [, model] = p.name.split(" ");
-  return [{ word: d.word, slug: d.product, model, price: p.price, heel: p.heelHeight, image: d.image, href: `/catalog/${p.slug}` }];
+  return [{
+    word: d.word,
+    slug: p.slug,
+    model: p.model || p.typeLabel,
+    price: p.price,
+    heel: p.heelHeight,
+    sizes: p.sizes,
+    image: p.images[0],
+    href: `/catalog/${p.slug}`,
+  }];
 });
+
+/** Lifestyle photos from tallora.ru for the category panels. */
+const CATEGORY_PHOTOS: Record<string, string> = {
+  tufli: sitePhoto("tild6634-3062-4132-b736-386465323239"),
+  bosonozhki: sitePhoto("tild3433-6461-4166-b136-393765613461"),
+  sandali: sitePhoto("tild6638-3263-4430-b561-326366643963"),
+  shlepki: sitePhoto("tild3864-3662-4531-b934-363839353366"),
+  baletki: sitePhoto("tild3065-6363-4639-a464-373261306363"),
+  myuli: sitePhoto("tild3038-3731-4730-b034-376532626334"),
+  lofery: sitePhoto("tild3631-3263-4564-b663-356163313664"),
+  botilony: sitePhoto("tild3734-6334-4563-a262-333332386333"),
+  sapogi: sitePhoto("tild6137-3561-4363-a230-666232616634"),
+};
 
 /** Colour-block panels for categories. */
 const PANEL_COLORS: Record<string, string> = {
   tufli: "#E8D3A8",
   bosonozhki: "#F1EADF",
+  sandali: "#EADBC4",
+  shlepki: "#F4ECE0",
+  baletki: "#F6F1EA",
   myuli: "#D9C7AE",
   lofery: "#DAB16B",
-  baletki: "#F6F1EA",
   botilony: "#C9CFC0",
   sapogi: "#E2D6C6",
+  botinki: "#D6CBBB",
+  krossovki: "#ECE6DC",
 };
 const LIGHT_PANELS = new Set(Object.keys(PANEL_COLORS));
 
@@ -58,13 +82,17 @@ export default function HomePage() {
     return () => clearInterval(t);
   }, [spotPaused]);
 
-  const maxSlide = Math.max(1, PRODUCTS.length - 3);
+  const maxSlide = Math.max(1, PRODUCTS.filter((p) => p.isNew).length - 3);
   const nextSlide = () => setSliderIndex((p) => (p + 1) % maxSlide);
   const prevSlide = () => setSliderIndex((p) => (p - 1 + maxSlide) % maxSlide);
 
-  const heroProducts = [PRODUCTS[0], PRODUCTS[1], PRODUCTS[3]].filter(Boolean);
+  const heroProducts = ["p-671428309603", "p-351869054452", "p-850261346142"].map(byId).filter((p) => p !== undefined);
+  const newArrivals = PRODUCTS.filter((p) => p.isNew);
   const current = SPOTLIGHT[spot];
-  const panels = CATEGORIES.filter((c) => c.slug !== "all");
+  const panels = CATEGORIES.filter((c) => c.slug !== "all").map((c) => ({
+    ...c,
+    image: CATEGORY_PHOTOS[c.slug] ?? ("image" in c ? c.image : undefined),
+  }));
 
   return (
     <div className="flex flex-col w-full overflow-hidden">
@@ -74,11 +102,11 @@ export default function HomePage() {
         <div className="absolute inset-0 lg:left-[36%] lg:right-[15%] z-0 overflow-hidden">
           <Image
             src={HERO_IMG}
-            alt="Длинные ноги модели в чёрных лодочках TALLORA"
+            alt="Модель в красных слингбэках Tallora с пакетом бренда"
             fill
             preload
             sizes="(max-width: 1024px) 100vw, 56vw"
-            className="object-cover object-[50%_78%] slow-zoom"
+            className="object-cover object-[50%_60%] slow-zoom"
           />
           <div className="absolute inset-0 bg-gradient-to-r from-[#F5F0E8] via-[#F5F0E8]/30 to-transparent lg:via-transparent" />
           <div className="hidden lg:block absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[#F5F0E8] to-transparent" />
@@ -96,8 +124,8 @@ export default function HomePage() {
 
         {/* Vertical caption */}
         <div className="hidden lg:flex absolute left-[60%] top-[30%] z-10 items-center gap-2 glass-light rounded-full pl-1.5 pr-4 py-1.5 text-[10px] tracking-[0.2em] uppercase text-[#2B2620]">
-          <span className="w-6 h-6 rounded-full bg-[#C99B4F] flex items-center justify-center font-display text-[10px] tracking-normal">43</span>
-          Полина · рост 181 см
+          <span className="w-6 h-6 rounded-full bg-[#C99B4F] flex items-center justify-center font-display text-[10px] tracking-normal">44</span>
+          Размеры 37 — 44
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 min-h-[100svh] flex flex-col justify-end pt-40 pb-10 lg:pb-14">
@@ -105,7 +133,7 @@ export default function HomePage() {
             <div className="hero-in inline-flex items-center gap-3 mb-7" style={{ animationDelay: "100ms" }}>
               <span className="w-10 h-px bg-[#C99B4F]" />
               <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F]">
-                Collection SS·26 — для высоких
+                Обувь для высоких девушек
               </span>
             </div>
 
@@ -123,8 +151,8 @@ export default function HomePage() {
               className="hero-in mt-8 max-w-md text-[15px] leading-relaxed text-[#2B2620]/70"
               style={{ animationDelay: "650ms" }}
             >
-              Лодочки, мюли и ботфорты 39–44 размера. Итальянская кожа, острый мыс и колодка,
-              созданная под стопу 25–29 см. Никаких мужских полок.
+              Когда обувь подчёркивает рост, а не сковывает его. Туфли, лоферы, босоножки и сапоги
+              37–44 размера из натуральной кожи и замши. Без пластика. Без боли. Без компромиссов.
             </p>
 
             <div className="hero-in mt-9 flex flex-col sm:flex-row gap-3" style={{ animationDelay: "800ms" }}>
@@ -166,8 +194,8 @@ export default function HomePage() {
                 </div>
                 <div className="flex items-end justify-between px-1.5 pt-2.5 pb-1">
                   <div>
-                    <span className="block font-serif italic text-xl leading-none">{p.name.split(" ")[1]}</span>
-                    <span className="text-[10px] uppercase tracking-[0.18em] text-[#2B2620]/60">{p.category}</span>
+                    <span className="block font-serif italic text-xl leading-none">{p.model}</span>
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-[#2B2620]/60">{p.typeLabel}</span>
                   </div>
                   <span className="font-display text-sm">{(p.price / 1000).toFixed(1)}k ₽</span>
                 </div>
@@ -182,9 +210,9 @@ export default function HomePage() {
         <div className="animate-marquee whitespace-nowrap flex items-center gap-10 font-serif italic text-4xl sm:text-6xl font-light">
           {[...Array(4)].map((_, i) => (
             <React.Fragment key={i}>
-              <span>43 — это не размер.</span>
+              <span>Без пластика. Без боли.</span>
               <span className="font-display not-italic text-2xl sm:text-3xl">✦</span>
-              <span>Это характер.</span>
+              <span>Без компромиссов.</span>
               <span className="font-display not-italic text-2xl sm:text-3xl">✦</span>
             </React.Fragment>
           ))}
@@ -268,9 +296,12 @@ export default function HomePage() {
                 </div>
               </div>
               <div className="flex gap-1.5 mt-5">
-                {[39, 40, 41, 42, 43, 44].map((s) => (
-                  <span key={s} className="flex-1 h-9 rounded-full border border-[#2B2620]/15 flex items-center justify-center font-display text-sm">
-                    {s}
+                {current.sizes.map((s) => (
+                  <span
+                    key={s.size}
+                    className={`flex-1 h-9 rounded-full border border-[#2B2620]/15 flex items-center justify-center font-display text-sm ${s.inStock ? "" : "opacity-30 line-through"}`}
+                  >
+                    {s.size}
                   </span>
                 ))}
               </div>
@@ -299,7 +330,7 @@ export default function HomePage() {
               </span>
             </h2>
             <p className="max-w-xs text-sm text-[#2B2620]/60 leading-relaxed">
-              Семь силуэтов — от офисных лоферов до ботфортов для вечеринки. Все в размерах 39–44.
+              От шлепок и балеток до ботильонов и сапог — для повседневной жизни и особых случаев. Размеры 37–44.
             </p>
           </Reveal>
 
@@ -342,14 +373,14 @@ export default function HomePage() {
                     <span className="font-display uppercase text-2xl tracking-[0.08em] [writing-mode:vertical-rl] rotate-180">
                       {cat.name}
                     </span>
-                    <span className="text-[10px] font-semibold">0{i + 1}</span>
+                    <span className="text-[10px] font-semibold">{String(i + 1).padStart(2, "0")}</span>
                   </div>
                   {/* Open content */}
                   <div
                     className={`absolute inset-x-0 bottom-0 p-7 flex items-end justify-between gap-4 transition-all duration-700 ${open ? "opacity-100 translate-y-0 delay-200" : "opacity-0 translate-y-6"} ${light ? "text-[#2B2620]" : "text-[#2B2620]"}`}
                   >
                     <div>
-                      <span className="text-[10px] uppercase tracking-[0.3em] opacity-70">0{i + 1} · 39—44</span>
+                      <span className="text-[10px] uppercase tracking-[0.3em] opacity-70">{String(i + 1).padStart(2, "0")} · {PRODUCTS.filter((p) => p.categorySlug === cat.slug).length} моделей</span>
                       <h3 className="font-display uppercase text-6xl xl:text-7xl leading-none mt-2 whitespace-nowrap">{cat.name}</h3>
                     </div>
                     <span className={`w-14 h-14 shrink-0 rounded-full flex items-center justify-center bg-white text-[#2B2620]`}>
@@ -391,10 +422,10 @@ export default function HomePage() {
         <Reveal className="flex flex-col sm:flex-row items-start sm:items-end justify-between mb-12 gap-6">
           <div>
             <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-4">
-              Выбор высоких девушек
+              Только что в каталоге
             </span>
             <h2 className="font-serif font-light text-[clamp(48px,7vw,104px)] leading-[0.9] tracking-[-0.02em]">
-              Хиты <span className="italic">сезона</span>
+              Новинки <span className="italic">сезона</span>
             </h2>
           </div>
 
@@ -423,7 +454,7 @@ export default function HomePage() {
         </Reveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-5 gap-y-12">
-          {PRODUCTS.slice(sliderIndex, sliderIndex + 4).map((product, i) => (
+          {newArrivals.slice(sliderIndex, sliderIndex + 4).map((product, i) => (
             <Reveal key={product.id} delay={i * 90}>
               <ProductCard product={product} />
             </Reveal>
@@ -445,10 +476,10 @@ export default function HomePage() {
                 </h2>
               </Reveal>
               <Reveal delay={150} className="relative mt-10 aspect-[4/5] rounded-[28px] overflow-hidden">
-                <Image src={ANATOMY_IMG} alt="Ноги в чёрных лодочках TALLORA" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+                <Image src={ANATOMY_IMG} alt="Бежевые туфли Tallora Leila крупным планом" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
                 <div className="absolute bottom-4 left-4 right-4 glass-light rounded-2xl px-4 py-3 flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-[0.2em]">Не увеличенная 37-я</span>
-                  <span className="font-display text-sm text-[#8F6D2F]">Колодка с нуля</span>
+                  <span className="text-[11px] uppercase tracking-[0.2em]">Натуральная кожа</span>
+                  <span className="font-display text-sm text-[#8F6D2F]">Размеры 37–44</span>
                 </div>
               </Reveal>
             </div>
@@ -458,21 +489,21 @@ export default function HomePage() {
             {[
               {
                 n: "01",
-                title: "Колодка под длинную стопу",
-                text: "Выверенная ширина пучков и угол наклона. Пальцы не сжимаются, а архитектура мыса визуально делает стопу на 1–2 размера компактнее.",
-                spec: "Ширина пучков 94–108 мм",
+                title: "Посадка, которая продумана",
+                text: "Мы тестируем каждую пару: смотрим, где натирает и как нога чувствует себя к вечеру. В ней можно не просто стоять — а жить: ходить, бежать, танцевать.",
+                spec: "Тест каждой пары",
               },
               {
                 n: "02",
-                title: "100% итальянская кожа",
-                text: "Никакого жёсткого кожзама. Пластичная наппа, шелковистая замша и дышащая подкладка, которая подстраивается под тепло стопы.",
-                spec: "Nappa & шевро",
+                title: "Натуральная кожа и замша",
+                text: "Натуральные материалы, трендовые и универсальные формы. Обувь должна радовать не только глаз, но и тело — и служить дольше одного сезона.",
+                spec: "Кожа · замша · мех",
               },
               {
                 n: "03",
-                title: "Каблук под высокий рост",
-                text: "Ось каблука смещена строго под физиологический центр пятки. Держишь осанку легко — без усталости и страха быть «слишком высокой».",
-                spec: "Смещение оси на 4 мм",
+                title: "Больше никаких «у нас только до 40»",
+                text: "Каждая пара создаётся от 37 до 44 размера, а в карточке указана длина стельки для каждого размера — без гаданий.",
+                spec: "Стелька 23–29.5 см",
               },
             ].map((f, i) => (
               <Reveal key={f.n} delay={i * 100} className="group border-t border-[#2B2620]/15 py-10 lg:py-14 grid grid-cols-12 gap-4">
@@ -533,10 +564,10 @@ export default function HomePage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#2B2620]/75 via-[#2B2620]/5 to-transparent" />
               <span className="absolute top-4 left-4 bg-white/80 backdrop-blur-md text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-                {item.modelHeight} см · р. {item.modelShoeSize}
+                {byId(item.featuredProductId)?.name ?? "Tallora"}
               </span>
               <div className="absolute bottom-0 inset-x-0 p-6 text-[#F3F3F3]">
-                <span className="font-display text-xs tracking-[0.3em] text-[#E3C78F]">0{i + 1} — {item.modelName}</span>
+                <span className="font-display text-xs tracking-[0.3em] text-[#E3C78F]">0{i + 1} — Tallora</span>
                 <h3 className="font-serif italic text-4xl leading-none mt-2">{item.title}</h3>
                 <p className="text-sm text-[#F3F3F3]/70 mt-3 line-clamp-2 max-h-0 group-hover:max-h-20 transition-all duration-700 overflow-hidden">
                   «{item.quote}»
@@ -547,50 +578,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────── 9. REVIEWS ───────────── */}
+      {/* ───────────── 9. ONE YEAR / VALUES ───────────── */}
       <section className="bg-[#F3F3F3] text-[#2B2620] py-20 lg:py-28 px-5 sm:px-8 relative">
-        <div className="max-w-[1400px] mx-auto relative">
-          <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-14">
-            <h2 className="font-serif font-light text-[clamp(44px,6vw,96px)] leading-[0.9]">
-              Честно, <span className="italic text-[#8F6D2F]">с ростом</span>
-              <br />и размером
-            </h2>
-            <div className="flex items-baseline gap-3">
-              <span className="font-display text-7xl">4.9</span>
-              <span className="text-[11px] uppercase tracking-[0.2em] text-[#2B2620]/55 max-w-[120px]">средняя оценка · 300+ отзывов</span>
-            </div>
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
+            <Image src={SITE_PHOTOS.friends} alt="Три девушки в обуви Tallora на прогулке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
           </Reveal>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {REVIEWS.map((rev, i) => (
-              <Reveal
-                key={rev.id}
-                delay={i * 100}
-                className="rounded-[26px] bg-white border border-[#2B2620]/8 p-7 flex flex-col justify-between min-h-[360px] hover:border-[#DAB16B]/60 transition-colors"
-              >
-                <div>
-                  <div className="flex items-center justify-between">
-                    <span className="font-serif text-7xl leading-[0.5] text-[#8F6D2F]">“</span>
-                    <span className="text-[#8F6D2F] tracking-[0.2em] text-sm">{"★".repeat(rev.rating)}</span>
-                  </div>
-                  <p className="font-serif text-[22px] leading-snug mt-6 text-[#2B2620]/90">{rev.text}</p>
-                </div>
-
-                <div className="flex items-center gap-4 pt-6 mt-6 border-t border-[#2B2620]/10">
-                  <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0">
-                    <Image src={rev.photoUrl} alt={rev.author} fill sizes="56px" className="object-cover" />
-                  </div>
-                  <div className="min-w-0">
-                    <h4 className="font-serif italic text-xl leading-none">{rev.author}</h4>
-                    <span className="text-[11px] text-[#2B2620]/50 block mt-1 truncate">{rev.modelBought}</span>
-                  </div>
-                  <div className="ml-auto text-right shrink-0">
-                    <span className="font-display text-xl block leading-none">{rev.height}</span>
-                    <span className="text-[9px] uppercase tracking-[0.2em] text-[#2B2620]/50">см · р.{rev.shoeSize}</span>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
+          <div className="lg:col-span-7">
+            <Reveal>
+              <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-5">Спасибо, что вы с нами</span>
+              <h2 className="font-serif font-light text-[clamp(52px,7vw,112px)] leading-[0.88] tracking-[-0.02em]">
+                Нам <span className="italic text-[#B8914A]">1 год!</span>
+              </h2>
+              <p className="mt-6 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
+                Мы ценим, уважаем и слышим наших клиентов. Вместе с вами мы создаём бренд Tallora —
+                без компромиссов и навязанных стандартов.
+              </p>
+            </Reveal>
+            <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {[
+                ["Стиль", "Мы понимаем тренды и работаем на опережение."],
+                ["Комфорт", "Всё начинается с правильной посадки."],
+                ["Качество", "Обувь должна быть не только красивой, но и надёжной."],
+                ["Доступность", "Больше никаких «у нас только до 40»."],
+              ].map(([t, d], i) => (
+                <Reveal key={t} delay={i * 80} className="rounded-[22px] bg-white border border-[#2B2620]/8 p-6 hover:border-[#DAB16B]/60 transition-colors">
+                  <span className="font-display text-xs tracking-[0.3em] text-[#8F6D2F]">0{i + 1}</span>
+                  <h3 className="font-serif italic text-3xl mt-2">{t}</h3>
+                  <p className="text-sm text-[#2B2620]/60 mt-2 leading-relaxed">{d}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -599,27 +617,27 @@ export default function HomePage() {
       <section className="py-20 lg:py-32 px-5 sm:px-8 max-w-[1400px] mx-auto w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
           <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
-            <Image src={FOUNDER_IMG} alt="Основательница TALLORA" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
+            <Image src={FOUNDER_IMG} alt={`${CONTACTS.founder} — основательница Tallora`} fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover" />
             <span className="absolute bottom-4 left-4 glass-light text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
-              Основательница · 182 см · р. 43
+              {CONTACTS.founder} · основательница
             </span>
           </Reveal>
 
           <Reveal delay={150} className="lg:col-span-7">
             <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-6">Слово основательницы</span>
             <blockquote className="font-serif font-light text-[clamp(32px,4vw,60px)] leading-[1.05] tracking-[-0.01em]">
-              «Женского 43 у нас нет — <span className="italic text-[#8F6D2F]">посмотрите в мужском отделе</span>». Я слышала это слишком часто.
+              «Мы здесь, чтобы каждая женщина могла выбрать обувь своего размера и чувствовать себя комфортно, <span className="italic text-[#8F6D2F]">а не довольствоваться остатками</span>»
             </blockquote>
             <p className="mt-8 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-xl">
-              Мужская обувь не создана для женской стопы: широкая пятка, грубая отделка, ноль
-              сексуальности. TALLORA родилась из бунта против компромиссов. Высокая женщина —
-              это подиум, сила и грация. Мы заслуживаем туфли мечты.
+              В магазинах красивые пары заканчивались на 39 размере. А если 41 и находился — то в
+              странной расцветке и с ощущением, что это остатки. Tallora — это когда ты надеваешь
+              и чувствуешь: мне удобно, мне красиво, я могу быть собой.
             </p>
             <Link
-              href="/about"
+              href="/about#interview"
               className="inline-flex items-center gap-3 mt-8 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#8F6D2F] hover:border-[#DAB16B]"
             >
-              История бренда <ArrowRight size={14} />
+              Читать интервью <ArrowRight size={14} />
             </Link>
           </Reveal>
         </div>
@@ -643,13 +661,13 @@ export default function HomePage() {
               Privé
             </h2>
             <p className="font-serif italic text-3xl sm:text-4xl font-light mt-4 max-w-xl text-[#2B2620]/90">
-              Для тех, кто привык смотреть сверху.
+              Ваш личный доступ к миру Tallora.
             </p>
             <div className="mt-10 grid grid-cols-3 max-w-xl border-y border-[#2B2620]/15">
               {[
                 ["−5%", "на первый заказ"],
-                ["10%", "бонусами с пары"],
-                ["48ч", "ранний доступ"],
+                ["до 10%", "бонусами с покупок"],
+                ["Early", "доступ к коллекциям"],
               ].map(([v, l]) => (
                 <div key={l} className="py-5 pr-3 border-r border-[#2B2620]/15 last:border-r-0 pl-0 [&:not(:first-child)]:pl-4">
                   <span className="font-display text-3xl sm:text-4xl block">{v}</span>

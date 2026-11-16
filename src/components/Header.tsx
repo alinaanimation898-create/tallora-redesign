@@ -23,7 +23,6 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
 
   const isHome = pathname === "/";
-  // On the homepage the header floats over the dark hero until the user scrolls.
   const onDark = false;
   void scrolled;
 
@@ -42,7 +41,7 @@ export default function Header() {
     { href: "/about", label: "О бренде" },
   ];
 
-  const sizes: ShoeSize[] = [39, 40, 41, 42, 43, 44];
+  const sizes: ShoeSize[] = [37, 38, 39, 40, 41, 42, 43, 44];
 
   const ink = onDark ? "text-[#F3F3F3]" : "text-[#2B2620]";
 
@@ -55,15 +54,15 @@ export default function Header() {
             <div key={k} className="flex gap-12 shrink-0">
               {[...Array(3)].map((__, i) => (
                 <React.Fragment key={i}>
-                  <span>Размеры 39 — 44</span>
+                  <span>Размеры 37 — 44</span>
                   <span className="text-[#B8914A]">●</span>
                   <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#8F6D2F] cursor-pointer">
                     Калькулятор стопы
                   </button>
                   <span className="text-[#B8914A]">●</span>
-                  <span>Бесплатный обмен размера по РФ</span>
+                  <span>Доставка СДЭК по всей России</span>
                   <span className="text-[#B8914A]">●</span>
-                  <span className="text-[#8F6D2F]">−5% в клубе Tallora Privé</span>
+                  <span className="text-[#8F6D2F]">−5% на первый заказ в клубе Tallora Privé</span>
                   <span className="text-[#B8914A]">●</span>
                 </React.Fragment>
               ))}
@@ -119,7 +118,7 @@ export default function Header() {
             <span className="font-serif text-[26px] sm:text-[32px] tracking-[0.32em] font-medium uppercase pl-[0.32em] group-hover:text-[#C99B4F] transition-colors">
               Tallora
             </span>
-            <span className="font-display text-[8px] tracking-[0.6em] text-[#C99B4F] mt-0.5 pl-[0.6em]">39—44</span>
+            <span className="font-display text-[8px] tracking-[0.6em] text-[#C99B4F] mt-0.5 pl-[0.6em]">37—44</span>
           </Link>
 
           {/* Right: size, Vera, cart */}
@@ -143,7 +142,7 @@ export default function Header() {
                   <p className="text-[10px] tracking-[0.2em] uppercase text-[#2B2620]/50 mb-3">
                     Показывать мой размер
                   </p>
-                  <div className="grid grid-cols-3 gap-1.5 mb-3">
+                  <div className="grid grid-cols-4 gap-1.5 mb-3">
                     {sizes.map((sz) => (
                       <button
                         key={sz}
@@ -235,7 +234,7 @@ export default function Header() {
                 Как измерить?
               </button>
             </div>
-            <div className="grid grid-cols-6 gap-1.5">
+            <div className="grid grid-cols-4 gap-1.5">
               {sizes.map((sz) => (
                 <button
                   key={sz}

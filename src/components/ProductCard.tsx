@@ -26,8 +26,12 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
     addToCart(product, sz);
   };
 
-  // Split "Лодочки Mia в цвете Deep Bordeaux" → type "Лодочки", model "Mia", rest.
-  const [type, model, ...rest] = product.name.split(" ");
+  const type = product.typeLabel;
+  const model = product.model || product.typeLabel;
+  const rest = [product.color];
+  const soldOut = product.sizes.every((s) => !s.inStock);
+  const sizeNums = product.sizes.map((s) => s.size);
+  const sizeRange = sizeNums.length ? `${Math.min(...sizeNums)}–${Math.max(...sizeNums)}` : "";
 
   return (
     <div className="group flex flex-col relative">
@@ -49,7 +53,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               className="object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-700"
             />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-transparent opacity-80" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
         </Link>
 
         {/* Badges */}
@@ -59,9 +63,14 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               New
             </span>
           )}
-          {product.isHit && (
+          {product.badge && !/^NEW$/i.test(product.badge) && (
             <span className="bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
-              Bestseller
+              {product.badge.replace(/\s*-\s*/, " −")}
+            </span>
+          )}
+          {soldOut && (
+            <span className="bg-white/90 text-[#2B2620]/70 text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
+              Нет в наличии
             </span>
           )}
           {isLastPairInUserSize && (
@@ -86,8 +95,8 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
 
         {/* Heel tag bottom-left */}
         <div className="absolute bottom-3 left-3 z-10 pointer-events-none transition-opacity duration-300 sm:group-hover:opacity-0">
-          <span className="font-display text-[11px] tracking-[0.2em] uppercase text-[#F3F3F3]">
-            Каблук {product.heelHeight}
+          <span className="font-display text-[11px] tracking-[0.2em] uppercase text-[#2B2620]/70 bg-white/80 backdrop-blur px-2.5 py-1 rounded-full">
+            {product.heelHeight === "Без каблука" ? "Без каблука" : `Каблук ${product.heelHeight}`}
           </span>
         </div>
 
@@ -98,18 +107,18 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               <span className="text-[9px] text-[#F3F3F3]/80 uppercase tracking-[0.2em]">В корзину</span>
               <Plus size={11} className="text-[#F3F3F3]/80" />
             </div>
-            <div className="grid grid-cols-6 gap-1">
+            <div className="flex flex-wrap gap-1">
               {product.sizes.map((s) => (
                 <button
                   key={s.size}
                   disabled={!s.inStock}
                   onClick={(e) => handleQuickAdd(e, s.size)}
-                  className={`h-8 rounded-full font-display text-[13px] flex items-center justify-center transition-all ${
+                  className={`h-8 flex-1 min-w-[2rem] rounded-full font-display text-[13px] flex items-center justify-center transition-all ${
                     !s.inStock
-                      ? "text-[#F3F3F3]/30 line-through cursor-not-allowed"
+                      ? "text-[#F3F3F3]/40 line-through cursor-not-allowed"
                       : selectedSize === s.size
                       ? "bg-[#DAB16B] text-[#2B2620]"
-                      : "bg-[#F3F3F3] text-[#2B2620] hover:bg-[#DAB16B] hover:text-[#F3F3F3]"
+                      : "bg-[#F3F3F3] text-[#2B2620] hover:bg-[#DAB16B] hover:text-[#2B2620]"
                   }`}
                   title={s.inStock ? `Купить размер ${s.size}` : "Нет в наличии"}
                 >
@@ -129,9 +138,9 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               {type}
             </span>
             <h3 className={`font-serif text-[26px] leading-[1] mt-1 ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
-              <span className="italic">{model}</span>
+              <span className={product.model ? "italic" : ""}>{model}</span>
               {rest.length > 0 && (
-                <span className={`block text-[15px] leading-snug mt-1 not-italic truncate ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
+                <span className={`block text-[15px] leading-snug mt-1 not-italic truncate first-letter:uppercase ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
                   {rest.join(" ")}
                 </span>
               )}
@@ -149,19 +158,19 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
           </div>
         </div>
         <div className={`mt-3 pt-3 border-t flex items-center justify-between text-[11px] ${dark ? "border-white/10 text-[#F3F3F3]/55" : "border-[#2B2620]/10 text-[#2B2620]/50"}`}>
-          <span>Модель {product.modelInfo.height} см · р. {product.modelInfo.shoeSize}</span>
+          <span>{soldOut ? "Ожидается поступление" : `Размеры ${sizeRange}`}</span>
           <span className="text-[#C99B4F] font-medium">+{product.clubBonus} ✦</span>
         </div>
       </Link>
 
       {/* Mobile quick sizes */}
-      <div className="sm:hidden mt-3 px-1 flex gap-1">
+      <div className="sm:hidden mt-3 px-1 flex flex-wrap gap-1">
         {product.sizes.map((s) => (
           <button
             key={s.size}
             disabled={!s.inStock}
             onClick={(e) => handleQuickAdd(e, s.size)}
-            className={`flex-1 h-8 rounded-full font-display text-xs border ${
+            className={`flex-1 min-w-[2.25rem] h-8 rounded-full font-display text-xs border ${
               !s.inStock
                 ? "opacity-30 line-through border-transparent"
                 : selectedSize === s.size

@@ -5,31 +5,21 @@ import { ArrowRight, Sparkles } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
 import { ShoeSize } from "@/types";
 import { useRouter } from "next/navigation";
+import { sizeForFoot, FOOT_MIN, FOOT_MAX } from "@/lib/size";
 
 type Width = "narrow" | "standard" | "wide";
 
 export default function HomeSizeCalculator() {
   const { setSelectedSize, setIsVeraOpen } = useShop();
   const router = useRouter();
-  const [cm, setCm] = useState(27.4);
+  const [cm, setCm] = useState(26.5);
   const [width, setWidth] = useState<Width>("standard");
 
-  const calcSize = (): { size: ShoeSize; desc: string } => {
-    let effective = cm;
-    if (width === "wide") effective += 0.3;
-    if (width === "narrow") effective -= 0.2;
-
-    if (effective < 25.4) return { size: 39, desc: "25.0 – 25.4 см · стопа сидит плотно, без скольжения" };
-    if (effective < 26.1) return { size: 40, desc: "25.5 – 26.0 см · мягкая колодка" };
-    if (effective < 26.8) return { size: 41, desc: "26.1 – 26.7 см · свободное движение пальцев" };
-    if (effective < 27.5) return { size: 42, desc: "26.8 – 27.4 см · оптимальный подъём" };
-    if (effective < 28.3) return { size: 43, desc: "27.5 – 28.2 см · анатомическая поддержка свода" };
-    return { size: 44, desc: "28.3 – 29.0 см · удлинённая стелька до 29 см" };
-  };
+  const calcSize = () => sizeForFoot(cm, width);
 
   const result = calcSize();
-  const min = 24.8;
-  const max = 29.0;
+  const min = FOOT_MIN;
+  const max = FOOT_MAX;
   const pct = ((cm - min) / (max - min)) * 100;
 
   const handleApply = () => {
@@ -80,9 +70,9 @@ export default function HomeSizeCalculator() {
               />
             </div>
             <div className="flex justify-between text-[11px] text-[#2B2620]/40 mt-2 font-display tracking-wider">
-              <span>25 см · 39</span>
-              <span>27 см · 42</span>
-              <span>29 см · 44</span>
+              <span>23 см · 37</span>
+              <span>26 см · 40</span>
+              <span>29.5 см · 44</span>
             </div>
           </div>
 

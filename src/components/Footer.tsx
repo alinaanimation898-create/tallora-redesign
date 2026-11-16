@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
+import { CONTACTS } from "@/data/mockData";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
@@ -22,15 +23,15 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
           <div className="lg:col-span-7 space-y-5">
             <span className="text-[#8F6D2F] text-xs uppercase tracking-[0.3em] font-medium block">
-              Манифест TALLORA
+              Tallora — обувь для высоких девушек
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl font-light leading-[0.95] text-[#2B2620]">
-              «Ты выше всех в комнате. <br className="hidden sm:inline" />
-              <span className="italic font-normal text-[#8F6D2F]">И это твоя абсолютная власть».</span>
+              Мой стиль. Мой размер. <br className="hidden sm:inline" />
+              <span className="italic font-normal text-[#8F6D2F]">Моя свобода.</span>
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">
-              Мы создаём сексуальную, архитектурную обувь 39–44 размеров с пропорциями каблука и
-              колодки, выверенными специально под высокий рост.
+              Стильная и удобная женская обувь 37–44 размера из натуральной кожи и замши. Без пластика.
+              Без боли. Без компромиссов.
             </p>
           </div>
 
@@ -40,13 +41,13 @@ export default function Footer() {
                 Клуб TALLORA PRIVÉ
               </span>
               <p className="text-sm text-[#2B2620]/80 mb-5 leading-relaxed">
-                Получите персональную скидку 5% на первый заказ и приглашения на закрытые дропы.
+                5% на первый заказ, до 10% бонусами с покупок и ранний доступ к новым коллекциям.
               </p>
 
               {subscribed ? (
                 <div className="flex items-center gap-2 p-4 rounded-2xl bg-white border border-[#DAB16B] text-xs text-[#2B2620]">
                   <CheckCircle2 size={16} className="text-[#8F6D2F]" />
-                  <span>Вы в клубе! Промокод <strong className="text-[#8F6D2F]">PRIVE5</strong> применён.</span>
+                  <span>Вы в клубе! Мы пришлём письмо со скидкой 5% на первый заказ.</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="space-y-3">
@@ -82,12 +83,12 @@ export default function Footer() {
               Коллекция
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
-              <li><Link href="/catalog?category=tufli" className="hover:text-[#8F6D2F] transition-colors">Туфли и лодочки</Link></li>
-              <li><Link href="/catalog?category=bosonozhki" className="hover:text-[#8F6D2F] transition-colors">Босоножки и мюли</Link></li>
-              <li><Link href="/catalog?category=lofery" className="hover:text-[#8F6D2F] transition-colors">Лоферы и дерби</Link></li>
-              <li><Link href="/catalog?category=baletki" className="hover:text-[#8F6D2F] transition-colors">Остроносые балетки</Link></li>
-              <li><Link href="/catalog?category=sapogi" className="hover:text-[#8F6D2F] transition-colors">Сапоги-трубы и ботильоны</Link></li>
-              <li><Link href="/catalog" className="text-[#8F6D2F] hover:underline pt-1 inline-block">Все модели (39–44)</Link></li>
+              <li><Link href="/catalog?category=tufli" className="hover:text-[#8F6D2F] transition-colors">Туфли</Link></li>
+              <li><Link href="/catalog?category=bosonozhki" className="hover:text-[#8F6D2F] transition-colors">Босоножки и сандали</Link></li>
+              <li><Link href="/catalog?category=lofery" className="hover:text-[#8F6D2F] transition-colors">Лоферы</Link></li>
+              <li><Link href="/catalog?category=baletki" className="hover:text-[#8F6D2F] transition-colors">Балетки</Link></li>
+              <li><Link href="/catalog?category=sapogi" className="hover:text-[#8F6D2F] transition-colors">Сапоги и ботильоны</Link></li>
+              <li><Link href="/catalog" className="text-[#8F6D2F] hover:underline pt-1 inline-block">Все модели (37–44)</Link></li>
             </ul>
           </div>
 
@@ -97,8 +98,8 @@ export default function Footer() {
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
               <li><Link href="/size-guide" className="hover:text-[#8F6D2F] transition-colors">Калькулятор стопы по см</Link></li>
-              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Доставка и примерка</Link></li>
-              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Бесплатный обмен размера</Link></li>
+              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Доставка по России</Link></li>
+              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Возврат 14 дней</Link></li>
               <li><Link href="/prive" className="hover:text-[#8F6D2F] transition-colors">Бонусная программа PRIVÉ</Link></li>
               <li><Link href="/faq" className="hover:text-[#8F6D2F] transition-colors">Частые вопросы (FAQ)</Link></li>
             </ul>
@@ -109,10 +110,10 @@ export default function Footer() {
               О бренде
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
-              <li><Link href="/about" className="hover:text-[#8F6D2F] transition-colors">Манифест и основательница</Link></li>
-              <li><Link href="/lookbook" className="hover:text-[#8F6D2F] transition-colors">Lookbook на моделях 180+</Link></li>
-              <li><Link href="/about" className="hover:text-[#8F6D2F] transition-colors">Собственное производство</Link></li>
-              <li><Link href="/contacts" className="hover:text-[#8F6D2F] transition-colors">Шоурум в Санкт-Петербурге</Link></li>
+              <li><Link href="/about" className="hover:text-[#8F6D2F] transition-colors">О нашем бренде</Link></li>
+              <li><Link href="/about#interview" className="hover:text-[#8F6D2F] transition-colors">Интервью с основателем</Link></li>
+              <li><Link href="/lookbook" className="hover:text-[#8F6D2F] transition-colors">Галерея образов</Link></li>
+              <li><Link href="/size-guide" className="hover:text-[#8F6D2F] transition-colors">Руководство по выбору</Link></li>
             </ul>
           </div>
 
@@ -120,15 +121,15 @@ export default function Footer() {
             <h4 className="font-display text-sm tracking-[0.2em] uppercase text-[#2B2620] mb-5">
               Контакты
             </h4>
-            <p className="text-[#2B2620]/70 mb-3 leading-relaxed">
-              Ежедневно с 10:00 до 21:00 (МСК)
-            </p>
-            <p className="font-display text-2xl text-[#2B2620] mb-3">
-              +7 (800) 555-43-44
-            </p>
+            <a href={CONTACTS.phoneHref} className="block font-display text-2xl text-[#2B2620] mb-2 hover:text-[#8F6D2F]">
+              {CONTACTS.phone}
+            </a>
+            <a href={`mailto:${CONTACTS.email}`} className="block text-[#2B2620]/70 mb-3 hover:text-[#8F6D2F]">
+              {CONTACTS.email}
+            </a>
             <div className="flex gap-4 pt-2">
               <a
-                href="https://t.me"
+                href={CONTACTS.telegram}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1 text-[#8F6D2F] hover:underline"
@@ -136,12 +137,12 @@ export default function Footer() {
                 Telegram <ArrowUpRight size={13} />
               </a>
               <a
-                href="https://instagram.com"
+                href={CONTACTS.max}
                 target="_blank"
                 rel="noreferrer"
                 className="flex items-center gap-1 text-[#8F6D2F] hover:underline"
               >
-                Instagram <ArrowUpRight size={13} />
+                MAX <ArrowUpRight size={13} />
               </a>
             </div>
           </div>
@@ -149,11 +150,20 @@ export default function Footer() {
 
         {/* Bottom copyright & legal compliance */}
         <div className="pt-8 pb-4 flex flex-col sm:flex-row items-center justify-between text-[11px] text-[#2B2620]/55 gap-4">
-          <p>© 2026 TALLORA. Все права защищены. Женская обувь 39–44.</p>
+          <p>
+            © 2025 Tallora · {CONTACTS.company} · ИНН {CONTACTS.inn} · ОГРНИП {CONTACTS.ogrnip}
+          </p>
           <div className="flex flex-wrap gap-5 text-center">
-            <Link href="/faq" className="hover:text-[#2B2620] transition-colors">Публичная оферта</Link>
-            <Link href="/faq" className="hover:text-[#2B2620] transition-colors">Политика обработки ПДн (152-ФЗ)</Link>
-            <Link href="/faq" className="hover:text-[#2B2620] transition-colors">Использование Cookie</Link>
+            {[
+              ["Пользовательское соглашение", "agreement"],
+              ["Публичная оферта", "oferta"],
+              ["Политика обработки ПДн", "privacy"],
+              ["Cookie", "cookie"],
+            ].map(([label, slug]) => (
+              <a key={slug} href={`https://tallora.ru/${slug}`} target="_blank" rel="noreferrer" className="hover:text-[#2B2620] transition-colors">
+                {label}
+              </a>
+            ))}
           </div>
         </div>
       </div>

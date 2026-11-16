@@ -13,15 +13,17 @@ export default function CheckoutPage() {
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [deliveryMethod, setDeliveryMethod] = useState<"cdek_courier" | "cdek_pvz" | "boxberry">("cdek_courier");
-  const [paymentMethod, setPaymentMethod] = useState<"sbp" | "card" | "dolyami">("sbp");
-  const [promoCode, setPromoCode] = useState("PRIVE5");
-  const [promoApplied, setPromoApplied] = useState(true);
+  const [deliveryMethod, setDeliveryMethod] = useState<"msk_courier" | "cdek_courier" | "cdek_pvz">("cdek_pvz");
+  const [paymentMethod, setPaymentMethod] = useState<"sbp" | "card">("sbp");
+  const [promoCode, setPromoCode] = useState("");
+  const [promoApplied, setPromoApplied] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
 
   const priveDiscount = promoApplied ? Math.round(cartTotal * 0.05) : 0;
-  const deliveryCost = cartTotal >= 15000 ? 0 : 450;
+  const pairs = cart.reduce((n, item) => n + item.quantity, 0);
+  // tallora.ru: Moscow courier 700 ₽, free from 3 pairs; CDEK is charged at the carrier's rate.
+  const deliveryCost = deliveryMethod === "msk_courier" ? (pairs >= 3 ? 0 : 700) : 0;
   const finalPrice = cartTotal - priveDiscount + deliveryCost;
 
   const handleApplyPromo = (e: React.FormEvent) => {
@@ -58,7 +60,7 @@ export default function CheckoutPage() {
 
           <p className="text-xs text-[#2B2620]/70 leading-relaxed">
             Спасибо, <strong>{name}</strong>! Мы отправили детали заказа и трек-номер на <strong>{email || phone}</strong>.
-            Наш менеджер и стилист свяжутся с вами для подтверждения удобного времени примерки.
+            Менеджер свяжется с вами, чтобы подтвердить заказ и доставку.
           </p>
 
           <div className="p-4 bg-[#F3F3F3] border border-[#E2E2E2] text-left text-xs space-y-1">
@@ -68,11 +70,11 @@ export default function CheckoutPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-[#888888]">Способ доставки:</span>
-              <span>СДЭК с примеркой</span>
+              <span>{deliveryMethod === "msk_courier" ? "Курьер по Москве" : "СДЭК"}</span>
             </div>
             <div className="flex justify-between">
-              <span className="text-[#888888]">Гарантия:</span>
-              <span className="text-[#8F6D2F]">Бесплатный обмен размера</span>
+              <span className="text-[#888888]">Возврат:</span>
+              <span className="text-[#8F6D2F]">14 дней с момента получения</span>
             </div>
           </div>
 
@@ -115,7 +117,7 @@ export default function CheckoutPage() {
             Оформление заказа
           </h1>
           <p className="text-xs text-[#2B2620]/60 mt-1">
-            Без обязательной регистрации · Оплата картой, СБП или в Сплит · Бесплатный обмен размера
+            Без обязательной регистрации · СДЭК по всей России · Возврат 14 дней
           </p>
         </div>
 
@@ -183,22 +185,22 @@ export default function CheckoutPage() {
               <div className="space-y-3 mb-5">
                 {[
                   {
-                    id: "cdek_courier",
-                    title: "Курьер СДЭК с примеркой 15 минут",
-                    desc: "Примерьте перед оплатой. Бесплатно при заказе от 15 000 ₽",
-                    price: cartTotal >= 15000 ? "Бесплатно" : "450 ₽",
-                  },
-                  {
                     id: "cdek_pvz",
-                    title: "Пункт выдачи СДЭК по всей России",
-                    desc: "Срок 2–4 дня, удобный выбор ПВЗ при звонке менеджера",
-                    price: "Бесплатно",
+                    title: "СДЭК — пункт выдачи",
+                    desc: "По всей России, 2–6 дней. Стоимость рассчитывается по тарифу СДЭК",
+                    price: "По тарифу",
                   },
                   {
-                    id: "boxberry",
-                    title: "Пункт выдачи Boxberry",
-                    desc: "Более 4 000 отделений",
-                    price: "Бесплатно",
+                    id: "cdek_courier",
+                    title: "СДЭК — до двери",
+                    desc: "По всей России, 2–6 дней. Стоимость рассчитывается по тарифу СДЭК",
+                    price: "По тарифу",
+                  },
+                  {
+                    id: "msk_courier",
+                    title: "Курьер по Москве",
+                    desc: "1–2 рабочих дня. От 3 пар — бесплатно и с примеркой",
+                    price: pairs >= 3 ? "Бесплатно" : "700 ₽",
                   },
                 ].map((d) => (
                   <label
@@ -251,7 +253,7 @@ export default function CheckoutPage() {
                 Способ оплаты
               </h2>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 {[
                   {
                     id: "sbp",
@@ -261,12 +263,7 @@ export default function CheckoutPage() {
                   {
                     id: "card",
                     title: "Банковская карта",
-                    desc: "ЮKassa / МИР / Visa",
-                  },
-                  {
-                    id: "dolyami",
-                    title: "Сплит / Долями",
-                    desc: `4 платежа по ${Math.round(finalPrice / 4).toLocaleString("ru-RU")} ₽`,
+                    desc: "Онлайн при оформлении",
                   },
                 ].map((p) => (
                   <label

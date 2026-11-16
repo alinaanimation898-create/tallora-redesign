@@ -1,13 +1,19 @@
-export type ShoeSize = 39 | 40 | 41 | 42 | 43 | 44;
+export type ShoeSize = 37 | 38 | 39 | 40 | 41 | 42 | 43 | 44;
 
 export interface Product {
   id: string;
   slug: string;
   name: string;
+  /** "Туфли", "Лоферы с мехом" … */
+  typeLabel: string;
+  /** Model name, e.g. "Bella"; empty for unnamed models. */
+  model: string;
   category: string;
   categorySlug: string;
   price: number;
   oldPrice?: number;
+  /** Badge text from the store, e.g. "SALE -30%" or "NEW". */
+  badge?: string;
   clubBonus: number;
   color: string;
   colorHex: string;
@@ -17,7 +23,7 @@ export interface Product {
   sole: string;
   fitHint: "exact" | "small" | "large";
   fitHintText: string;
-  modelInfo: {
+  modelInfo?: {
     height: number;
     shoeSize: number;
     text: string;
@@ -26,6 +32,8 @@ export interface Product {
     size: ShoeSize;
     inStock: boolean;
     stockCount: number; // e.g. 1 => "последняя пара в твоём размере"
+    /** Insole length for this size, e.g. "26.5". */
+    lengthCm?: string;
   }[];
   images: string[];
   description: string;
@@ -33,8 +41,10 @@ export interface Product {
   care: string;
   isNew?: boolean;
   isHit?: boolean;
-  rating: number;
-  reviewsCount: number;
+  rating?: number;
+  reviewsCount?: number;
+  /** Product page on tallora.ru. */
+  sourceUrl?: string;
 }
 
 export interface CartItem {
@@ -59,9 +69,9 @@ export interface Review {
 export interface LookbookItem {
   id: string;
   title: string;
-  modelName: string;
-  modelHeight: number;
-  modelShoeSize: number;
+  modelName?: string;
+  modelHeight?: number;
+  modelShoeSize?: number;
   imageUrl: string;
   quote: string;
   featuredProductId: string;

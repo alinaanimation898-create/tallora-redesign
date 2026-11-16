@@ -7,26 +7,16 @@ import { SIZE_TABLE } from "@/data/mockData";
 import { useShop } from "@/context/ShopContext";
 import { ShoeSize } from "@/types";
 import { useRouter } from "next/navigation";
+import { sizeForFoot } from "@/lib/size";
 
 export default function SizeGuidePage() {
   const { setSelectedSize, setIsVeraOpen } = useShop();
   const router = useRouter();
 
-  const [cm, setCm] = useState(27.4);
+  const [cm, setCm] = useState(26.5);
   const [width, setWidth] = useState<"narrow" | "standard" | "wide">("standard");
 
-  const calcSize = (): { size: ShoeSize; desc: string } => {
-    let effective = cm;
-    if (width === "wide") effective += 0.3;
-    if (width === "narrow") effective -= 0.2;
-
-    if (effective < 25.4) return { size: 39, desc: "25.0 – 25.4 см · стопа сидит плотно без скольжения" };
-    if (effective < 26.1) return { size: 40, desc: "25.5 – 26.0 см · мягкая посадка в пучковой зоне" };
-    if (effective < 26.8) return { size: 41, desc: "26.1 – 26.7 см · свободное движение пальцев" };
-    if (effective < 27.5) return { size: 42, desc: "26.8 – 27.4 см · идеальный анатомический подъем" };
-    if (effective < 28.3) return { size: 43, desc: "27.5 – 28.2 см · анатомическая поддержка свода" };
-    return { size: 44, desc: "28.3 – 29.0 см · удлинённая стелька до 29 см" };
-  };
+  const calcSize = () => sizeForFoot(cm, width);
 
   const calculated = calcSize();
 
@@ -47,8 +37,8 @@ export default function SizeGuidePage() {
             Гид по размерам TALLORA
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 leading-relaxed">
-            Мы знаем главную боль: «в одном магазине 42 мал, в другом 43 слетает». Обувь TALLORA
-            шьётся по единому стандарту колодки с шагом в полразмера для точной посадки.
+            Размер обуви зависит не только от длины стопы, но и от её ширины, подъёма и особенностей
+            строения. Поэтому у каждой модели Tallora мы указываем длину стельки для каждого размера — от 37 до 44.
           </p>
         </div>
 
@@ -76,8 +66,8 @@ export default function SizeGuidePage() {
                 </div>
                 <input
                   type="range"
-                  min="24.8"
-                  max="29.0"
+                  min="23"
+                  max="29.5"
                   step="0.1"
                   value={cm}
                   onChange={(e) => setCm(parseFloat(e.target.value))}
@@ -161,9 +151,9 @@ export default function SizeGuidePage() {
               <div className="w-10 h-10 rounded-full bg-[#DAB16B] text-[#2B2620] font-serif text-lg font-bold flex items-center justify-center">
                 1
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Лист А4 к стене</h3>
+              <h3 className="font-serif text-lg text-[#2B2620]">Обведите стопу</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
-                Положите лист бумаги формата А4 на ровный твердый пол, вплотную к вертикальной плинтусной стене.
+                Встаньте на лист бумаги и обведите контур стопы карандашом, держа его строго вертикально.
               </p>
             </div>
 
@@ -171,9 +161,9 @@ export default function SizeGuidePage() {
               <div className="w-10 h-10 rounded-full bg-[#DAB16B] text-[#2B2620] font-serif text-lg font-bold flex items-center justify-center">
                 2
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Встаньте всем весом</h3>
+              <h3 className="font-serif text-lg text-[#2B2620]">Измерьте длину</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
-                Поставьте ногу на лист так, чтобы пятка слегка касалась стены. Перенесите вес на измеряемую ногу — под нагрузкой стопа удлиняется на 3–5 мм!
+                Измерьте расстояние от самой выступающей точки пятки до кончика большого пальца. Повторите для второй ноги — часто размеры немного отличаются.
               </p>
             </div>
 
@@ -181,9 +171,9 @@ export default function SizeGuidePage() {
               <div className="w-10 h-10 rounded-full bg-[#DAB16B] text-[#2B2620] font-serif text-lg font-bold flex items-center justify-center">
                 3
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Отметка карандашом</h3>
+              <h3 className="font-serif text-lg text-[#2B2620]">Вечером и по большей</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
-                Держите карандаш строго вертикально (угол 90° к полу) и проведите черту по самой выступающей точке пальцев. Измерьте линейкой расстояние от края листа до черты.
+                Ориентируйтесь на большую стопу. Лучше мерить во второй половине дня — к вечеру стопа немного увеличивается. Между носком обуви и пальцами должно остаться около 5 мм.
               </p>
             </div>
           </div>
@@ -193,10 +183,10 @@ export default function SizeGuidePage() {
         <div className="bg-[#FFFFFF] p-8 sm:p-12 border border-[#E2E2E2]">
           <div className="text-center mb-8">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
-              Официальный стандарт TALLORA
+              По всем моделям каталога
             </span>
             <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
-              Таблица размеров женской обуви (39–44)
+              Длина стельки Tallora (37–44)
             </h2>
           </div>
 
@@ -205,9 +195,8 @@ export default function SizeGuidePage() {
               <thead>
                 <tr className="bg-[#DAB16B] text-[#2B2620] text-[11px] uppercase tracking-wider">
                   <th className="p-3.5 sm:p-4">Размер TALLORA</th>
-                  <th className="p-3.5 sm:p-4">Длина стопы (см)</th>
-                  <th className="p-3.5 sm:p-4">Ширина пучков (мм)</th>
-                  <th className="p-3.5 sm:p-4">Соответствие РФ</th>
+                  <th className="p-3.5 sm:p-4">Обычно (см)</th>
+                  <th className="p-3.5 sm:p-4">Диапазон по моделям (см)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-[#E2E2E2] font-mono text-xs">
@@ -226,9 +215,8 @@ export default function SizeGuidePage() {
                         </span>
                       )}
                     </td>
-                    <td className="p-3.5 sm:p-4 text-[#2B2620]">{row.lengthCm}</td>
-                    <td className="p-3.5 sm:p-4 text-[#2B2620]/80">{row.widthMm}</td>
-                    <td className="p-3.5 sm:p-4 text-[#2B2620]/80">{row.russianSize}</td>
+                    <td className="p-3.5 sm:p-4 text-[#2B2620]">{row.typical}</td>
+                    <td className="p-3.5 sm:p-4 text-[#2B2620]/80">{row.lengthCm}</td>
                   </tr>
                 ))}
               </tbody>
@@ -238,7 +226,7 @@ export default function SizeGuidePage() {
           <div className="mt-8 p-4 bg-[#F3F3F3] border border-[#E2E2E2] flex items-center justify-between text-xs">
             <div className="flex items-center gap-2 text-[#2B2620]">
               <ShieldCheck size={18} className="text-[#8F6D2F] shrink-0" />
-              <span>Сомневаетесь между двумя размерами? Закажите обе пары на примерку курьером!</span>
+              <span>Длина стельки отличается от модели к модели — точное значение смотрите в карточке товара. Сомневаетесь? Напишите нам.</span>
             </div>
             <Link
               href="/catalog"

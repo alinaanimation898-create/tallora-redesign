@@ -24,7 +24,7 @@ export default function FAQPage() {
             Часто задаваемые вопросы
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-lg mx-auto">
-            Всё о подборе размера 39–44, доставке с примеркой, возврате и клубе PRIVÉ.
+            Всё о подборе размера 37–44, доставке, возврате и клубе Privé.
           </p>
         </div>
 
@@ -33,7 +33,7 @@ export default function FAQPage() {
           {[
             { id: "all", label: "Все вопросы" },
             { id: "size", label: "Размеры и колодка" },
-            { id: "delivery", label: "Доставка и обмен" },
+            { id: "delivery", label: "Доставка и возврат" },
             { id: "payment", label: "Оплата и рассрочка" },
             { id: "prive", label: "Клуб PRIVÉ" },
           ].map((tab) => (

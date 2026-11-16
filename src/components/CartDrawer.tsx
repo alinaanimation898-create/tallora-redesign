@@ -18,6 +18,8 @@ export default function CartDrawer() {
     isPriveMember,
   } = useShop();
 
+  const cartPairs = cartCount;
+
   if (!isCartOpen) return null;
 
   // 5% prive discount mock
@@ -53,13 +55,13 @@ export default function CartDrawer() {
 
           {/* Delivery progress bar */}
           <div className="bg-[#EFE6D6] text-[#2B2620] px-5 py-2.5 text-[11px] flex items-center justify-between">
-            {finalTotal >= 15000 ? (
+            {cartPairs >= 3 ? (
               <span className="text-[#8F6D2F] flex items-center gap-1.5 font-medium">
-                <ShieldCheck size={14} /> Доставка курьером с примеркой бесплатна!
+                <ShieldCheck size={14} /> По Москве — бесплатная доставка и примерка
               </span>
             ) : (
               <span>
-                Добавьте ещё {(15000 - finalTotal).toLocaleString("ru-RU")} ₽ для бесплатной доставки
+                Ещё {3 - cartPairs} {3 - cartPairs === 1 ? "пара" : "пары"} — и доставка по Москве бесплатно, с примеркой
               </span>
             )}
           </div>
@@ -172,7 +174,7 @@ export default function CartDrawer() {
               </div>
 
               <p className="text-[10px] text-[#888888] text-center">
-                Оплата картами, СБП или в Сплит (4 платежа по {(finalTotal / 4).toLocaleString("ru-RU")} ₽)
+                СДЭК по всей России · Возврат 14 дней
               </p>
 
               <Link

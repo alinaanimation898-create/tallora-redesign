@@ -6,6 +6,7 @@ const isPages = process.env.GITHUB_PAGES === "true";
 const basePath = isPages ? process.env.PAGES_BASE_PATH ?? "/tallora-redesign" : "";
 
 const nextConfig: NextConfig = {
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   ...(isPages
     ? {
         output: "export" as const,

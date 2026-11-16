@@ -30,73 +30,33 @@ export default function PriveClubPage() {
             Клуб привилегий
           </div>
           <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
-            TALLORA PRIVÉ
+            Tallora Privé
           </h1>
           <p className="text-sm sm:text-base text-[#2B2620]/75 mt-4 leading-relaxed font-light">
-            Закрытое сообщество высоких женщин. Доступ к ограниченным тиражам обуви 39–44,
-            накопительный кешбэк до 10% и персональные консультации стилиста.
+            Ваш личный доступ к миру Tallora: скидка на первый заказ, бонусы с покупок и ранний доступ
+            к новым коллекциям.
           </p>
         </div>
 
-        {/* Membership tiers */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white border border-[#E2E2E2] p-8 flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
-                Старт
-              </span>
-              <h3 className="font-serif text-2xl text-[#2B2620] mb-1">Silver</h3>
-              <p className="text-xs text-[#2B2620]/60 mb-6">Сумма покупок до 50 000 ₽</p>
-              <ul className="space-y-3 text-xs text-[#2B2620]/80">
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Скидка 5% на первый заказ</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> 5% кешбэк бонусами</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Бесплатный обмен размера</li>
-              </ul>
-            </div>
-            <div className="pt-6 mt-6 border-t border-[#E2E2E2] text-xs text-[#8F6D2F]">
-              Присваивается сразу при регистрации
-            </div>
+        {/* Club perks (from tallora.ru) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-[28px] border border-[#DAB16B] shadow-xl p-8 flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-[#8F6D2F] block mb-4">Welcome</span>
+            <span className="font-display text-5xl text-[#2B2620] leading-none">5%</span>
+            <span className="font-serif italic text-xl text-[#2B2620] mt-2">на первый заказ</span>
+            <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Скидка начисляется сразу после вступления в клуб.</p>
           </div>
-
-          <div className="bg-white border border-[#DAB16B] p-8 flex flex-col justify-between relative shadow-xl">
-            <span className="absolute -top-3 right-6 bg-[#DAB16B] text-[#2B2620] text-[9px] uppercase tracking-widest px-2.5 py-0.5">
-              Популярный
-            </span>
-            <div>
-              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
-                Клубный
-              </span>
-              <h3 className="font-serif text-2xl text-[#2B2620] mb-1">Gold</h3>
-              <p className="text-xs text-[#2B2620]/60 mb-6">Сумма покупок от 50 000 ₽</p>
-              <ul className="space-y-3 text-xs text-[#2B2620]/80">
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> 7% кешбэк бонусами</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Ранний доступ к дропам за 48 ч</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Бесплатная курьерская доставка</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Бронь редких размеров (43, 44)</li>
-              </ul>
-            </div>
-            <div className="pt-6 mt-6 border-t border-[#E2E2E2] text-xs text-[#8F6D2F]">
-              Кешбэк 1 бонус = 1 рубль
-            </div>
+          <div className="bg-white rounded-[28px] border border-[#E2E2E2] p-8 flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-[#8F6D2F] block mb-4">Early access</span>
+            <span className="font-display text-5xl text-[#2B2620] leading-none">Первыми</span>
+            <span className="font-serif italic text-xl text-[#2B2620] mt-2">о новых коллекциях</span>
+            <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Узнавайте о новинках, скидках и закрытых предложениях раньше всех.</p>
           </div>
-
-          <div className="bg-white border border-[#E2E2E2] p-8 flex flex-col justify-between">
-            <div>
-              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
-                VIP
-              </span>
-              <h3 className="font-serif text-2xl text-[#2B2620] mb-1">Platinum Black</h3>
-              <p className="text-xs text-[#2B2620]/60 mb-6">Сумма покупок от 150 000 ₽</p>
-              <ul className="space-y-3 text-xs text-[#2B2620]/80">
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> 10% кешбэк бонусами</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Индивидуальный пошив колодки</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Персональный стилист на связи 24/7</li>
-                <li className="flex items-center gap-2"><CheckCircle2 size={14} className="text-[#8F6D2F]" /> Приглашения на закрытые вечера</li>
-              </ul>
-            </div>
-            <div className="pt-6 mt-6 border-t border-[#E2E2E2] text-xs text-[#8F6D2F]">
-              Максимальный статус
-            </div>
+          <div className="bg-white rounded-[28px] border border-[#E2E2E2] p-8 flex flex-col">
+            <span className="text-[10px] uppercase tracking-[0.3em] text-[#8F6D2F] block mb-4">Privé bonus</span>
+            <span className="font-display text-5xl text-[#2B2620] leading-none">до 10%</span>
+            <span className="font-serif italic text-xl text-[#2B2620] mt-2">бонусами с покупок</span>
+            <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Возвращаем часть стоимости бонусами, которыми можно оплатить следующие пары.</p>
           </div>
         </div>
 
@@ -135,7 +95,7 @@ export default function PriveClubPage() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   placeholder="Ваше имя"
-                  className="w-full bg-[#262626] border border-[#3A3A3A] p-3 text-xs text-[#2B2620] focus:outline-none focus:border-[#E3C78F]"
+                  className="w-full bg-white border border-[#E2E2E2] rounded-xl p-3 text-xs text-[#2B2620] focus:outline-none focus:border-[#E3C78F]"
                 />
               </div>
 
@@ -149,7 +109,7 @@ export default function PriveClubPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="name@example.com"
-                  className="w-full bg-[#262626] border border-[#3A3A3A] p-3 text-xs text-[#2B2620] focus:outline-none focus:border-[#E3C78F]"
+                  className="w-full bg-white border border-[#E2E2E2] rounded-xl p-3 text-xs text-[#2B2620] focus:outline-none focus:border-[#E3C78F]"
                 />
               </div>
 
@@ -160,8 +120,10 @@ export default function PriveClubPage() {
                 <select
                   value={shoeSize}
                   onChange={(e) => setShoeSize(e.target.value)}
-                  className="w-full bg-[#262626] border border-[#3A3A3A] p-3 text-xs text-[#2B2620] focus:outline-none"
+                  className="w-full bg-white border border-[#E2E2E2] rounded-xl p-3 text-xs text-[#2B2620] focus:outline-none"
                 >
+                  <option value="37">37 размер</option>
+                  <option value="38">38 размер</option>
                   <option value="39">39 размер</option>
                   <option value="40">40 размер</option>
                   <option value="41">41 размер</option>

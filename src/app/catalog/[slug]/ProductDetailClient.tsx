@@ -17,7 +17,7 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { Product, ShoeSize } from "@/types";
-import { PRODUCTS, REVIEWS } from "@/data/mockData";
+import { PRODUCTS } from "@/data/mockData";
 import { useShop } from "@/context/ShopContext";
 import ProductCard from "@/components/ProductCard";
 
@@ -44,8 +44,16 @@ export default function ProductDetailClient({ product }: Props) {
   const [activeTab, setActiveTab] = useState<"desc" | "details" | "care">("desc");
 
   // Related products
-  const relatedProducts = PRODUCTS.filter((p) => p.id !== product.id).slice(0, 4);
-  const wornWithProducts = PRODUCTS.filter((p) => p.categorySlug !== product.categorySlug).slice(0, 2);
+  // Other colours of the same model first, then the rest of the category.
+  const sameModel = PRODUCTS.filter((p) => p.id !== product.id && p.model && p.model === product.model);
+  const relatedProducts = [
+    ...sameModel,
+    ...PRODUCTS.filter((p) => p.id !== product.id && p.categorySlug === product.categorySlug && !sameModel.includes(p)),
+  ].slice(0, 4);
+  const wornWithProducts = PRODUCTS.filter((p) => p.categorySlug !== product.categorySlug && p.isNew).slice(0, 4);
+  const sizeNums = product.sizes.map((s) => s.size);
+  const sizeRange = sizeNums.length ? `${Math.min(...sizeNums)}–${Math.max(...sizeNums)}` : "";
+  const soldOut = product.sizes.every((s) => !s.inStock);
 
   const handleAddToCart = () => {
     if (chosenSize) {
@@ -106,18 +114,13 @@ export default function ProductDetailClient({ product }: Props) {
                   src={product.images[activeImageIdx] || product.images[0]}
                   alt={product.name}
                   fill
-                  priority
+                  preload
                   className="object-cover object-center"
                 />
 
-                {/* Model Height Reference Overlay Tag */}
-                <div className="absolute bottom-4 left-4 bg-[#2B2620]/45 backdrop-blur-md text-[#F3F3F3] px-3 py-1.5 text-xs font-mono">
-                  {product.modelInfo.text}
-                </div>
-
-                {product.isHit && (
-                  <div className="absolute top-4 left-4 bg-[#DAB16B] text-[#2B2620] text-[9px] uppercase tracking-[0.2em] px-3 py-1 font-semibold">
-                    Хит продаж
+                {product.badge && (
+                  <div className="absolute top-4 left-4 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
+                    {product.badge}
                   </div>
                 )}
               </div>
@@ -127,11 +130,12 @@ export default function ProductDetailClient({ product }: Props) {
           {/* RIGHT: BUYING PANEL & SIZE PICKER */}
           <div className="lg:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] shadow-xs">
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
-              {product.category} · Каблук {product.heelHeight}
+              {product.typeLabel} · {product.heelHeight === "Без каблука" ? "без каблука" : `каблук ${product.heelHeight}`}
             </span>
 
             <h1 className="font-serif text-2xl sm:text-4xl text-[#2B2620] leading-tight mb-3">
-              {product.name}
+              {product.typeLabel} <span className="italic">{product.model}</span>
+              <span className="block text-lg sm:text-xl text-[#2B2620]/55 mt-1 first-letter:uppercase">{product.color}</span>
             </h1>
 
             {/* Price & Club Perks */}
@@ -166,7 +170,7 @@ export default function ProductDetailClient({ product }: Props) {
             <div className="mb-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs uppercase tracking-wider font-semibold text-[#2B2620]">
-                  Размер в наличии (39–44):
+                  Размер · длина стельки{sizeRange && ` (${sizeRange})`}:
                 </span>
                 <button
                   onClick={() => setIsSizeModalOpen(true)}
@@ -177,7 +181,7 @@ export default function ProductDetailClient({ product }: Props) {
                 </button>
               </div>
 
-              <div className="grid grid-cols-6 gap-2">
+              <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
                 {product.sizes.map((s) => (
                   <button
                     key={s.size}
@@ -191,7 +195,8 @@ export default function ProductDetailClient({ product }: Props) {
                         : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
                     }`}
                   >
-                    {s.size}
+                    <span className="block">{s.size}</span>
+                    {s.lengthCm && <span className="block text-[10px] font-sans opacity-60 no-underline">{s.lengthCm} см</span>}
                     {s.stockCount === 1 && s.inStock && (
                       <span className="absolute -top-1.5 -right-1 w-2.5 h-2.5 rounded-full bg-amber-500" title="Осталась 1 пара!" />
                     )}
@@ -224,10 +229,10 @@ export default function ProductDetailClient({ product }: Props) {
             <div className="space-y-3 mb-6">
               <button
                 onClick={handleAddToCart}
-                disabled={!chosenSize}
+                disabled={!chosenSize || soldOut}
                 className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] disabled:opacity-40 text-[#2B2620] py-4 px-6 text-xs uppercase tracking-[0.22em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-md"
               >
-                <span>Добавить в корзину ({chosenSize} размер)</span>
+                <span>{soldOut ? "Нет в наличии" : `Добавить в корзину (${chosenSize} размер)`}</span>
                 <ArrowRight size={15} />
               </button>
 
@@ -244,15 +249,15 @@ export default function ProductDetailClient({ product }: Props) {
             <div className="space-y-3 pt-4 border-t border-[#E2E2E2] text-xs text-[#2B2620]/80">
               <div className="flex items-center gap-3">
                 <RefreshCw size={16} className="text-[#8F6D2F] shrink-0" />
-                <span><strong>Бесплатный обмен размера</strong> — курьер привезет пару на замену без доплат</span>
+                <span><strong>Возврат 14 дней</strong> — если пара не подошла и не была в носке</span>
               </div>
               <div className="flex items-center gap-3">
                 <Truck size={16} className="text-[#8F6D2F] shrink-0" />
-                <span><strong>Примерка 15 минут</strong> перед покупкой при курьерской доставке</span>
+                <span><strong>СДЭК по всей России</strong>, по Москве курьером 700 ₽ — от 3 пар бесплатно и с примеркой</span>
               </div>
               <div className="flex items-center gap-3">
                 <ShieldCheck size={16} className="text-[#8F6D2F] shrink-0" />
-                <span><strong>100% итальянская кожа</strong> наппа и чепрак без токсичного пластика</span>
+                <span><strong>{product.material}</strong></span>
               </div>
             </div>
           </div>
@@ -308,8 +313,8 @@ export default function ProductDetailClient({ product }: Props) {
                     <strong className="text-[#2B2620]">{product.season}</strong>
                   </div>
                   <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2]">
-                    <span className="text-[#888888] block text-[10px] uppercase">Подошва</span>
-                    <strong className="text-[#2B2620]">{product.sole}</strong>
+                    <span className="text-[#888888] block text-[10px] uppercase">Материал</span>
+                    <strong className="text-[#2B2620]">{product.material}</strong>
                   </div>
                 </div>
               </div>
@@ -317,7 +322,7 @@ export default function ProductDetailClient({ product }: Props) {
 
             {activeTab === "details" && (
               <ul className="space-y-2.5 max-w-2xl text-xs sm:text-sm">
-                {product.details.map((item, idx) => (
+                {(product.details.length ? product.details : [product.material]).map((item, idx) => (
                   <li key={idx} className="flex items-center gap-2">
                     <Check size={15} className="text-[#8F6D2F] shrink-0" />
                     <span>{item}</span>
@@ -329,9 +334,6 @@ export default function ProductDetailClient({ product }: Props) {
             {activeTab === "care" && (
               <div className="max-w-2xl text-xs sm:text-sm space-y-2">
                 <p>{product.care}</p>
-                <p className="text-[#888888] text-xs">
-                  В комплекте с каждой парой идёт хлопковый пыльник и комплект запасных набоек.
-                </p>
               </div>
             )}
           </div>
@@ -342,10 +344,10 @@ export default function ProductDetailClient({ product }: Props) {
           <div className="flex justify-between items-end mb-8">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
-                Гардеробная капсула
+                Только что в каталоге
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
-                Носят с этим
+                Новинки сезона
               </h2>
             </div>
           </div>
@@ -364,7 +366,7 @@ export default function ProductDetailClient({ product }: Props) {
                 Вам может понравиться
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
-                Похожие модели
+                {sameModel.length ? "Другие цвета и похожие" : "Похожие модели"}
               </h2>
             </div>
           </div>
@@ -375,44 +377,6 @@ export default function ProductDetailClient({ product }: Props) {
           </div>
         </section>
 
-        {/* ОТЗЫВЫ ПО ЭТОЙ МОДЕЛИ */}
-        <section className="mt-20 bg-[#EAEAEA]/50 p-6 sm:p-10 border border-[#E2E2E2]">
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
-                Опыт покупательниц
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620]">
-                Отзывы по модели ({product.reviewsCount})
-              </h2>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="font-serif text-2xl font-bold text-[#2B2620]">
-                {product.rating}
-              </span>
-              <div className="flex text-amber-500">★★★★★</div>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {REVIEWS.slice(0, 2).map((rev) => (
-              <div key={rev.id} className="bg-white p-5 border border-[#E2E2E2] space-y-3">
-                <div className="flex justify-between items-center text-xs">
-                  <div>
-                    <strong className="text-[#2B2620]">{rev.author}</strong>
-                    <span className="text-[#8F6D2F] ml-2 font-medium">
-                      (рост {rev.height} см, р. {rev.shoeSize})
-                    </span>
-                  </div>
-                  <span className="text-[#888888]">{rev.date}</span>
-                </div>
-                <p className="text-xs text-[#2B2620]/80 leading-relaxed italic">
-                  «{rev.text}»
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
       </div>
 
       {/* NOTIFY ABOUT SIZE MODAL */}

@@ -2,7 +2,8 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { Phone, Mail, MapPin, Clock, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
+import { Phone, Mail, Truck, MessageSquare, ArrowRight, CheckCircle2 } from "lucide-react";
+import { CONTACTS } from "@/data/mockData";
 
 export default function ContactsPage() {
   const [sent, setSent] = useState(false);
@@ -21,10 +22,10 @@ export default function ContactsPage() {
             Связь с нами
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Контакты и шоурум TALLORA
+            Контакты Tallora
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
-            Будем рады видеть вас на примерке в Санкт-Петербурге или ответить в любом удобном мессенджере.
+            Напишите нам в Telegram или MAX, позвоните или оставьте контакты — мы перезвоним.
           </p>
         </div>
 
@@ -33,27 +34,27 @@ export default function ContactsPage() {
           <div className="md:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] space-y-6">
             <div>
               <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block mb-1">
-                Флагманский шоурум
+                Интернет-магазин
               </span>
-              <h3 className="font-serif text-xl text-[#2B2620]">Санкт-Петербург</h3>
+              <h3 className="font-serif text-xl text-[#2B2620]">Доставка по всей России</h3>
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
-                Набережная реки Мойки, 58 (вход с набережной, 2 этаж, код 43)
+                СДЭК — до двери или пункта выдачи. По Москве — курьером, примерка при заказе от 3 пар.
               </p>
             </div>
 
             <div className="space-y-3 text-xs text-[#2B2620]/80 pt-2 border-t border-[#E2E2E2]">
-              <div className="flex items-center gap-3">
-                <Clock size={16} className="text-[#8F6D2F] shrink-0" />
-                <span>Ежедневно: 11:00 — 21:00 (по предварительной записи)</span>
-              </div>
-              <div className="flex items-center gap-3">
+              <a href={CONTACTS.phoneHref} className="flex items-center gap-3 hover:text-[#8F6D2F]">
                 <Phone size={16} className="text-[#8F6D2F] shrink-0" />
-                <span>+7 (800) 555-43-44</span>
-              </div>
-              <div className="flex items-center gap-3">
+                <span>{CONTACTS.phone}</span>
+              </a>
+              <a href={`mailto:${CONTACTS.email}`} className="flex items-center gap-3 hover:text-[#8F6D2F]">
                 <Mail size={16} className="text-[#8F6D2F] shrink-0" />
-                <span>concierge@tallora.ru</span>
-              </div>
+                <span>{CONTACTS.email}</span>
+              </a>
+              <Link href="/delivery" className="flex items-center gap-3 hover:text-[#8F6D2F]">
+                <Truck size={16} className="text-[#8F6D2F] shrink-0" />
+                <span>Условия доставки и возврата</span>
+              </Link>
             </div>
 
             <div className="pt-4 border-t border-[#E2E2E2] space-y-2">
@@ -62,39 +63,45 @@ export default function ContactsPage() {
               </span>
               <div className="flex gap-3">
                 <a
-                  href="https://t.me"
+                  href={CONTACTS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[#DAB16B] text-[#2B2620] px-4 py-2 text-xs uppercase tracking-wider hover:bg-[#C99B4F] transition-colors"
+                  className="bg-[#DAB16B] text-[#2B2620] px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-[#C99B4F] transition-colors"
                 >
                   Telegram
                 </a>
                 <a
-                  href="https://whatsapp.com"
+                  href={CONTACTS.max}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-emerald-700 text-[#F3F3F3] px-4 py-2 text-xs uppercase tracking-wider hover:bg-emerald-800 transition-colors"
+                  className="bg-white border border-[#2B2620]/15 text-[#2B2620] px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:border-[#2B2620] transition-colors"
                 >
-                  WhatsApp
+                  MAX
                 </a>
               </div>
+            </div>
+
+            <div className="pt-4 border-t border-[#E2E2E2] text-[11px] text-[#2B2620]/55 leading-relaxed">
+              {CONTACTS.company}
+              <br />
+              ИНН {CONTACTS.inn} · ОГРНИП {CONTACTS.ogrnip}
             </div>
           </div>
 
           {/* Right message form (7 cols) */}
           <div className="md:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2]">
             <h3 className="font-serif text-2xl text-[#2B2620] mb-2">
-              Записаться на примерку или задать вопрос
+              Заказать обратный звонок
             </h3>
             <p className="text-xs text-[#2B2620]/70 mb-6">
-              Мы подготовим нужные модели и размеры к вашему визиту.
+              Оставьте ваши контакты, и мы вам перезвоним.
             </p>
 
             {sent ? (
               <div className="p-6 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs space-y-2">
                 <CheckCircle2 size={24} />
                 <p className="font-serif text-base font-medium">Сообщение отправлено!</p>
-                <p>Наш консьерж свяжется с вами в течение 15 минут.</p>
+                <p>Мы свяжемся с вами в ближайшее время.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -136,7 +143,7 @@ export default function ContactsPage() {
                     rows={4}
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
-                    placeholder="Хочу примерить лодочки Mia 43 размера в эту субботу..."
+                    placeholder="Подскажите, как сядут туфли Lana на стопу 27 см?"
                     className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B]"
                   />
                 </div>

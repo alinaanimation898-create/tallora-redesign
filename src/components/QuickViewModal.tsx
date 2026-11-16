@@ -52,9 +52,11 @@ export default function QuickViewModal() {
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="object-cover"
               />
-              <div className="absolute bottom-3 left-3 bg-[#2B2620]/45 backdrop-blur-xs text-[#F3F3F3] text-[10px] px-2.5 py-1">
-                {product.modelInfo.text}
-              </div>
+              {product.badge && (
+                <div className="absolute top-3 left-3 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full font-semibold">
+                  {product.badge}
+                </div>
+              )}
             </div>
 
             {/* Thumbnail dots/images */}
@@ -127,7 +129,7 @@ export default function QuickViewModal() {
                 </button>
               </div>
 
-              <div className="grid grid-cols-6 gap-2">
+              <div className="grid grid-cols-4 gap-2">
                 {product.sizes.map((s) => (
                   <button
                     key={s.size}
@@ -171,11 +173,11 @@ export default function QuickViewModal() {
             <div className="grid grid-cols-2 gap-3 pt-4 border-t border-[#E2E2E2] text-[11px] text-[#2B2620]/70">
               <div className="flex items-center gap-2">
                 <RefreshCw size={15} className="text-[#8F6D2F] shrink-0" />
-                <span>Бесплатный обмен размера по РФ</span>
+                <span>Возврат 14 дней · СДЭК по всей России</span>
               </div>
               <div className="flex items-center gap-2">
                 <ShieldCheck size={15} className="text-[#8F6D2F] shrink-0" />
-                <span>100% итальянская кожа без пластика</span>
+                <span>{product.material}</span>
               </div>
             </div>
           </div>

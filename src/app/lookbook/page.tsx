@@ -13,14 +13,14 @@ export default function LookbookPage() {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
           <span className="text-xs uppercase tracking-[0.3em] text-[#8F6D2F] font-medium block mb-2">
-            Editorial Fall / Winter
+            Галерея образов
           </span>
           <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
-            Lookbook: Власть вертикали
+            Lookbook <span className="italic">Tallora</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
-            Каждая съёмка TALLORA проходит с участием моделей ростом от 178 до 188 см.
-            Мы показываем реальные пропорции высокой женской фигуры, длинных ног и обуви 41–44 размера.
+            Для повседневной жизни и особых случаев. Мы объединили стиль и удобство, чтобы каждая девушка
+            чувствовала себя уверенно. Отмечайте нас в социальных сетях — вдохновим других вместе!
           </p>
         </div>
 
@@ -31,22 +31,19 @@ export default function LookbookPage() {
             return (
               <div
                 key={item.id}
-                className="bg-[#141414] border border-[#E2E2E2] overflow-hidden flex flex-col group"
+                className="bg-white rounded-[28px] border border-[#E2E2E2] overflow-hidden flex flex-col group"
               >
                 {/* 9:16 High Fashion Image */}
-                <div className="relative aspect-[4/5] sm:aspect-[9/14] w-full overflow-hidden bg-[#0A0A0A]">
+                <div className="relative aspect-[4/5] sm:aspect-[3/4] w-full overflow-hidden bg-[#E8E8E8]">
                   <Image
                     src={item.imageUrl}
                     alt={item.title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"
-                    className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105"
+                    className="object-cover object-center transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#141414] via-transparent to-transparent opacity-90" />
-
-                  {/* Badges on photo */}
-                  <div className="absolute top-4 left-4 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-wider px-3 py-1 font-mono">
-                    Рост {item.modelHeight} см · Размер {item.modelShoeSize}
+                  <div className="absolute top-4 left-4 bg-white/85 backdrop-blur text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full">
+                    {product.typeLabel} {product.model}
                   </div>
                 </div>
 
@@ -54,7 +51,7 @@ export default function LookbookPage() {
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-1">
                   <div>
                     <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
-                      Кадр 0{index + 1} · Модель: {item.modelName}
+                      Кадр 0{index + 1}
                     </span>
                     <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] mb-3">
                       {item.title}
@@ -65,13 +62,14 @@ export default function LookbookPage() {
                   </div>
 
                   {/* Attached Product Box */}
-                  <div className="bg-white border border-[#E2E2E2] p-4 flex items-center justify-between gap-4">
+                  <div className="bg-[#F3F3F3] rounded-2xl p-3 flex items-center justify-between gap-4">
                     <div className="flex items-center gap-3">
-                      <div className="relative w-12 h-15 bg-[#0A0A0A] border border-[#E2E2E2] shrink-0 overflow-hidden">
+                      <div className="relative w-12 h-15 bg-white rounded-lg shrink-0 overflow-hidden">
                         <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
                       </div>
                       <div>
-                        <h4 className="font-serif text-sm text-[#2B2620]">{product.name}</h4>
+                        <h4 className="font-serif text-base text-[#2B2620]">{product.typeLabel} <span className="italic">{product.model}</span></h4>
+                        <span className="block text-[11px] text-[#2B2620]/55">{product.color}</span>
                         <span className="text-xs text-[#8F6D2F] font-mono">
                           {product.price.toLocaleString("ru-RU")} ₽
                         </span>
@@ -80,7 +78,7 @@ export default function LookbookPage() {
 
                     <Link
                       href={`/catalog/${product.slug}`}
-                      className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] text-xs uppercase tracking-wider py-2.5 px-4 transition-colors flex items-center gap-1.5 shrink-0"
+                      className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] text-xs uppercase tracking-wider py-2.5 px-4 rounded-full transition-colors flex items-center gap-1.5 shrink-0"
                     >
                       <span>Купить</span>
                       <ArrowRight size={13} />
@@ -104,7 +102,7 @@ export default function LookbookPage() {
             href="/catalog"
             className="inline-block bg-[#F3F3F3] hover:bg-[#E3C78F] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors"
           >
-            Перейти в каталог (39–44)
+            Перейти в каталог (37–44)
           </Link>
         </div>
       </div>

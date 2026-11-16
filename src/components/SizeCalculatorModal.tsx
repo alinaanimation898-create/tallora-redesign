@@ -5,6 +5,7 @@ import { X, Ruler, Check, HelpCircle, ArrowRight, Sparkles } from "lucide-react"
 import { useShop } from "@/context/ShopContext";
 import { ShoeSize } from "@/types";
 import { useRouter } from "next/navigation";
+import { sizeForFoot } from "@/lib/size";
 
 export default function SizeCalculatorModal() {
   const { isSizeModalOpen, setIsSizeModalOpen, setSelectedSize, setIsVeraOpen } = useShop();
@@ -16,20 +17,9 @@ export default function SizeCalculatorModal() {
   if (!isSizeModalOpen) return null;
 
   // Calculate size from length in cm & width
-  const calculateSize = (cm: number, width: "narrow" | "standard" | "wide"): {
-    size: ShoeSize;
-    note: string;
-  } => {
-    let effectiveCm = cm;
-    if (width === "wide") effectiveCm += 0.3; // slightly round up for wider feet
-    if (width === "narrow") effectiveCm -= 0.2;
-
-    if (effectiveCm < 25.4) return { size: 39, note: "Идеально подходит 39 размер с мягкой фиксацией" };
-    if (effectiveCm < 26.1) return { size: 40, note: "Ваш точный размер — 40" };
-    if (effectiveCm < 26.8) return { size: 41, note: "Ваш точный размер — 41" };
-    if (effectiveCm < 27.5) return { size: 42, note: "Рекомендуем 42 размер — комфортная посадка в носке" };
-    if (effectiveCm < 28.3) return { size: 43, note: "Рекомендуем 43 размер с выверенной колодкой" };
-    return { size: 44, note: "Рекомендуем 44 размер (колодка до 29.0 см)" };
+  const calculateSize = (cm: number, width: "narrow" | "standard" | "wide") => {
+    const r = sizeForFoot(cm, width);
+    return { size: r.size, note: `Рекомендуем ${r.size} размер · ${r.desc.toLowerCase()}` };
   };
 
   const recommendation = calculateSize(lengthCm, widthType);
@@ -59,7 +49,7 @@ export default function SizeCalculatorModal() {
             Калькулятор размера стопы
           </h2>
           <p className="text-xs text-[#2B2620]/70 mt-1 max-w-md mx-auto">
-            Никаких сюрпризов: колодки TALLORA разработаны с учетом анатомии высокой стопы от 39 до 44 размера.
+            Никаких сюрпризов: у каждой модели Tallora указана длина стельки для каждого размера — от 37 до 44.
           </p>
         </div>
 
@@ -77,8 +67,8 @@ export default function SizeCalculatorModal() {
 
           <input
             type="range"
-            min="24.8"
-            max="29.0"
+            min="23"
+            max="29.5"
             step="0.1"
             value={lengthCm}
             onChange={(e) => setLengthCm(parseFloat(e.target.value))}
@@ -86,9 +76,9 @@ export default function SizeCalculatorModal() {
           />
 
           <div className="flex justify-between text-[10px] text-[#2B2620]/50 mt-2 font-mono">
-            <span>25.0 см (р. 39)</span>
-            <span>27.0 см (р. 42)</span>
-            <span>29.0 см (р. 44)</span>
+            <span>23.0 см (р. 37)</span>
+            <span>26.0 см (р. 40)</span>
+            <span>29.5 см (р. 44)</span>
           </div>
         </div>
 
@@ -160,7 +150,7 @@ export default function SizeCalculatorModal() {
               <Sparkles size={13} />
               Сомневаетесь? Спросить стилиста Веру
             </button>
-            <span className="text-[10px] text-[#888888]">100% бесплатный обмен</span>
+            <span className="text-[10px] text-[#888888]">Возврат 14 дней</span>
           </div>
         </div>
 

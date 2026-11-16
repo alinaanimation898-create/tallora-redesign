@@ -20,7 +20,7 @@ function CatalogContent() {
   const [sortBy, setSortBy] = useState<string>("popular");
   const [mobileFilterOpen, setMobileFilterOpen] = useState<boolean>(false);
 
-  const sizes: ShoeSize[] = [39, 40, 41, 42, 43, 44];
+  const sizes: ShoeSize[] = [37, 38, 39, 40, 41, 42, 43, 44];
 
   // Filter & sort logic
   const filteredProducts = useMemo(() => {
@@ -35,21 +35,16 @@ function CatalogContent() {
         if (!hasSize) return false;
       }
       // Heel height filter
-      if (activeHeel === "flat" && !item.heelHeight.includes("1.") && !item.heelHeight.includes("2.")) {
-        return false;
-      }
-      if (activeHeel === "medium" && (!item.heelHeight.includes("5.") && !item.heelHeight.includes("6.") && !item.heelHeight.includes("7."))) {
-        return false;
-      }
-      if (activeHeel === "high" && (!item.heelHeight.includes("8.") && !item.heelHeight.includes("9."))) {
-        return false;
-      }
+      const heel = parseFloat(item.heelHeight) || 0;
+      if (activeHeel === "flat" && heel > 3) return false;
+      if (activeHeel === "medium" && (heel <= 3 || heel > 7)) return false;
+      if (activeHeel === "high" && heel <= 7) return false;
       return true;
     }).sort((a, b) => {
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
       if (sortBy === "new") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
-      return b.rating - a.rating;
+      return PRODUCTS.indexOf(a) - PRODUCTS.indexOf(b);
     });
   }, [activeCategory, selectedSize, activeHeel, sortBy]);
 
@@ -60,7 +55,7 @@ function CatalogContent() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] block mb-2 font-medium">
-              Коллекция 39 — 44
+              Размеры 37 — 44
             </span>
             <h1 className="font-serif text-3xl sm:text-6xl font-light tracking-wide text-[#2B2620]">
               Каталог обуви
@@ -171,9 +166,9 @@ function CatalogContent() {
                 className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none"
               >
                 <option value="all">Любой каблук</option>
-                <option value="flat">Без каблука (до 2 см)</option>
-                <option value="medium">Комфортный (5–7 см)</option>
-                <option value="high">Высокий (8–9 см)</option>
+                <option value="flat">Без каблука (до 3 см)</option>
+                <option value="medium">Средний (4–7 см)</option>
+                <option value="high">Высокий (от 8 см)</option>
               </select>
             </div>
 
@@ -186,7 +181,7 @@ function CatalogContent() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="bg-white border border-[#E2E2E2] px-2.5 py-1 text-xs text-[#2B2620] focus:outline-none"
               >
-                <option value="popular">По популярности</option>
+                <option value="popular">Как в магазине</option>
                 <option value="new">Сначала новинки</option>
                 <option value="price-asc">Сначала доступные</option>
                 <option value="price-desc">Сначала премиальные</option>
@@ -208,9 +203,9 @@ function CatalogContent() {
               <div className="grid grid-cols-2 gap-2">
                 {[
                   { id: "all", label: "Любой" },
-                  { id: "flat", label: "До 2 см" },
-                  { id: "medium", label: "5–7 см" },
-                  { id: "high", label: "8–9 см" },
+                  { id: "flat", label: "До 3 см" },
+                  { id: "medium", label: "4–7 см" },
+                  { id: "high", label: "От 8 см" },
                 ].map((h) => (
                   <button
                     key={h.id}
@@ -232,7 +227,7 @@ function CatalogContent() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="w-full bg-[#FFFFFF] border border-[#E2E2E2] p-2 text-xs"
               >
-                <option value="popular">По популярности</option>
+                <option value="popular">Как в магазине</option>
                 <option value="new">Сначала новинки</option>
                 <option value="price-asc">По возрастанию цены</option>
                 <option value="price-desc">По убыванию цены</option>
