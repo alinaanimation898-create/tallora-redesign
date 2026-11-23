@@ -40,7 +40,7 @@ const CATEGORY_PHOTOS: Record<string, string> = {
   baletki: sitePhoto("tild3065-6363-4639-a464-373261306363"),
   myuli: sitePhoto("tild3038-3731-4730-b034-376532626334"),
   lofery: sitePhoto("tild3631-3263-4564-b663-356163313664"),
-  botilony: sitePhoto("tild3734-6334-4563-a262-333332386333"),
+  botilony: asset("/tallora/products/982156835802-2.webp"),
   sapogi: sitePhoto("tild6137-3561-4363-a230-666232616634"),
 };
 
@@ -67,7 +67,7 @@ const CATEGORY_FOCUS: Record<string, string> = {
   baletki: "50% 72%",
   myuli: "50% 82%",
   lofery: "50% 88%",
-  botilony: "50% 45%",
+  botilony: "50% 10%",
   sapogi: "60% 72%",
 };
 
