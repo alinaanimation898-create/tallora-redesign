@@ -135,7 +135,7 @@ export default function ProductDetailClient({ product }: Props) {
               {product.typeLabel} · {product.heelHeight === "Без каблука" ? "без каблука" : `каблук ${product.heelHeight}`}
             </span>
 
-            <h1 className="font-serif text-[34px] sm:text-5xl text-[#2B2620] leading-[1] mb-4">
+            <h1 className="uppercase font-display text-[34px] sm:text-5xl text-[#2B2620] leading-[1] mb-4">
               {product.typeLabel} <span className="">{product.model}</span>
               <span className="block text-lg sm:text-xl text-[#2B2620]/55 mt-2 first-letter:uppercase">{product.color}</span>
             </h1>
@@ -191,7 +191,7 @@ export default function ProductDetailClient({ product }: Props) {
                         ? "opacity-35 line-through bg-[#F3F3F3] border-transparent cursor-not-allowed text-[#2B2620]/50"
                         : chosenSize === s.size
                         ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
-                        : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
+                        : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
                     }`}
                   >
                     <span className="block">{s.size}</span>
@@ -345,7 +345,7 @@ export default function ProductDetailClient({ product }: Props) {
               <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
                 Только что в каталоге
               </span>
-              <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
+              <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
                 Забирай первой
               </h2>
             </div>
@@ -364,7 +364,7 @@ export default function ProductDetailClient({ product }: Props) {
               <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
                 Вам может понравиться
               </span>
-              <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
+              <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
                 {sameModel.length ? "Другие цвета и похожие" : "Похожие модели"}
               </h2>
             </div>
@@ -388,7 +388,7 @@ export default function ProductDetailClient({ product }: Props) {
             >
               ✕
             </button>
-            <h3 className="font-serif text-xl text-[#2B2620] mb-2">
+            <h3 className="font-display text-xl text-[#2B2620] mb-2">
               Сообщить о поступлении
             </h3>
             <p className="text-xs text-[#2B2620]/70 mb-4">

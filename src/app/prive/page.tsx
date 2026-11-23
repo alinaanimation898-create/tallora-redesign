@@ -29,7 +29,7 @@ export default function PriveClubPage() {
             <Award size={13} />
             Клуб привилегий
           </div>
-          <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
+          <h1 className="uppercase font-display text-4xl sm:text-7xl text-[#2B2620]">
             Tallora Privé
           </h1>
           <p className="text-sm sm:text-base text-[#2B2620]/75 mt-4 leading-relaxed font-light">
@@ -43,26 +43,26 @@ export default function PriveClubPage() {
           <div className="bg-white rounded-[28px] border border-[#20402D] shadow-xl p-8 flex flex-col">
             <span className="text-[10px] uppercase tracking-[0.3em] text-[#20402D] block mb-4">Добро пожаловать</span>
             <span className="font-display text-5xl text-[#2B2620] leading-none">5%</span>
-            <span className="font-serif text-xl text-[#2B2620] mt-2">на первый заказ</span>
+            <span className="font-display text-xl text-[#2B2620] mt-2">на первый заказ</span>
             <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Скидка начисляется сразу после вступления в клуб</p>
           </div>
           <div className="bg-white rounded-[28px] border border-[#E2E2E2] p-8 flex flex-col">
             <span className="text-[10px] uppercase tracking-[0.3em] text-[#20402D] block mb-4">Ранний доступ</span>
             <span className="font-display text-5xl text-[#2B2620] leading-none">Первыми</span>
-            <span className="font-serif text-xl text-[#2B2620] mt-2">о новых коллекциях</span>
+            <span className="font-display text-xl text-[#2B2620] mt-2">о новых коллекциях</span>
             <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Узнавайте о новинках, скидках и закрытых предложениях раньше всех</p>
           </div>
           <div className="bg-white rounded-[28px] border border-[#E2E2E2] p-8 flex flex-col">
             <span className="text-[10px] uppercase tracking-[0.3em] text-[#20402D] block mb-4">Бонусы</span>
             <span className="font-display text-5xl text-[#2B2620] leading-none">до 10%</span>
-            <span className="font-serif text-xl text-[#2B2620] mt-2">бонусами с покупок</span>
+            <span className="font-display text-xl text-[#2B2620] mt-2">бонусами с покупок</span>
             <p className="text-xs text-[#2B2620]/65 leading-relaxed mt-4">Возвращаем часть стоимости бонусами, которыми можно оплатить следующие пары</p>
           </div>
         </div>
 
         {/* Join form card */}
         <div className="bg-white border border-[#E2E2E2] p-8 sm:p-12 max-w-2xl mx-auto text-center rounded-[24px]">
-          <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620] mb-2">
+          <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620] mb-2">
             Вступить в клуб TALLORA PRIVÉ
           </h2>
           <p className="text-xs text-[#2B2620]/70 mb-8 max-w-md mx-auto">
@@ -72,7 +72,7 @@ export default function PriveClubPage() {
           {joined ? (
             <div className="p-6 bg-[#20402D]/20 border border-[#20402D] space-y-3">
               <CheckCircle2 size={32} className="text-[#20402D] mx-auto" />
-              <h4 className="font-serif text-xl text-[#2B2620]">Добро пожаловать в TALLORA PRIVÉ!</h4>
+              <h4 className="font-display text-xl text-[#2B2620]">Добро пожаловать в TALLORA PRIVÉ!</h4>
               <p className="text-xs text-[#2B2620]/80">
                 Промокод на первую покупку: <strong className="text-[#20402D]">PRIVE5</strong>.
               </p>

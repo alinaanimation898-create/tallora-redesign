@@ -83,17 +83,17 @@ export default function QuickViewModal() {
             <span className="text-[11px] uppercase tracking-[0.2em] text-[#20402D] font-semibold mb-1">
               {product.category} · Высота каблука {product.heelHeight}
             </span>
-            <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] leading-snug mb-3">
+            <h2 className="uppercase font-display text-2xl sm:text-3xl text-[#2B2620] leading-snug mb-3">
               {product.name}
             </h2>
 
             {/* Price & Club bonus */}
             <div className="flex items-baseline gap-3 mb-4 pb-4 border-b border-[#E2E2E2]">
-              <span className="font-serif text-2xl font-bold text-[#2B2620]">
+              <span className="font-display text-2xl font-bold text-[#2B2620]">
                 {product.price.toLocaleString("ru-RU")} ₽
               </span>
               {product.oldPrice && (
-                <span className="text-sm text-[#888888] line-through font-serif">
+                <span className="text-sm text-[#888888] line-through font-display">
                   {product.oldPrice.toLocaleString("ru-RU")} ₽
                 </span>
               )}
@@ -133,12 +133,12 @@ export default function QuickViewModal() {
                     key={s.size}
                     disabled={!s.inStock}
                     onClick={() => setActiveSize(s.size)}
-                    className={`py-3 text-sm font-serif border text-center transition-all ${
+                    className={`py-3 text-sm font-display border text-center transition-all ${
                       !s.inStock
                         ? "opacity-30 line-through bg-gray-100 border-[#E2E2E2] cursor-not-allowed text-gray-400"
                         : activeSize === s.size
                         ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
-                        : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
+                        : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
                     }`}
                   >
                     {s.size}

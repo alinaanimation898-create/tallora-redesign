@@ -106,7 +106,7 @@ export default function VeraChatWidget() {
           aria-label="Вера, стилист TALLORA"
         >
           <div className="relative">
-            <span className="w-8 h-8 rounded-full bg-[#20402D] flex items-center justify-center text-white text-xs font-serif font-bold">
+            <span className="w-8 h-8 rounded-full bg-[#20402D] flex items-center justify-center text-white text-xs font-display font-bold">
               В
             </span>
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
@@ -130,13 +130,13 @@ export default function VeraChatWidget() {
           <div className="bg-[#EFE6D6] text-[#2B2620] p-4 flex items-center justify-between border-b border-[#E2E2E2]">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-[#20402D] flex items-center justify-center font-serif text-base text-white font-bold">
+                <div className="w-10 h-10 rounded-full bg-[#20402D] flex items-center justify-center font-display text-base text-white font-bold">
                   В
                 </div>
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#2B2620]" />
               </div>
               <div>
-                <h3 className="font-serif text-sm tracking-wider uppercase text-[#2B2620]">
+                <h3 className="font-display text-sm tracking-wider uppercase text-[#2B2620]">
                   Стилист Вера
                 </h3>
                 <p className="text-[10px] text-[#20402D] tracking-widest uppercase">
@@ -164,7 +164,7 @@ export default function VeraChatWidget() {
                 }`}
               >
                 {msg.sender === "vera" && (
-                  <div className="w-6 h-6 rounded-full bg-[#20402D] text-white font-serif text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-full bg-[#20402D] text-white font-display text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                     В
                   </div>
                 )}
@@ -172,7 +172,7 @@ export default function VeraChatWidget() {
                   className={`max-w-[80%] p-3 rounded-sm leading-relaxed shadow-xs ${
                     msg.sender === "user"
                       ? "bg-[#20402D] text-white"
-                      : "bg-[#FFFFFF] text-white border border-[#E2E2E2]"
+                      : "bg-[#FFFFFF] text-[#2B2620] border border-[#E2E2E2]"
                   }`}
                 >
                   <p>{msg.text}</p>

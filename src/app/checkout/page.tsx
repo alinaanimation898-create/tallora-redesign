@@ -53,7 +53,7 @@ export default function CheckoutPage() {
             Заказ успешно оформлен!
           </span>
 
-          <h1 className="font-serif text-3xl text-[#2B2620]">
+          <h1 className="uppercase font-display text-3xl text-[#2B2620]">
             Номер заказа: <br />
             <span className="text-[#20402D] font-bold">{orderNumber}</span>
           </h1>
@@ -93,7 +93,7 @@ export default function CheckoutPage() {
     return (
       <div className="min-h-screen bg-[#F3F3F3] flex items-center justify-center p-4">
         <div className="text-center py-20 space-y-4">
-          <h1 className="font-serif text-3xl text-[#2B2620]">Корзина ждёт твою пару</h1>
+          <h1 className="uppercase font-display text-3xl text-[#2B2620]">Корзина ждёт твою пару</h1>
           <p className="text-xs text-[#2B2620]/60">Туфли, ботильоны, лоферы - 37–44, натуральная кожа</p>
           <Link
             href="/catalog"
@@ -113,7 +113,7 @@ export default function CheckoutPage() {
           <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
             Быстрое оформление
           </span>
-          <h1 className="font-serif text-3xl sm:text-5xl text-[#2B2620]">
+          <h1 className="uppercase font-display text-3xl sm:text-5xl text-[#2B2620]">
             Оформление заказа
           </h1>
           <p className="text-xs text-[#2B2620]/60 mt-1">
@@ -126,7 +126,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-7 space-y-8">
             {/* Step 1: Contacts */}
             <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
-              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+              <h2 className="uppercase font-display text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#20402D] text-white text-xs flex items-center justify-center font-sans font-bold">1</span>
                 Контакты получателя
               </h2>
@@ -177,7 +177,7 @@ export default function CheckoutPage() {
 
             {/* Step 2: Delivery */}
             <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
-              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+              <h2 className="uppercase font-display text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#20402D] text-white text-xs flex items-center justify-center font-sans font-bold">2</span>
                 Способ доставки
               </h2>
@@ -248,7 +248,7 @@ export default function CheckoutPage() {
 
             {/* Step 3: Payment */}
             <div className="bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
-              <h2 className="font-serif text-xl text-[#2B2620] mb-4 flex items-center gap-2">
+              <h2 className="uppercase font-display text-xl text-[#2B2620] mb-4 flex items-center gap-2">
                 <span className="w-6 h-6 rounded-full bg-[#20402D] text-white text-xs flex items-center justify-center font-sans font-bold">3</span>
                 Способ оплаты
               </h2>
@@ -293,7 +293,7 @@ export default function CheckoutPage() {
 
           {/* RIGHT: ORDER SUMMARY (5 cols) */}
           <div className="lg:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] shadow-md sticky top-28 rounded-[24px]">
-            <h2 className="font-serif text-xl text-[#2B2620] pb-3 border-b border-[#E2E2E2] mb-4">
+            <h2 className="uppercase font-display text-xl text-[#2B2620] pb-3 border-b border-[#E2E2E2] mb-4">
               Ваш заказ
             </h2>
 
@@ -308,7 +308,7 @@ export default function CheckoutPage() {
                     <Image src={item.product.images[0]} alt={item.product.name} fill className="object-cover" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="font-serif font-medium text-[#2B2620] line-clamp-1">
+                    <h4 className="font-display font-medium text-[#2B2620] line-clamp-1">
                       {item.product.name}
                     </h4>
                     <span className="text-[11px] text-[#20402D] font-semibold block mt-0.5">
@@ -367,8 +367,8 @@ export default function CheckoutPage() {
 
             {/* Total */}
             <div className="pt-4 pb-6 flex justify-between items-baseline">
-              <span className="font-serif text-sm uppercase tracking-wider text-[#2B2620]">Итого:</span>
-              <span className="font-serif text-3xl font-bold text-[#2B2620]">
+              <span className="font-display text-sm uppercase tracking-wider text-[#2B2620]">Итого:</span>
+              <span className="font-display text-3xl font-bold text-[#2B2620]">
                 {finalPrice.toLocaleString("ru-RU")} ₽
               </span>
             </div>

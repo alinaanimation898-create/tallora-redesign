@@ -15,7 +15,7 @@ export default function LookbookPage() {
           <span className="text-xs uppercase tracking-[0.3em] text-[#20402D] font-medium block mb-2">
             Lookbook Tallora
           </span>
-          <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
+          <h1 className="uppercase font-display text-4xl sm:text-7xl text-[#2B2620]">
             Lookbook <span className="">Tallora</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
@@ -26,7 +26,7 @@ export default function LookbookPage() {
 
         {/* Big Editorial Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {LOOKBOOK_ITEMS.map((item, index) => {
+          {LOOKBOOK_ITEMS.map((item) => {
             const product = PRODUCTS.find((p) => p.id === item.featuredProductId) || PRODUCTS[0];
             return (
               <div
@@ -48,18 +48,7 @@ export default function LookbookPage() {
                 </div>
 
                 {/* Content info below */}
-                <div className="p-6 sm:p-8 flex flex-col justify-between flex-1">
-                  <div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#20402D] block mb-1">
-                      Кадр 0{index + 1}
-                    </span>
-                    <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] mb-3">
-                      {item.title}
-                    </h2>
-                    <blockquote className="text-xs sm:text-sm text-[#2B2620]/80 border-l-2 border-[#20402D] pl-4 py-1 mb-6">
-                      «{item.quote}»
-                    </blockquote>
-                  </div>
+                <div className="p-4 sm:p-5 flex flex-col justify-end flex-1">
 
                   {/* Attached Product Box */}
                   <div className="bg-[#F3F3F3] rounded-2xl p-3 flex items-center justify-between gap-4">
@@ -68,7 +57,7 @@ export default function LookbookPage() {
                         <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
                       </div>
                       <div>
-                        <h4 className="font-serif text-base text-[#2B2620]">{product.typeLabel} <span className="">{product.model}</span></h4>
+                        <h4 className="font-display text-base text-[#2B2620]">{product.typeLabel} <span className="">{product.model}</span></h4>
                         <span className="block text-[11px] text-[#2B2620]/55">{product.color}</span>
                         <span className="text-xs text-[#20402D] font-mono">
                           {product.price.toLocaleString("ru-RU")} ₽
@@ -92,7 +81,7 @@ export default function LookbookPage() {
 
         {/* Bottom CTA */}
         <div className="text-center py-10 border-t border-[#E2E2E2]">
-          <h3 className="font-serif text-2xl text-[#2B2620] mb-3">
+          <h3 className="font-display text-2xl text-[#2B2620] mb-3">
             Хотите повторить образ?
           </h3>
           <p className="text-xs text-[#2B2620]/70 max-w-md mx-auto mb-6">

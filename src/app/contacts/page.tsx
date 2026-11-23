@@ -21,7 +21,7 @@ export default function ContactsPage() {
           <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-2">
             Связь с нами
           </span>
-          <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
+          <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
             Мы <span className="text-[#20402D]">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
@@ -36,7 +36,7 @@ export default function ContactsPage() {
               <span className="text-[10px] uppercase tracking-widest text-[#20402D] font-bold block mb-1">
                 Интернет-магазин
               </span>
-              <h3 className="font-serif text-xl text-[#2B2620]">Доставка по всей России</h3>
+              <h3 className="font-display text-xl text-[#2B2620]">Доставка по всей России</h3>
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
                 СДЭК - до двери или пункта выдачи. По Москве - курьером, примерка при заказе от 3 пар
               </p>
@@ -46,7 +46,7 @@ export default function ContactsPage() {
               <span className="text-[10px] uppercase tracking-widest text-[#20402D] font-bold block mb-1 mt-4">
                 Примерка вживую
               </span>
-              <h3 className="font-serif text-xl text-[#2B2620]">{SHOWROOM.name}</h3>
+              <h3 className="font-display text-xl text-[#2B2620]">{SHOWROOM.name}</h3>
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
                 {SHOWROOM.address}, {SHOWROOM.metro}. {SHOWROOM.hours}.
               </p>
@@ -101,7 +101,7 @@ export default function ContactsPage() {
 
           {/* Right message form (7 cols) */}
           <div className="md:col-span-7 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] rounded-[24px]">
-            <h3 className="font-serif text-2xl text-[#2B2620] mb-2">
+            <h3 className="font-display text-2xl text-[#2B2620] mb-2">
               Заказать обратный звонок
             </h3>
             <p className="text-xs text-[#2B2620]/70 mb-6">
@@ -111,7 +111,7 @@ export default function ContactsPage() {
             {sent ? (
               <div className="p-6 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs space-y-2">
                 <CheckCircle2 size={24} />
-                <p className="font-serif text-base font-medium">Сообщение отправлено!</p>
+                <p className="font-display text-base font-medium">Сообщение отправлено!</p>
                 <p>Мы свяжемся с вами в ближайшее время</p>
               </div>
             ) : (

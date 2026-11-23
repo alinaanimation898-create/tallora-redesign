@@ -70,7 +70,7 @@ export default function PriveInvite() {
           {sent ? (
             <div className="space-y-5 py-6">
               <CheckCircle2 size={40} className="text-[#20402D]" />
-              <h2 className="font-serif text-3xl leading-tight">Добро пожаловать в Privé, {name.trim()}</h2>
+              <h2 className="uppercase font-display text-3xl leading-tight">Добро пожаловать в Privé, {name.trim()}</h2>
               <p className="text-sm text-[#2B2620]/70 leading-relaxed">
                 Мы напишем тебе в Telegram и пришлём промокод на 5% на первый заказ
               </p>
@@ -90,7 +90,7 @@ export default function PriveInvite() {
                 <Sparkles size={13} /> Закрытый клуб
               </span>
               <h2 className="mt-4 font-display uppercase text-[64px] sm:text-[80px] leading-[0.85] tracking-[-0.02em]">Privé</h2>
-              <p className="mt-4 font-serif text-xl leading-snug">
+              <p className="mt-4 font-display text-xl leading-snug">
                 5% на первый заказ, до 10% бонусами и новинки раньше всех
               </p>
 

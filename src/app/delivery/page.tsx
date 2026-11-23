@@ -27,7 +27,7 @@ function TermList({ items }: { items: string[][] }) {
     <dl className="divide-y divide-[#2B2620]/10">
       {items.map(([t, d]) => (
         <div key={t} className="py-4 grid grid-cols-1 sm:grid-cols-12 gap-1 sm:gap-6">
-          <dt className="sm:col-span-4 font-serif text-lg text-[#2B2620]">{t}</dt>
+          <dt className="sm:col-span-4 font-display text-lg text-[#2B2620]">{t}</dt>
           <dd className="sm:col-span-8 text-sm text-[#2B2620]/70 leading-relaxed">{d}</dd>
         </div>
       ))}
@@ -43,7 +43,7 @@ export default function DeliveryPage() {
           <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-2">
             Сервис Tallora
           </span>
-          <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">Доставка и возврат</h1>
+          <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">Доставка и возврат</h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-xl mx-auto leading-relaxed">
             Отправляем заказы по всей стране через надёжного партнёра - СДЭК, а по Москве привозим курьером
           </p>
@@ -54,7 +54,7 @@ export default function DeliveryPage() {
             <div className="w-12 h-12 rounded-full bg-[#20402D] text-white flex items-center justify-center mb-4">
               <Truck size={22} />
             </div>
-            <h3 className="font-serif text-2xl text-[#2B2620]">По всей России</h3>
+            <h3 className="font-display text-2xl text-[#2B2620]">По всей России</h3>
             <p className="text-xs text-[#2B2620]/75 leading-relaxed">
               Через СДЭК - до двери или до ближайшего пункта выдачи. Стоимость и сроки рассчитываются
               автоматически при оформлении заказа
@@ -66,7 +66,7 @@ export default function DeliveryPage() {
             <div className="w-12 h-12 rounded-full bg-[#20402D] text-white flex items-center justify-center mb-4">
               <Clock size={22} />
             </div>
-            <h3 className="font-serif text-2xl text-[#2B2620]">Курьер по Москве</h3>
+            <h3 className="font-display text-2xl text-[#2B2620]">Курьер по Москве</h3>
             <p className="text-xs text-[#2B2620]/75 leading-relaxed">
               Курьерская доставка - 700 ₽. При заказе от 3 пар - бесплатно и с возможностью примерки:
               сообщите о ней менеджеру при оформлении
@@ -78,7 +78,7 @@ export default function DeliveryPage() {
             <div className="w-12 h-12 rounded-full bg-[#CFE0D4] text-[#2B2620] flex items-center justify-center mb-4">
               <RefreshCw size={22} />
             </div>
-            <h3 className="font-serif text-2xl text-[#2B2620]">Возврат 14 дней</h3>
+            <h3 className="font-display text-2xl text-[#2B2620]">Возврат 14 дней</h3>
             <p className="text-xs text-[#2B2620]/75 leading-relaxed">
               Пара без следов носки? Верните её в течение 14 дней с момента получения.
               Деньги вернём в течение 10 дней
@@ -89,19 +89,19 @@ export default function DeliveryPage() {
 
         <div className="bg-white rounded-[28px] p-8 sm:p-10 border border-[#E2E2E2]">
           <span className="font-display text-xs tracking-[0.3em] text-[#20402D]">01</span>
-          <h2 className="font-serif text-3xl text-[#2B2620] mt-1 mb-4">Возврат товара надлежащего качества</h2>
+          <h2 className="uppercase font-display text-3xl text-[#2B2620] mt-1 mb-4">Возврат товара надлежащего качества</h2>
           <TermList items={RETURN_GOOD} />
         </div>
 
         <div className="bg-white rounded-[28px] p-8 sm:p-10 border border-[#E2E2E2]">
           <span className="font-display text-xs tracking-[0.3em] text-[#20402D]">02</span>
-          <h2 className="font-serif text-3xl text-[#2B2620] mt-1 mb-4">Возврат товара ненадлежащего качества</h2>
+          <h2 className="uppercase font-display text-3xl text-[#2B2620] mt-1 mb-4">Возврат товара ненадлежащего качества</h2>
           <TermList items={RETURN_DEFECT} />
         </div>
 
         <div className="bg-[#F5F0E8] rounded-[28px] p-8 sm:p-10 border border-[#E2E2E2]">
           <span className="font-display text-xs tracking-[0.3em] text-[#20402D]">03</span>
-          <h2 className="font-serif text-3xl text-[#2B2620] mt-1 mb-4">Дополнительно</h2>
+          <h2 className="uppercase font-display text-3xl text-[#2B2620] mt-1 mb-4">Дополнительно</h2>
           <TermList
             items={[
               ["Отказ до получения", "Покупатель имеет право отказаться от товара до его получения"],

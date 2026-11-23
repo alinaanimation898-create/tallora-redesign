@@ -20,7 +20,7 @@ export default function FAQPage() {
           <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-2">
             Служба заботы TALLORA
           </span>
-          <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
+          <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
             Спрашивай <span className="text-[#20402D]">смело</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-lg mx-auto">
@@ -43,7 +43,7 @@ export default function FAQPage() {
               className={`px-4 py-2 text-xs uppercase tracking-wider border transition-all ${
                 activeTab === tab.id
                   ? "bg-[#20402D] text-white border-[#20402D]"
-                  : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
+                  : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
               }`}
             >
               {tab.label}
@@ -61,7 +61,7 @@ export default function FAQPage() {
                   onClick={() => setOpenIdx(isOpen ? null : idx)}
                   className="w-full text-left p-5 sm:p-6 flex items-center justify-between gap-4 cursor-pointer"
                 >
-                  <span className="font-serif text-base sm:text-lg text-[#2B2620]">
+                  <span className="font-display text-base sm:text-lg text-[#2B2620]">
                     {item.question}
                   </span>
                   <span className="font-mono text-xl text-[#20402D] shrink-0">
@@ -81,7 +81,7 @@ export default function FAQPage() {
         {/* Vera Stylist Assistance Card */}
         <div className="bg-[#EFE6D6] text-[#2B2620] p-8 border border-[#E2E2E2] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left rounded-[24px]">
           <div>
-            <h3 className="font-serif text-xl sm:text-2xl text-[#2B2620] flex items-center gap-2 justify-center sm:justify-start">
+            <h3 className="font-display text-xl sm:text-2xl text-[#2B2620] flex items-center gap-2 justify-center sm:justify-start">
               <Sparkles size={20} className="text-[#20402D]" />
               Остались вопросы? Напишите нам
             </h3>

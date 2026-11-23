@@ -94,7 +94,7 @@ export default function Header() {
                     className={`px-3.5 py-2 rounded-full transition-colors ${
                       isActive
                         ? onDark
-                          ? "bg-[#F3F3F3] text-white"
+                          ? "bg-[#F3F3F3] text-[#2B2620]"
                           : "bg-[#20402D] text-white"
                         : onDark
                         ? "hover:bg-white/10"
@@ -145,7 +145,7 @@ export default function Header() {
                         className={`h-10 rounded-full font-display text-base transition-colors ${
                           selectedSize === sz
                             ? "bg-[#20402D] text-white"
-                            : "border border-[#2B2620]/12 hover:border-[#2B2620] text-white"
+                            : "border border-[#2B2620]/12 hover:border-[#2B2620] text-[#2B2620]"
                         }`}
                       >
                         {sz}
@@ -208,7 +208,7 @@ export default function Header() {
                 <span className="font-display uppercase text-4xl tracking-tight group-hover:text-[#20402D] transition-colors">
                   {link.label}
                 </span>
-                <span className="font-serif text-sm text-[#20402D]">0{i + 1}</span>
+                <span className="font-display text-sm text-[#20402D]">0{i + 1}</span>
               </Link>
             ))}
           </nav>

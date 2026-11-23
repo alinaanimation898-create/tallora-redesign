@@ -33,7 +33,7 @@ export default function SizeGuidePage() {
           <span className="text-xs uppercase tracking-[0.3em] text-[#20402D] font-semibold block mb-2">
             Идеальная посадка
           </span>
-          <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
+          <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
             Твой <span className="text-[#20402D]">идеальный</span> размер
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 leading-relaxed">
@@ -48,7 +48,7 @@ export default function SizeGuidePage() {
             <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] block mb-1">
               Шаг 1. Онлайн-расчёт
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
+            <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
               Интерактивный калькулятор стопы
             </h2>
           </div>
@@ -60,7 +60,7 @@ export default function SizeGuidePage() {
                   <span className="text-xs uppercase tracking-wider text-[#20402D] flex items-center gap-1.5">
                     <Ruler size={16} /> Длина стопы:
                   </span>
-                  <span className="font-serif text-3xl font-bold text-[#2B2620]">
+                  <span className="font-display text-3xl font-bold text-[#2B2620]">
                     {cm.toFixed(1)} <span className="text-sm text-[#20402D] font-normal">см</span>
                   </span>
                 </div>
@@ -107,7 +107,7 @@ export default function SizeGuidePage() {
                 <span className="text-[10px] uppercase tracking-[0.25em] text-[#20402D] block mb-1">
                   Рекомендуемый размер
                 </span>
-                <div className="font-serif text-6xl font-bold text-[#2B2620] my-2">
+                <div className="font-display text-6xl font-bold text-[#2B2620] my-2">
                   {calculated.size}
                 </div>
                 <p className="text-xs text-[#2B2620]/70 leading-relaxed mb-4">
@@ -141,37 +141,37 @@ export default function SizeGuidePage() {
             <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
               Инструкция
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
+            <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
               Как точно измерить стопу дома
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-serif text-lg font-bold flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-display text-lg font-bold flex items-center justify-center">
                 1
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Обведите стопу</h3>
+              <h3 className="font-display text-lg text-[#2B2620]">Обведите стопу</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
                 Встаньте на лист бумаги и обведите контур стопы карандашом, держа его строго вертикально
               </p>
             </div>
 
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-serif text-lg font-bold flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-display text-lg font-bold flex items-center justify-center">
                 2
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Измерьте длину</h3>
+              <h3 className="font-display text-lg text-[#2B2620]">Измерьте длину</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
                 Измерьте расстояние от самой выступающей точки пятки до кончика большого пальца. Повторите для второй ноги - часто размеры немного отличаются
               </p>
             </div>
 
             <div className="space-y-3">
-              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-serif text-lg font-bold flex items-center justify-center">
+              <div className="w-10 h-10 rounded-full bg-[#20402D] text-white font-display text-lg font-bold flex items-center justify-center">
                 3
               </div>
-              <h3 className="font-serif text-lg text-[#2B2620]">Вечером и по большей</h3>
+              <h3 className="font-display text-lg text-[#2B2620]">Вечером и по большей</h3>
               <p className="text-xs text-[#2B2620]/70 leading-relaxed">
                 Ориентируйтесь на большую стопу. Лучше мерить во второй половине дня - к вечеру стопа немного увеличивается. Между носком обуви и пальцами должно остаться около 5 мм
               </p>
@@ -185,7 +185,7 @@ export default function SizeGuidePage() {
             <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
               По всем моделям каталога
             </span>
-            <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
+            <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
               Длина стельки Tallora (37–44)
             </h2>
           </div>
@@ -207,7 +207,7 @@ export default function SizeGuidePage() {
                       calculated.size === row.size ? "bg-[#20402D]/10 font-bold" : ""
                     }`}
                   >
-                    <td className="p-3.5 sm:p-4 font-serif text-base text-[#2B2620] flex items-center gap-2">
+                    <td className="p-3.5 sm:p-4 font-display text-base text-[#2B2620] flex items-center gap-2">
                       <span className="font-bold text-[#20402D]">{row.size}</span>
                       {calculated.size === row.size && (
                         <span className="text-[10px] bg-[#20402D] text-white px-1.5 py-0.5 rounded-xs uppercase tracking-wider font-sans">

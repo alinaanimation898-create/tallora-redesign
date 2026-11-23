@@ -39,7 +39,7 @@ export default function CartDrawer() {
           {/* Header */}
           <div className="p-5 border-b border-[#E2E2E2] flex items-center justify-between bg-[#F3F3F3]">
             <div className="flex items-center gap-2">
-              <h2 className="font-serif text-lg tracking-wider uppercase text-[#2B2620]">
+              <h2 className="font-display text-lg tracking-wider uppercase text-[#2B2620]">
                 Корзина
               </h2>
               <span className="text-xs text-[#2B2620]/60">({cartCount} шт.)</span>
@@ -70,7 +70,7 @@ export default function CartDrawer() {
           <div className="flex-1 overflow-y-auto p-5 space-y-4">
             {cart.length === 0 ? (
               <div className="text-center py-16 space-y-4">
-                <p className="font-serif text-xl text-[#2B2620]/70">В корзине пока пусто</p>
+                <p className="font-display text-xl text-[#2B2620]/70">В корзине пока пусто</p>
                 <p className="text-xs text-[#2B2620]/50 max-w-xs mx-auto">
                   Выберите вашу идеальную пару в каталоге или воспользуйтесь подбором размера
                 </p>
@@ -103,7 +103,7 @@ export default function CartDrawer() {
                         <Link
                           href={`/catalog/${item.product.slug}`}
                           onClick={() => setIsCartOpen(false)}
-                          className="font-serif text-sm text-[#2B2620] hover:text-[#20402D] line-clamp-1"
+                          className="font-display text-sm text-[#2B2620] hover:text-[#20402D] line-clamp-1"
                         >
                           {item.product.name}
                         </Link>
@@ -144,7 +144,7 @@ export default function CartDrawer() {
                         </button>
                       </div>
 
-                      <span className="font-serif text-sm font-bold text-[#2B2620]">
+                      <span className="font-display text-sm font-bold text-[#2B2620]">
                         {(item.product.price * item.quantity).toLocaleString("ru-RU")} ₽
                       </span>
                     </div>
@@ -168,7 +168,7 @@ export default function CartDrawer() {
 
               <div className="flex justify-between items-baseline pt-1">
                 <span className="text-xs uppercase tracking-wider text-[#2B2620]/70">Итого к оплате:</span>
-                <span className="font-serif text-2xl font-bold text-[#2B2620]">
+                <span className="font-display text-2xl font-bold text-[#2B2620]">
                   {finalTotal.toLocaleString("ru-RU")} ₽
                 </span>
               </div>
