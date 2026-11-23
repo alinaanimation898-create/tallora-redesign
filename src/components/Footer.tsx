@@ -24,7 +24,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
           <div className="lg:col-span-7 space-y-5">
             <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
-              Tallora – обувь для высоких девушек
+              Tallora - обувь для высоких девушек
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl font-light leading-[0.95] text-[#2B2620]">
               Мой стиль · Мой размер <br className="hidden sm:inline" />
@@ -32,7 +32,7 @@ export default function Footer() {
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">
               Стильная и удобная женская обувь 37–44 размера из натуральной кожи и замши. Без пластика.
-              Без боли. Без компромиссов.
+              Без боли. Без компромиссов
             </p>
           </div>
 
@@ -42,13 +42,13 @@ export default function Footer() {
                 Клуб TALLORA PRIVÉ
               </span>
               <p className="text-sm text-[#2B2620]/80 mb-5 leading-relaxed">
-                5% на первый заказ, до 10% бонусами с покупок и ранний доступ к новым коллекциям.
+                5% на первый заказ, до 10% бонусами с покупок и ранний доступ к новым коллекциям
               </p>
 
               {subscribed ? (
                 <div className="flex items-center gap-2 p-4 rounded-2xl bg-white border border-[#20402D] text-xs text-[#2B2620]">
                   <CheckCircle2 size={16} className="text-[#20402D]" />
-                  <span>Вы в клубе! Мы пришлём письмо со скидкой 5% на первый заказ.</span>
+                  <span>Вы в клубе! Мы пришлём письмо со скидкой 5% на первый заказ</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="space-y-3">
@@ -69,7 +69,7 @@ export default function Footer() {
                     </button>
                   </div>
                   <p className="text-[10px] text-[#2B2620]/55 leading-normal">
-                    Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и обработкой ПДн.
+                    Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности и обработкой ПДн
                   </p>
                 </form>
               )}
@@ -102,7 +102,7 @@ export default function Footer() {
               <li><Link href="/delivery" className="hover:text-[#20402D] transition-colors">Доставка по России</Link></li>
               <li><Link href="/delivery" className="hover:text-[#20402D] transition-colors">Возврат 14 дней</Link></li>
               <li><Link href="/prive" className="hover:text-[#20402D] transition-colors">Бонусная программа PRIVÉ</Link></li>
-              <li><Link href="/faq" className="hover:text-[#20402D] transition-colors">Частые вопросы (FAQ)</Link></li>
+              <li><Link href="/faq" className="hover:text-[#20402D] transition-colors">Частые вопросы</Link></li>
             </ul>
           </div>
 

@@ -39,7 +39,7 @@ export default function HomeSizeCalculator() {
             Твой размер <span className="text-[#20402D]">в сантиметрах</span>
           </h2>
           <p className="text-[#2B2620]/60 text-[15px] mt-5 max-w-md leading-relaxed">
-            Встань на лист бумаги, отметь пятку и самый длинный палец – и передвинь ползунок.
+            Встань на лист бумаги, отметь пятку и самый длинный палец - и передвинь ползунок
           </p>
 
           <div className="mt-12">

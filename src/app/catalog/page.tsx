@@ -55,12 +55,12 @@ function CatalogContent() {
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
             <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] block mb-2 font-medium">
-              Размеры 37 – 44
+              Размеры 37 - 44
             </span>
             <h1 className="font-serif text-[44px] leading-[0.95] sm:text-7xl font-light tracking-[-0.01em] text-[#2B2620]">
               Выбирай <span className="text-[#20402D]">смело</span>
             </h1>
-            <p className="mt-3 text-sm text-[#2B2620]/65 max-w-md">Все модели – от 37 до 44. Отметь свой размер, и мы покажем только твои пары.</p>
+            <p className="mt-3 text-sm text-[#2B2620]/65 max-w-md">Все модели - от 37 до 44. Отметь свой размер, и мы покажем только твои пары</p>
           </div>
 
           <div className="flex items-center gap-4 text-xs text-[#2B2620]/70">
@@ -266,7 +266,7 @@ function CatalogContent() {
               В выбранном размере моделей сейчас нет в наличии
             </p>
             <p className="text-xs text-[#2B2620]/60 max-w-md mx-auto">
-              Попробуйте сбросить фильтр размера или спросите стилиста Веру о скором поступлении новой партии.
+              Попробуйте сбросить фильтр размера или спросите стилиста Веру о скором поступлении новой партии
             </p>
             <div className="pt-2 flex justify-center gap-3">
               <button

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { Plus, ArrowUpRight } from "lucide-react";
 import { Product, ShoeSize } from "@/types";
 import { useShop } from "@/context/ShopContext";
+import { ruBadge } from "@/lib/badge";
 
 interface ProductCardProps {
   product: Product;
@@ -60,12 +61,12 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
         <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-wrap gap-1 sm:gap-1.5 z-10 pointer-events-none [&>span]:text-[9px] sm:[&>span]:text-[10px] [&>span]:px-2 sm:[&>span]:px-3 [&>span]:py-1 sm:[&>span]:py-1.5 [&>span]:tracking-[0.14em] sm:[&>span]:tracking-[0.2em]">
           {product.isNew && (
             <span className="bg-[#F3F3F3] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
-              New
+              Новинка
             </span>
           )}
           {product.badge && !/^NEW$/i.test(product.badge) && (
             <span className="bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
-              {product.badge.replace(/\s*-\s*/, " −")}
+              {ruBadge(product.badge)}
             </span>
           )}
           {soldOut && (

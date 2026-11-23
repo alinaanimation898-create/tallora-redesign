@@ -6,6 +6,7 @@ import Link from "next/link";
 import { X, Check, HelpCircle, ArrowRight, ShieldCheck, RefreshCw } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
 import { ShoeSize } from "@/types";
+import { ruBadge } from "@/lib/badge";
 
 export default function QuickViewModal() {
   const {
@@ -54,7 +55,7 @@ export default function QuickViewModal() {
               />
               {product.badge && (
                 <div className="absolute top-3 left-3 bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full font-semibold">
-                  {product.badge}
+                  {ruBadge(product.badge)}
                 </div>
               )}
             </div>

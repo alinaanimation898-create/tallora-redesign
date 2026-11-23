@@ -57,11 +57,11 @@ export default function CartDrawer() {
           <div className="bg-[#EFE6D6] text-[#2B2620] px-5 py-2.5 text-[11px] flex items-center justify-between">
             {cartPairs >= 3 ? (
               <span className="text-[#20402D] flex items-center gap-1.5 font-medium">
-                <ShieldCheck size={14} /> По Москве – бесплатная доставка и примерка
+                <ShieldCheck size={14} /> По Москве - бесплатная доставка и примерка
               </span>
             ) : (
               <span>
-                Ещё {3 - cartPairs} {3 - cartPairs === 1 ? "пара" : "пары"} – и доставка по Москве бесплатно, с примеркой
+                Ещё {3 - cartPairs} {3 - cartPairs === 1 ? "пара" : "пары"} - и доставка по Москве бесплатно, с примеркой
               </span>
             )}
           </div>

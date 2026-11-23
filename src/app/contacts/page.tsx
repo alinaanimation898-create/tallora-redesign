@@ -25,7 +25,7 @@ export default function ContactsPage() {
             Мы <span className="text-[#20402D]">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
-            Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок – или приезжай примерить в шоурум.
+            Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок - или приезжай примерить в шоурум
           </p>
         </div>
 
@@ -38,7 +38,7 @@ export default function ContactsPage() {
               </span>
               <h3 className="font-serif text-xl text-[#2B2620]">Доставка по всей России</h3>
               <p className="text-xs text-[#2B2620]/80 mt-1 leading-relaxed">
-                СДЭК – до двери или пункта выдачи. По Москве – курьером, примерка при заказе от 3 пар.
+                СДЭК - до двери или пункта выдачи. По Москве - курьером, примерка при заказе от 3 пар
               </p>
             </div>
 
@@ -105,14 +105,14 @@ export default function ContactsPage() {
               Заказать обратный звонок
             </h3>
             <p className="text-xs text-[#2B2620]/70 mb-6">
-              Оставьте ваши контакты, и мы вам перезвоним.
+              Оставьте ваши контакты, и мы вам перезвоним
             </p>
 
             {sent ? (
               <div className="p-6 bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs space-y-2">
                 <CheckCircle2 size={24} />
                 <p className="font-serif text-base font-medium">Сообщение отправлено!</p>
-                <p>Мы свяжемся с вами в ближайшее время.</p>
+                <p>Мы свяжемся с вами в ближайшее время</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="space-y-4">
