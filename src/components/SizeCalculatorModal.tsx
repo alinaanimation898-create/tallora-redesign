@@ -56,7 +56,7 @@ export default function SizeCalculatorModal() {
           <X size={20} />
         </button>
 
-        <h2 className="font-display uppercase text-[34px] sm:text-[44px] leading-[0.9] tracking-[-0.01em] text-[#2B2620] pr-10">
+        <h2 className="font-display uppercase text-[34px] sm:text-[44px] leading-[1.02] tracking-[-0.01em] text-[#2B2620] pr-10">
           Подобрать <span className="text-[#20402D]">размер</span>
         </h2>
         <p className="mt-3 text-[14px] text-[#2B2620]/65 leading-relaxed max-w-md">

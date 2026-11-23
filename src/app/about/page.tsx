@@ -52,7 +52,7 @@ export default function AboutPage() {
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-10 sm:pt-16 pb-16 lg:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-end">
         <div className="lg:col-span-7">
           <span className="text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/50">О бренде Tallora</span>
-          <h1 className="mt-4 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[0.88] tracking-[-0.02em] text-[#2B2620]">
+          <h1 className="mt-4 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.02] tracking-[-0.02em] text-[#2B2620]">
             Про выбор и свободу <span className="text-[#20402D]">быть собой</span>
           </h1>
           <p className="mt-8 text-[16px] sm:text-[17px] text-[#2B2620]/70 leading-relaxed max-w-xl">
@@ -96,7 +96,7 @@ export default function AboutPage() {
 
       {/* Values */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-16 lg:py-24">
-        <h2 className="font-display uppercase text-[clamp(44px,6.5vw,104px)] leading-[0.86] tracking-[-0.02em] text-[#2B2620]">
+        <h2 className="font-display uppercase text-[clamp(44px,6.5vw,104px)] leading-[1.02] tracking-[-0.02em] text-[#2B2620]">
           Наши <span className="text-[#20402D]">ценности</span>
         </h2>
         <div className="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-[#2B2620]/15">
@@ -119,7 +119,7 @@ export default function AboutPage() {
           <div className="lg:col-span-4">
             <div className="lg:sticky lg:top-32 space-y-6">
               <span className="text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/50">Интервью</span>
-              <h2 className="font-display uppercase text-[clamp(36px,3.6vw,56px)] leading-[0.95] text-[#2B2620]">
+              <h2 className="font-display uppercase text-[clamp(36px,3.6vw,56px)] leading-[1.02] text-[#2B2620]">
                 Стиль и комфорт <span className="text-[#20402D]">для каждой</span>
               </h2>
               <p className="text-[15px] text-[#2B2620]/65 leading-relaxed">
@@ -149,7 +149,7 @@ export default function AboutPage() {
       <section className="bg-[#20402D] text-white py-16 lg:py-24 px-5 sm:px-8">
         <div className="max-w-[1400px] mx-auto flex flex-col lg:flex-row lg:items-end justify-between gap-10">
           <div>
-            <h2 className="font-display uppercase text-[clamp(40px,6vw,96px)] leading-[0.88] tracking-[-0.02em]">
+            <h2 className="font-display uppercase text-[clamp(40px,6vw,96px)] leading-[1.02] tracking-[-0.02em]">
               Больше, чем обувь
               <span className="block text-[#BFD8C6]">Это выбор себя</span>
             </h2>

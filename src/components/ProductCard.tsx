@@ -3,8 +3,8 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, Eye } from "lucide-react";
-import { Product, ShoeSize } from "@/types";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Product } from "@/types";
 import { useShop } from "@/context/ShopContext";
 import { ruBadge } from "@/lib/badge";
 
@@ -15,7 +15,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product, tone = "light" }: ProductCardProps) {
-  const { selectedSize, addToCart, setQuickViewProduct } = useShop();
+  const { selectedSize } = useShop();
   const dark = tone === "dark";
   const [idx, setIdx] = useState(0);
 
@@ -26,8 +26,6 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
   const soldOut = product.sizes.every((s) => !s.inStock);
   const sizes = [...product.sizes].sort((a, b) => a.size - b.size);
   const model = product.model || product.typeLabel;
-  const heel = product.heelHeight === "Без каблука" ? "Без каблука" : `Каблук ${product.heelHeight}`;
-  const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
 
   const go = (e: React.MouseEvent, dir: 1 | -1) => {
     e.preventDefault();
@@ -35,17 +33,11 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
     setIdx((i) => (i + dir + images.length) % images.length);
   };
 
-  const handleQuickAdd = (e: React.MouseEvent, sz: ShoeSize) => {
-    e.preventDefault();
-    e.stopPropagation();
-    addToCart(product, sz);
-  };
-
   const ink = dark ? "text-[#F3F3F3]" : "text-[#2B2620]";
   const muted = dark ? "text-[#F3F3F3]/55" : "text-[#2B2620]/50";
 
   return (
-    <div className="group/card flex flex-col relative">
+    <div className="group/card @container flex flex-col relative">
       <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[18px] sm:rounded-[22px] bg-[#ECE9E4]">
         <Link href={`/catalog/${product.slug}`} className="block w-full h-full relative" aria-label={product.name}>
           {images.map((src, i) => (i === idx || i === (idx + 1) % images.length) && (
@@ -115,42 +107,6 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
           </>
         )}
 
-        {/* Quick-add sizes (desktop) */}
-        <div className="absolute bottom-3 inset-x-3 z-10 hidden sm:block translate-y-[140%] group-hover/card:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]">
-          <div className="rounded-2xl bg-white/95 backdrop-blur p-2.5 shadow-[0_10px_30px_-12px_rgba(43,38,32,0.35)]">
-            <div className="flex items-center justify-between px-1 pb-2">
-              <span className="text-[10px] uppercase tracking-[0.2em] text-[#2B2620]/60">Быстро в корзину</span>
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  setQuickViewProduct(product);
-                }}
-                className="flex items-center gap-1 text-[10px] uppercase tracking-[0.16em] text-[#20402D] hover:underline cursor-pointer"
-              >
-                <Eye size={12} /> Подробнее
-              </button>
-            </div>
-            <div className="flex flex-wrap gap-1">
-              {sizes.map((s) => (
-                <button
-                  key={s.size}
-                  disabled={!s.inStock}
-                  onClick={(e) => handleQuickAdd(e, s.size)}
-                  className={`h-8 flex-1 min-w-[2.1rem] rounded-full font-display text-[13px] flex items-center justify-center transition-colors border ${
-                    !s.inStock
-                      ? "border-transparent text-[#2B2620]/30 line-through cursor-not-allowed"
-                      : selectedSize === s.size
-                      ? "bg-[#20402D] border-[#20402D] text-white"
-                      : "bg-white border-[#2B2620]/15 text-[#2B2620] hover:bg-[#20402D] hover:border-[#20402D] hover:text-white cursor-pointer"
-                  }`}
-                  title={s.inStock ? `Купить размер ${s.size}` : "Размер разобрали"}
-                >
-                  {s.size}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Info */}
@@ -160,29 +116,25 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
         </span>
         <div className="mt-1.5 flex items-baseline justify-between gap-2">
           <h3 className={`font-display uppercase text-[19px] sm:text-[23px] leading-none tracking-[0.02em] truncate ${ink}`}>{model}</h3>
-          <span className={`font-display text-[16px] sm:text-[19px] leading-none shrink-0 ${ink}`}>
-            {product.price.toLocaleString("ru-RU")} ₽
+          <span className="flex items-baseline gap-2 shrink-0">
+            {product.oldPrice && (
+              <span className={`hidden @[250px]:inline text-[12px] line-through ${muted}`}>{product.oldPrice.toLocaleString("ru-RU")}</span>
+            )}
+            <span className={`font-display text-[16px] sm:text-[19px] leading-none ${product.oldPrice ? "text-[#20402D]" : ink}`}>
+              {product.price.toLocaleString("ru-RU")} ₽
+            </span>
           </span>
         </div>
-        {product.oldPrice && (
-          <div className="mt-1.5 flex justify-end items-center gap-2 text-[11px]">
-            <span className={`line-through ${muted}`}>{product.oldPrice.toLocaleString("ru-RU")} ₽</span>
-            <span className="text-[#20402D] font-semibold">−{discount}%</span>
-          </div>
-        )}
-        <div className={`mt-3 pt-3 border-t flex items-center justify-between gap-2 ${dark ? "border-white/10" : "border-[#2B2620]/10"}`}>
-          <span className="flex flex-wrap gap-x-1.5 font-display text-[12px] sm:text-[13px] tracking-[0.04em]">
-            {soldOut ? (
-              <span className={muted}>Скоро снова</span>
-            ) : (
-              sizes.map((s) => (
-                <span key={s.size} className={s.inStock ? ink : `${muted} line-through opacity-50`}>
-                  {s.size}
-                </span>
-              ))
-            )}
-          </span>
-          <span className={`hidden sm:inline text-[11px] shrink-0 ${muted}`}>{heel}</span>
+        <div className={`mt-3 pt-3 border-t flex items-center gap-x-1.5 overflow-hidden whitespace-nowrap font-display text-[12px] sm:text-[13px] tracking-[0.04em] ${dark ? "border-white/10" : "border-[#2B2620]/10"}`}>
+          {soldOut ? (
+            <span className={muted}>Скоро снова</span>
+          ) : (
+            sizes.map((s) => (
+              <span key={s.size} className={s.inStock ? ink : `${muted} line-through opacity-50`}>
+                {s.size}
+              </span>
+            ))
+          )}
         </div>
       </Link>
     </div>

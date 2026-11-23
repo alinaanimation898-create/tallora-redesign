@@ -142,19 +142,27 @@ export default function HomePage() {
     return () => clearInterval(t);
   }, [spotPaused]);
 
+  const [railPaused, setRailPaused] = useState(false);
   const scrollRail = (dir: 1 | -1) => {
     const el = railRef.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
+    if (!el) return;
+    const card = el.firstElementChild as HTMLElement | null;
+    const step = card ? card.offsetWidth + 20 : el.clientWidth * 0.8;
+    const atEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 8;
+    const atStart = el.scrollLeft <= 8;
+    if (dir === 1 && atEnd) el.scrollTo({ left: 0, behavior: "smooth" });
+    else if (dir === -1 && atStart) el.scrollTo({ left: el.scrollWidth, behavior: "smooth" });
+    else el.scrollBy({ left: dir * step, behavior: "smooth" });
   };
+  useEffect(() => {
+    if (railPaused) return;
+    const t = setInterval(() => scrollRail(1), 3800);
+    return () => clearInterval(t);
+  }, [railPaused]);
 
   const winter = WINTER_IDS.map(byId).filter((p) => p !== undefined);
   const sil = SILHOUETTES[spot];
   const silProducts = PRODUCTS.filter((p) => p.categorySlug === sil.slug && p.sizes.some((z) => z.inStock)).slice(0, 2);
-  const voicesRef = useRef<HTMLDivElement>(null);
-  const scrollVoices = (dir: 1 | -1) => {
-    const el = voicesRef.current;
-    if (el) el.scrollBy({ left: dir * el.clientWidth * 0.8, behavior: "smooth" });
-  };
   const panels = CATEGORIES.filter((c) => c.slug !== "all").map((c) => ({
     ...c,
     image: CATEGORY_PHOTOS[c.slug] ?? ("image" in c ? c.image : undefined),
@@ -170,7 +178,7 @@ export default function HomePage() {
         </div>
 
         <div className="absolute inset-0 md:static md:order-1 flex flex-col justify-end px-5 sm:px-8 lg:px-12 xl:px-16 pt-32 pb-10 sm:pb-14 text-white md:text-[#2B2620] md:bg-[linear-gradient(160deg,#F7F2EA_0%,#EFE6D6_55%,#E6D3B0_100%)]">
-          <h1 className="uppercase mt-5 font-display leading-[0.9] tracking-[-0.02em] text-[clamp(46px,5.4vw,92px)] whitespace-nowrap [text-shadow:0_2px_30px_rgba(43,38,32,0.45)] md:[text-shadow:none]">
+          <h1 className="uppercase mt-5 font-display leading-[1.02] tracking-[-0.02em] text-[clamp(46px,5.4vw,92px)] whitespace-nowrap [text-shadow:0_2px_30px_rgba(43,38,32,0.45)] md:[text-shadow:none]">
             <span className="hero-in block" style={{ animationDelay: "200ms" }}>Твой размер</span>
             <span className="hero-in block " style={{ animationDelay: "320ms" }}>Твоя пара</span>
             <span className="hero-in block text-[#BFD8C6] md:text-[#20402D]" style={{ animationDelay: "440ms" }}>Твой момент</span>
@@ -197,12 +205,12 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex items-end justify-between gap-6 mb-8 sm:mb-10">
             <div>
-              <h2 className="font-display uppercase text-[clamp(40px,6.5vw,96px)] leading-[0.88] tracking-[-0.02em]">
+              <h2 className="font-display uppercase text-[clamp(40px,6.5vw,96px)] leading-[1.02] tracking-[-0.02em]">
                 Новая коллекция
                 <span className="block text-[#20402D]">зима 2026</span>
               </h2>
             </div>
-            <div className="hidden sm:flex items-center gap-2 shrink-0">
+            <div className="flex items-center gap-2 shrink-0">
               <button onClick={() => scrollRail(-1)} aria-label="Назад" className="w-12 h-12 rounded-full border border-[#2B2620]/15 hover:bg-white flex items-center justify-center transition-colors cursor-pointer">
                 <ChevronLeft size={18} />
               </button>
@@ -215,6 +223,9 @@ export default function HomePage() {
 
         <div
           ref={railRef}
+          onMouseEnter={() => setRailPaused(true)}
+          onMouseLeave={() => setRailPaused(false)}
+          onTouchStart={() => setRailPaused(true)}
           className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 sm:px-8 scroll-px-5 sm:scroll-px-8 lg:px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))] lg:scroll-px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))]"
         >
           {winter.map((product) => (
@@ -261,7 +272,7 @@ export default function HomePage() {
 
       {/* ───────────── 5. SILHOUETTES ───────────── */}
       <section
-        className="relative bg-[#F3F3F3] overflow-hidden"
+        className="relative bg-[#F5F0E8] overflow-hidden"
         onMouseEnter={() => setSpotPaused(true)}
         onMouseLeave={() => setSpotPaused(false)}
       >
@@ -306,21 +317,23 @@ export default function HomePage() {
 
           <div key={sil.slug} className="lg:col-span-4 grid grid-cols-2 gap-3 sm:gap-4 fade-swap">
             {silProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
+              <div key={p.id} className="bg-white rounded-[24px] p-2.5 sm:p-3 pb-4 shadow-[0_18px_40px_-28px_rgba(43,38,32,0.45)]">
+                <ProductCard product={p} />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
       {/* ───────────── 6. STAND OUT - full-bleed on mobile, split on desktop ───────────── */}
-      <section className="relative overflow-hidden bg-[#F5F0E8] lg:grid lg:grid-cols-[1fr_minmax(0,580px)] lg:min-h-[92vh]">
-        <div className="relative min-h-[88svh] lg:min-h-0 lg:order-2">
-          <Image src={SITE_PHOTOS.walk} alt="Девушка в красных туфлях Tallora выходит из машины" fill sizes="(max-width: 1024px) 100vw, 580px" className="object-cover object-[50%_40%] lg:object-[50%_60%]" />
+      <section className="relative overflow-hidden bg-[#F5F0E8] lg:grid lg:grid-cols-[1fr_auto]">
+        <div className="relative min-h-[88svh] lg:min-h-0 lg:order-2 lg:h-[min(92vh,980px)] lg:aspect-[781/1400]">
+          <Image src={SITE_PHOTOS.walk} alt="Девушка в красных туфлях Tallora выходит из машины" fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover object-[50%_40%] lg:object-center" />
           <div className="lg:hidden absolute inset-0 bg-gradient-to-t from-[#2B2620]/85 via-[#2B2620]/15 to-transparent" />
         </div>
         <div className="absolute inset-x-0 bottom-0 lg:static lg:order-1 flex items-end lg:items-center">
           <Reveal className="w-full max-w-[700px] lg:ml-auto px-5 sm:px-8 lg:px-14 xl:px-20 pb-12 lg:py-20 text-white lg:text-[#2B2620] min-w-0">
-            <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[0.85] tracking-[-0.02em]">
+            <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[1.02] tracking-[-0.02em]">
               Время
               <span className="block text-[#BFD8C6] lg:text-[#20402D]">выделяться</span>
             </h2>
@@ -338,7 +351,7 @@ export default function HomePage() {
       <section className="bg-white text-[#2B2620] py-16 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 sm:mb-12">
-            <h2 className="font-display uppercase text-[clamp(44px,8vw,128px)] leading-[0.85] tracking-[-0.02em]">
+            <h2 className="font-display uppercase text-[clamp(44px,8vw,128px)] leading-[1.02] tracking-[-0.02em]">
               На каждый
               <span className="block text-[#20402D]">выход</span>
             </h2>
@@ -422,28 +435,30 @@ export default function HomePage() {
         </div>
       </div>
 
-      {/* ───────────── 8. ANATOMY - three photo cards ───────────── */}
-      <section className="bg-[#EAEAEA] py-16 lg:py-28">
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <Reveal className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 mb-10 lg:mb-14">
-            <div>
-              <h2 className="uppercase font-display text-[clamp(40px,5.5vw,84px)] leading-[0.92] tracking-[-0.02em]">
-                Сделано <span className="">для тебя</span>
-              </h2>
-            </div>
+      {/* ───────────── 8. ANATOMY - photo + three promises ───────────── */}
+      <section className="bg-white py-16 lg:py-28">
+        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E9E4DE]">
+            <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-bottom" />
           </Reveal>
-          <div className="flex md:grid md:grid-cols-3 gap-3 sm:gap-5 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-5 px-5 scroll-px-5 md:mx-0 md:px-0">
-            {ANATOMY.map((f, i) => (
-              <Reveal key={f.n} delay={i * 100} className="group snap-start shrink-0 w-[80vw] md:w-auto bg-white rounded-[28px] overflow-hidden flex flex-col">
-                <div className="relative aspect-[4/5] overflow-hidden bg-[#E8E8E8]">
-                  <Image src={f.img} alt={f.title} fill sizes="(max-width: 768px) 80vw, 33vw" style={{ objectPosition: f.pos }} className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
-                </div>
-                <div className="p-6 sm:p-7 flex flex-col flex-1">
-                  <h3 className="font-display text-[28px] sm:text-3xl leading-tight">{f.title}</h3>
-                  <p className="mt-3 text-[15px] text-[#2B2620]/65 leading-relaxed flex-1">{f.text}</p>
-                </div>
-              </Reveal>
-            ))}
+          <div className="lg:col-span-7">
+            <Reveal>
+              <Eyebrow>Почему Tallora</Eyebrow>
+              <h2 className="mt-5 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.02] tracking-[-0.01em]">
+                Сделано <span className="text-[#20402D]">для тебя</span>
+              </h2>
+            </Reveal>
+            <div className="mt-10 border-t border-[#2B2620]/12">
+              {ANATOMY.map((f, i) => (
+                <Reveal key={f.n} delay={i * 100} className="py-7 border-b border-[#2B2620]/12 grid grid-cols-[48px_1fr] sm:grid-cols-[72px_1fr] gap-x-3">
+                  <span className="font-display text-[28px] sm:text-[36px] leading-none text-[#20402D]">{f.n}</span>
+                  <div>
+                    <h3 className="font-display uppercase text-[24px] sm:text-[30px] leading-tight">{f.title}</h3>
+                    <p className="mt-2 text-[15px] sm:text-[16px] text-[#2B2620]/65 leading-relaxed max-w-xl">{f.text}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -451,64 +466,63 @@ export default function HomePage() {
       {/* ───────────── 9. SIZE CALCULATOR ───────────── */}
       <HomeSizeCalculator />
 
-      {/* ───────────── 10. REVIEWS - cards with the pair they talk about ───────────── */}
+      {/* ───────────── 10. REVIEWS - messages from the Telegram channel ───────────── */}
       <section className="py-16 lg:py-28 bg-[#F5F0E8]">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 sm:mb-12">
-            <div>
-              <Eyebrow>Отзывы клиенток из нашего Telegram</Eyebrow>
-              <h2 className="mt-5 font-display uppercase text-[clamp(48px,7.5vw,120px)] leading-[0.85] tracking-[-0.02em]">
-                Вы <span className="text-[#20402D]">говорите</span>
+          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-end mb-10 sm:mb-14">
+            <div className="lg:col-span-7">
+              <Eyebrow>Отзывы</Eyebrow>
+              <h2 className="mt-5 font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.02] tracking-[-0.01em]">
+                Что говорят <span className="text-[#20402D]">клиентки</span>
               </h2>
             </div>
-            <div className="flex items-center gap-3">
-              <a href="https://t.me/tallora" target="_blank" rel="noreferrer" className="mr-2 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#20402D] hover:border-[#20402D]">
-                Все отзывы в Telegram
+            <div className="lg:col-span-5">
+              <p className="text-[15px] sm:text-[16px] text-[#2B2620]/70 leading-relaxed max-w-md">
+                Настоящие сообщения от клиенток и блогеров, которые носят Tallora. Мы собираем их в нашем Telegram-канале
+              </p>
+              <a href="https://t.me/tallora" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#20402D] hover:border-[#20402D]">
+                Читать все в Telegram <ArrowUpRight size={14} />
               </a>
-              <button onClick={() => scrollVoices(-1)} aria-label="Назад" className="hidden sm:flex w-12 h-12 rounded-full border border-[#2B2620]/15 hover:bg-white items-center justify-center transition-colors cursor-pointer">
-                <ChevronLeft size={18} />
-              </button>
-              <button onClick={() => scrollVoices(1)} aria-label="Вперёд" className="hidden sm:flex w-12 h-12 rounded-full bg-[#20402D] hover:bg-[#183326] text-white items-center justify-center transition-colors cursor-pointer">
-                <ChevronRight size={18} />
-              </button>
             </div>
           </Reveal>
-        </div>
 
-        <div
-          ref={voicesRef}
-          className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 sm:px-8 scroll-px-5 sm:scroll-px-8 lg:px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))] lg:scroll-px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))] pb-2"
-        >
-          {CLIENT_VOICES.map((v, i) => {
-            const meta = VOICE_META[i % VOICE_META.length];
-            return (
-              <article key={i} className="snap-start shrink-0 w-[82vw] sm:w-[46vw] lg:w-[31%] bg-white rounded-[28px] overflow-hidden flex flex-col border border-[#2B2620]/6">
-                <Link href={`/catalog?category=${meta.slug}`} className="group relative aspect-[5/4] overflow-hidden bg-[#E8E8E8] block">
-                  <Image src={meta.img} alt={v.product} fill sizes="(max-width: 640px) 82vw, (max-width: 1024px) 46vw, 30vw" style={{ objectPosition: meta.pos }} className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-105" />
-                  <span className="absolute top-4 left-4 bg-white/90 backdrop-blur text-[#2B2620] text-[10px] uppercase tracking-[0.2em] font-semibold px-3 py-1.5 rounded-full">
-                    {v.product}
-                  </span>
-                </Link>
-                <div className="relative flex flex-col flex-1 px-6 sm:px-7 pt-10 pb-6 sm:pb-7">
-                  <span aria-hidden className="absolute -top-7 left-6 sm:left-7 w-14 h-14 rounded-full bg-[#20402D] text-white flex items-center justify-center font-display text-4xl leading-none pt-3">
-                    “
-                  </span>
-                  <p className="text-[18px] sm:text-[19px] leading-[1.5] text-[#2B2620] flex-1">{v.text}</p>
-                  <div className="mt-6 pt-5 border-t border-[#2B2620]/10 flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <span className="w-10 h-10 shrink-0 rounded-full bg-[#F5F0E8] text-[#20402D] flex items-center justify-center font-display text-lg">
+          <div className="columns-1 md:columns-2 lg:columns-3 gap-5 [&>*]:mb-5">
+            {CLIENT_VOICES.map((v, i) => {
+              const meta = VOICE_META[i % VOICE_META.length];
+              return (
+                <Reveal key={i} delay={(i % 3) * 90} className="break-inside-avoid">
+                  <figure>
+                    <blockquote className="relative bg-white rounded-[26px] rounded-bl-[6px] p-6 sm:p-7 shadow-[0_18px_40px_-30px_rgba(43,38,32,0.5)]">
+                      <span aria-hidden className="block font-display text-[56px] leading-[0.6] text-[#20402D] h-7">“</span>
+                      <p className="mt-2 text-[18px] sm:text-[19px] leading-[1.5] text-[#2B2620]">{v.text}</p>
+                      <Link href={`/catalog?category=${meta.slug}`} className="mt-5 inline-flex items-center gap-2 h-9 pl-3.5 pr-2 rounded-full bg-[#F5F0E8] text-[11px] uppercase tracking-[0.16em] text-[#2B2620] hover:bg-[#20402D] hover:text-white transition-colors">
+                        {v.product} <ArrowUpRight size={13} />
+                      </Link>
+                    </blockquote>
+                    <figcaption className="mt-3 ml-1 flex items-center gap-3">
+                      <span className="w-10 h-10 shrink-0 rounded-full bg-[#20402D] text-white flex items-center justify-center font-display text-[17px]">
                         {v.who.charAt(0)}
                       </span>
-                      <span className="text-[12px] uppercase tracking-[0.16em] text-[#2B2620]/65 leading-snug">{v.who}</span>
-                    </div>
-                    <Link href={`/catalog?category=${meta.slug}`} aria-label={`Смотреть: ${v.product}`} className="w-10 h-10 shrink-0 rounded-full border border-[#2B2620]/15 hover:bg-[#20402D] hover:text-white hover:border-[#20402D] flex items-center justify-center transition-colors">
-                      <ArrowUpRight size={16} />
-                    </Link>
-                  </div>
-                </div>
-              </article>
-            );
-          })}
+                      <span className="text-[13px] text-[#2B2620]/70 leading-tight">
+                        <span className="block font-semibold text-[#2B2620]">{v.who.split(",")[0]}</span>
+                        {v.who.includes(",") ? v.who.split(",").slice(1).join(",").trim() : "Telegram Tallora"}
+                      </span>
+                    </figcaption>
+                  </figure>
+                </Reveal>
+              );
+            })}
+            <Reveal className="break-inside-avoid">
+              <a href={CONTACTS.telegram} target="_blank" rel="noreferrer" className="group block rounded-[26px] bg-[#20402D] text-white p-7 sm:p-8">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">Уже носишь Tallora?</span>
+                <span className="mt-4 block font-display uppercase text-[34px] leading-[1.02]">Расскажи о своей паре</span>
+                <span className="mt-6 inline-flex items-center gap-2 h-11 pl-5 pr-2 rounded-full bg-white text-[#20402D] text-[11px] uppercase tracking-[0.18em] font-semibold">
+                  Написать в Telegram
+                  <span className="w-7 h-7 rounded-full bg-[#20402D] text-white flex items-center justify-center group-hover:rotate-[-45deg] transition-transform"><ArrowRight size={13} /></span>
+                </span>
+              </a>
+            </Reveal>
+          </div>
         </div>
       </section>
 
@@ -517,7 +531,7 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 sm:mb-12">
             <div>
-              <h2 className="font-display uppercase text-[clamp(48px,9vw,148px)] leading-[0.82] tracking-[-0.02em]">
+              <h2 className="font-display uppercase text-[clamp(48px,9vw,148px)] leading-[1.02] tracking-[-0.02em]">
                 Lookbook
               </h2>
             </div>
@@ -557,7 +571,7 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <Reveal>
               <Eyebrow>Примерка вживую в Москве</Eyebrow>
-              <h2 className="uppercase mt-5 font-display text-[clamp(44px,6vw,96px)] leading-[0.9] tracking-[-0.02em]">
+              <h2 className="uppercase mt-5 font-display text-[clamp(44px,6vw,96px)] leading-[1.02] tracking-[-0.02em]">
                 Приходи <span className="text-[#20402D]">примерить</span>
               </h2>
               <p className="mt-6 text-[15px] text-[#2B2620]/70 leading-relaxed max-w-lg">
@@ -603,7 +617,7 @@ export default function HomePage() {
             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-[#20402D]">
               <Sparkles size={13} /> Закрытый клуб для своих
             </span>
-            <h2 className="mt-6 font-display uppercase leading-[0.8] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
+            <h2 className="mt-6 font-display uppercase leading-[1.02] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
             <p className="mt-8 font-display text-[26px] sm:text-[34px] leading-[1.3]">
               Новинки раньше всех
               <br />
