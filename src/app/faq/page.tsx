@@ -21,7 +21,7 @@ export default function FAQPage() {
             Служба заботы TALLORA
           </span>
           <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
-            Спрашивай <span className="text-[#20402D]">смело</span>
+            Спрашивай <span className="text-accent">смело</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-lg mx-auto">
             Всё о подборе размера 37–44, доставке, возврате и клубе Privé.

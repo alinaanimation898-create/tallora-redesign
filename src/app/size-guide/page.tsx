@@ -34,7 +34,7 @@ export default function SizeGuidePage() {
             Идеальная посадка
           </span>
           <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
-            Твой <span className="text-[#20402D]">идеальный</span> размер
+            Твой <span className="text-accent">идеальный</span> размер
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 leading-relaxed">
             Размер обуви зависит от длины стопы, а ещё от её ширины, подъёма и особенностей

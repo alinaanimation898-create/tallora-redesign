@@ -89,7 +89,7 @@ export default function PriveInvite() {
               <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-[#20402D]">
                 <Sparkles size={13} /> Закрытый клуб
               </span>
-              <h2 className="mt-4 font-display uppercase text-[64px] sm:text-[80px] leading-[1.02] tracking-[-0.02em]">Privé</h2>
+              <h2 className="mt-4 font-display uppercase text-[64px] sm:text-[80px] leading-[1.1] tracking-[-0.02em]">Privé</h2>
               <p className="mt-4 font-display text-xl leading-snug">
                 5% на первый заказ, до 10% бонусами и новинки раньше всех
               </p>

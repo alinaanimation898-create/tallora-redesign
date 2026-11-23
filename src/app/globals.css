@@ -202,3 +202,31 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .btn-shine::after { animation: none; display: none; }
 }
+
+/* Accent words in headings: soft emerald gradient inside the letters.
+   Plain classes (not Tailwind utilities) with explicit md/lg variants for text that sits on a photo on phones. */
+.text-accent,
+.text-accent-light {
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+.text-accent {
+  background-image: linear-gradient(100deg, #15301F 0%, #20402D 35%, #2F6447 75%, #4A8A64 100%);
+}
+.text-accent-light {
+  background-image: linear-gradient(100deg, #F1F7F2 0%, #CFE5D6 45%, #9CC7AC 100%);
+}
+@media (min-width: 768px) {
+  .md\:text-accent {
+    background-image: linear-gradient(100deg, #15301F 0%, #20402D 35%, #2F6447 75%, #4A8A64 100%);
+  }
+}
+@media (min-width: 1024px) {
+  .lg\:text-accent {
+    background-image: linear-gradient(100deg, #15301F 0%, #20402D 35%, #2F6447 75%, #4A8A64 100%);
+  }
+}

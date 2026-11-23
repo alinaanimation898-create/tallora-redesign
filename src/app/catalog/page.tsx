@@ -74,7 +74,7 @@ function CatalogContent() {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
           <div>
             <span className="text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/50">Tallora · размеры 37–44</span>
-            <h1 className="mt-3 font-display uppercase text-[clamp(48px,8vw,120px)] leading-[1.02] tracking-[-0.02em] text-[#2B2620]">
+            <h1 className="mt-3 font-display uppercase text-[clamp(48px,8vw,120px)] leading-[1.1] tracking-[-0.02em] text-[#2B2620]">
               {activeCategory === "all" ? "Каталог" : catName}
               <sup className="ml-2 align-top text-[0.22em] tracking-normal text-[#20402D]">{filteredProducts.length}</sup>
             </h1>

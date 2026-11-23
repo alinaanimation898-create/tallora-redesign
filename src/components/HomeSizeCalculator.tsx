@@ -35,8 +35,8 @@ export default function HomeSizeCalculator() {
           <span className="text-[11px] uppercase tracking-[0.35em] text-[#20402D] block mb-5">
             Точный подбор с первого раза
           </span>
-          <h2 className="uppercase font-display text-[clamp(44px,6vw,96px)] leading-[1.02]">
-            Твой размер <span className="text-[#20402D]">в сантиметрах</span>
+          <h2 className="uppercase font-display text-[clamp(44px,6vw,96px)] leading-[1.1]">
+            Твой размер <span className="text-accent">в сантиметрах</span>
           </h2>
           <p className="text-[#2B2620]/60 text-[15px] mt-5 max-w-md leading-relaxed">
             Встань на лист бумаги, отметь пятку и самый длинный палец - и передвинь ползунок

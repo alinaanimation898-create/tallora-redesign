@@ -26,9 +26,9 @@ export default function Footer() {
             <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
               Tallora - обувь для высоких девушек
             </span>
-            <h2 className="uppercase font-display text-4xl sm:text-6xl leading-[1.02] text-[#2B2620]">
+            <h2 className="uppercase font-display text-4xl sm:text-6xl leading-[1.1] text-[#2B2620]">
               Мой стиль · Мой размер <br className="hidden sm:inline" />
-              <span className="font-normal text-[#20402D]">Моя свобода</span>
+              <span className="font-normal text-accent">Моя свобода</span>
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">
               Стильная и удобная женская обувь 37–44 размера из натуральной кожи и замши. Без пластика.

@@ -178,16 +178,16 @@ export default function HomePage() {
         </div>
 
         <div className="absolute inset-0 md:static md:order-1 flex flex-col justify-end px-5 sm:px-8 lg:px-12 xl:px-16 pt-32 pb-10 sm:pb-14 text-white md:text-[#2B2620] md:bg-[linear-gradient(160deg,#F7F2EA_0%,#EFE6D6_55%,#E6D3B0_100%)]">
-          <h1 className="uppercase mt-5 font-display leading-[1.02] tracking-[-0.02em] text-[clamp(46px,5.4vw,92px)] whitespace-nowrap [text-shadow:0_2px_30px_rgba(43,38,32,0.45)] md:[text-shadow:none]">
+          <h1 className="uppercase mt-5 font-display leading-[1.1] tracking-[-0.02em] text-[clamp(46px,5.4vw,92px)] whitespace-nowrap [text-shadow:0_2px_30px_rgba(43,38,32,0.45)] md:[text-shadow:none]">
             <span className="hero-in block" style={{ animationDelay: "200ms" }}>Твой размер</span>
             <span className="hero-in block " style={{ animationDelay: "320ms" }}>Твоя пара</span>
-            <span className="hero-in block text-[#BFD8C6] md:text-[#20402D]" style={{ animationDelay: "440ms" }}>Твой момент</span>
+            <span className="hero-in block text-accent-light md:text-accent" style={{ animationDelay: "440ms" }}>Твой момент</span>
           </h1>
-          <p className="hero-in mt-7 max-w-sm text-[15px] leading-relaxed text-white/90 md:text-[#2B2620]/70" style={{ animationDelay: "560ms" }}>
+          <p className="hero-in mt-9 max-w-sm text-[15px] leading-relaxed text-white/90 md:text-[#2B2620]/70" style={{ animationDelay: "560ms" }}>
             Туфли, ботильоны, лоферы и сапоги 37–44 размера из натуральной кожи. Для женщин, которые
             выбирают себя каждый день и на любом каблуке
           </p>
-          <div className="hero-in mt-8 flex flex-col sm:flex-row md:flex-col 2xl:flex-row sm:items-start gap-3" style={{ animationDelay: "680ms" }}>
+          <div className="hero-in mt-10 flex flex-col sm:flex-row md:flex-col 2xl:flex-row sm:items-start gap-3" style={{ animationDelay: "680ms" }}>
             <ArrowPill href="/catalog">Выбрать свою пару</ArrowPill>
             <button
               onClick={() => setIsSizeModalOpen(true)}
@@ -205,9 +205,9 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex items-end justify-between gap-6 mb-8 sm:mb-10">
             <div>
-              <h2 className="font-display uppercase text-[clamp(40px,6.5vw,96px)] leading-[1.02] tracking-[-0.02em]">
+              <h2 className="font-display uppercase text-[clamp(40px,6.5vw,96px)] leading-[1.1] tracking-[-0.02em]">
                 Новая коллекция
-                <span className="block text-[#20402D]">зима 2026</span>
+                <span className="block text-accent">зима 2026</span>
               </h2>
             </div>
             <div className="flex items-center gap-2 shrink-0">
@@ -333,9 +333,9 @@ export default function HomePage() {
         </div>
         <div className="absolute inset-x-0 bottom-0 lg:static lg:order-1 flex items-end lg:items-center">
           <Reveal className="w-full max-w-[700px] lg:ml-auto px-5 sm:px-8 lg:px-14 xl:px-20 pb-12 lg:py-20 text-white lg:text-[#2B2620] min-w-0">
-            <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[1.02] tracking-[-0.02em]">
+            <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[1.1] tracking-[-0.02em]">
               Время
-              <span className="block text-[#BFD8C6] lg:text-[#20402D]">выделяться</span>
+              <span className="block text-accent-light lg:text-accent">выделяться</span>
             </h2>
             <p className="mt-6 max-w-sm text-[15px] text-white/85 lg:text-[#2B2620]/70 leading-relaxed">
               Шаг, который слышно. Каблук, который держит. Пара, которую запоминают - вместе с тобой
@@ -351,9 +351,9 @@ export default function HomePage() {
       <section className="bg-white text-[#2B2620] py-16 lg:py-28">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 sm:mb-12">
-            <h2 className="font-display uppercase text-[clamp(44px,8vw,128px)] leading-[1.02] tracking-[-0.02em]">
+            <h2 className="font-display uppercase text-[clamp(44px,8vw,128px)] leading-[1.1] tracking-[-0.02em]">
               На каждый
-              <span className="block text-[#20402D]">выход</span>
+              <span className="block text-accent">выход</span>
             </h2>
             <p className="max-w-xs text-sm text-[#2B2620]/60 leading-relaxed">
               Офис, свидание, бранч, вечеринка до утра. Для каждого сценария - своя пара, и в каждой ты главная
@@ -444,8 +444,8 @@ export default function HomePage() {
           <div className="lg:col-span-7">
             <Reveal>
               <Eyebrow>Почему Tallora</Eyebrow>
-              <h2 className="mt-5 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.02] tracking-[-0.01em]">
-                Сделано <span className="text-[#20402D]">для тебя</span>
+              <h2 className="mt-5 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.01em]">
+                Сделано <span className="text-accent">для тебя</span>
               </h2>
             </Reveal>
             <div className="mt-10 border-t border-[#2B2620]/12">
@@ -472,8 +472,8 @@ export default function HomePage() {
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-end mb-10 sm:mb-14">
             <div className="lg:col-span-7">
               <Eyebrow>Отзывы</Eyebrow>
-              <h2 className="mt-5 font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.02] tracking-[-0.01em]">
-                Что говорят <span className="text-[#20402D]">клиентки</span>
+              <h2 className="mt-5 font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.1] tracking-[-0.01em]">
+                Что говорят <span className="text-accent">клиентки</span>
               </h2>
             </div>
             <div className="lg:col-span-5">
@@ -531,7 +531,7 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="flex flex-col md:flex-row md:items-end justify-between gap-5 mb-8 sm:mb-12">
             <div>
-              <h2 className="font-display uppercase text-[clamp(48px,9vw,148px)] leading-[1.02] tracking-[-0.02em]">
+              <h2 className="font-display uppercase text-[clamp(48px,9vw,148px)] leading-[1.1] tracking-[-0.02em]">
                 Lookbook
               </h2>
             </div>
@@ -571,8 +571,8 @@ export default function HomePage() {
           <div className="lg:col-span-6">
             <Reveal>
               <Eyebrow>Примерка вживую в Москве</Eyebrow>
-              <h2 className="uppercase mt-5 font-display text-[clamp(44px,6vw,96px)] leading-[1.02] tracking-[-0.02em]">
-                Приходи <span className="text-[#20402D]">примерить</span>
+              <h2 className="uppercase mt-5 font-display text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.02em]">
+                Приходи <span className="text-accent">примерить</span>
               </h2>
               <p className="mt-6 text-[15px] text-[#2B2620]/70 leading-relaxed max-w-lg">
                 Вся коллекция и все размеры ждут тебя в шоуруме. А ещё у нас свои вечеринки: клиентские дни
@@ -617,7 +617,7 @@ export default function HomePage() {
             <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-[#20402D]">
               <Sparkles size={13} /> Закрытый клуб для своих
             </span>
-            <h2 className="mt-6 font-display uppercase leading-[1.02] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
+            <h2 className="mt-6 font-display uppercase leading-[1.1] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
             <p className="mt-8 font-display text-[26px] sm:text-[34px] leading-[1.3]">
               Новинки раньше всех
               <br />

@@ -22,7 +22,7 @@ export default function ContactsPage() {
             Связь с нами
           </span>
           <h1 className="uppercase font-display text-3xl sm:text-6xl text-[#2B2620]">
-            Мы <span className="text-[#20402D]">на связи</span>
+            Мы <span className="text-accent">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
             Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок - или приезжай примерить в шоурум

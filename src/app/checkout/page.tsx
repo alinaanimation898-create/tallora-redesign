@@ -55,7 +55,7 @@ export default function CheckoutPage() {
 
           <h1 className="uppercase font-display text-3xl text-[#2B2620]">
             Номер заказа: <br />
-            <span className="text-[#20402D] font-bold">{orderNumber}</span>
+            <span className="text-accent font-bold">{orderNumber}</span>
           </h1>
 
           <p className="text-xs text-[#2B2620]/70 leading-relaxed">
