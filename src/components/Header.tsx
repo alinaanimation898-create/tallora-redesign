@@ -56,15 +56,15 @@ export default function Header() {
               {[...Array(3)].map((__, i) => (
                 <React.Fragment key={i}>
                   <span>Размеры 37 – 44</span>
-                  <span className="text-[#B8914A]">●</span>
-                  <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#8F6D2F] cursor-pointer">
+                  <span className="text-[#20402D]">●</span>
+                  <button onClick={() => setIsSizeModalOpen(true)} className="uppercase hover:text-[#20402D] cursor-pointer">
                     Калькулятор стопы
                   </button>
-                  <span className="text-[#B8914A]">●</span>
+                  <span className="text-[#20402D]">●</span>
                   <span>Доставка СДЭК по всей России</span>
-                  <span className="text-[#B8914A]">●</span>
-                  <span className="text-[#8F6D2F]">−5% на первый заказ в клубе Tallora Privé</span>
-                  <span className="text-[#B8914A]">●</span>
+                  <span className="text-[#20402D]">●</span>
+                  <span className="text-[#20402D]">−5% на первый заказ в клубе Tallora Privé</span>
+                  <span className="text-[#20402D]">●</span>
                 </React.Fragment>
               ))}
             </div>
@@ -94,8 +94,8 @@ export default function Header() {
                     className={`px-3.5 py-2 rounded-full transition-colors ${
                       isActive
                         ? onDark
-                          ? "bg-[#F3F3F3] text-[#2B2620]"
-                          : "bg-[#DAB16B] text-[#2B2620]"
+                          ? "bg-[#F3F3F3] text-white"
+                          : "bg-[#20402D] text-white"
                         : onDark
                         ? "hover:bg-white/10"
                         : "hover:bg-[#2B2620]/5"
@@ -109,7 +109,7 @@ export default function Header() {
           </div>
 
           {/* Center: logo */}
-          <Link href="/" aria-label="Tallora – на главную" className={`flex items-center hover:text-[#B8914A] transition-colors ${ink}`}>
+          <Link href="/" aria-label="Tallora – на главную" className={`flex items-center hover:text-[#20402D] transition-colors ${ink}`}>
             <Logo className="h-[20px] sm:h-[28px] w-auto" />
           </Link>
 
@@ -124,7 +124,7 @@ export default function Header() {
                     : "border-[#2B2620]/15 text-[#2B2620] hover:border-[#2B2620]"
                 }`}
               >
-                <Ruler size={13} className="text-[#C99B4F]" />
+                <Ruler size={13} className="text-[#183326]" />
                 <span>{selectedSize ? `Размер ${selectedSize}` : "Подобрать размер"}</span>
                 <ChevronDown size={12} className="opacity-60" />
               </button>
@@ -144,8 +144,8 @@ export default function Header() {
                         }}
                         className={`h-10 rounded-full font-display text-base transition-colors ${
                           selectedSize === sz
-                            ? "bg-[#DAB16B] text-[#2B2620]"
-                            : "border border-[#2B2620]/12 hover:border-[#2B2620] text-[#2B2620]"
+                            ? "bg-[#20402D] text-white"
+                            : "border border-[#2B2620]/12 hover:border-[#2B2620] text-white"
                         }`}
                       >
                         {sz}
@@ -157,7 +157,7 @@ export default function Header() {
                       setSizeDropdownOpen(false);
                       setIsSizeModalOpen(true);
                     }}
-                    className="w-full text-center text-[10px] tracking-[0.18em] uppercase text-[#8F6D2F] hover:underline pt-3 border-t border-[#2B2620]/8"
+                    className="w-full text-center text-[10px] tracking-[0.18em] uppercase text-[#20402D] hover:underline pt-3 border-t border-[#2B2620]/8"
                   >
                     Посчитать размер в см
                   </button>
@@ -172,14 +172,14 @@ export default function Header() {
               }`}
               title="Помощь стилиста Веры"
             >
-              <Sparkles size={15} className="text-[#C99B4F]" />
+              <Sparkles size={15} className="text-[#183326]" />
               <span className="hidden xl:inline tracking-[0.18em] uppercase text-[11px] font-medium">Помощь стилиста</span>
             </button>
 
             <button
               onClick={() => setIsCartOpen(true)}
               className={`relative w-10 h-10 rounded-full flex items-center justify-center transition-colors cursor-pointer ${
-                "bg-[#DAB16B] text-[#2B2620] hover:bg-[#C99B4F]"
+                "bg-[#20402D] text-white hover:bg-[#183326]"
               }`}
               aria-label="Корзина"
             >
@@ -205,10 +205,10 @@ export default function Header() {
                 onClick={() => setMobileMenuOpen(false)}
                 className="flex items-baseline justify-between py-2 border-b border-[#2B2620]/10 group"
               >
-                <span className="font-display uppercase text-4xl tracking-tight group-hover:text-[#8F6D2F] transition-colors">
+                <span className="font-display uppercase text-4xl tracking-tight group-hover:text-[#20402D] transition-colors">
                   {link.label}
                 </span>
-                <span className="font-serif italic text-sm text-[#8F6D2F]">0{i + 1}</span>
+                <span className="font-serif text-sm text-[#20402D]">0{i + 1}</span>
               </Link>
             ))}
           </nav>
@@ -221,7 +221,7 @@ export default function Header() {
                   setMobileMenuOpen(false);
                   setIsSizeModalOpen(true);
                 }}
-                className="text-[10px] tracking-[0.18em] uppercase text-[#8F6D2F] underline"
+                className="text-[10px] tracking-[0.18em] uppercase text-[#20402D] underline"
               >
                 Как измерить?
               </button>
@@ -232,7 +232,7 @@ export default function Header() {
                   key={sz}
                   onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
                   className={`h-11 rounded-full font-display text-base transition-all ${
-                    selectedSize === sz ? "bg-[#DAB16B] text-[#2B2620]" : "border border-[#2B2620]/15"
+                    selectedSize === sz ? "bg-[#20402D] text-white" : "border border-[#2B2620]/15"
                   }`}
                 >
                   {sz}
@@ -246,9 +246,9 @@ export default function Header() {
               setMobileMenuOpen(false);
               setIsVeraOpen(true);
             }}
-            className="mt-6 w-full h-12 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-[11px] font-semibold"
+            className="mt-6 w-full h-12 rounded-full bg-[#20402D] text-white flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-[11px] font-semibold"
           >
-            <Sparkles size={15} className="text-[#8F6D2F]" />
+            <Sparkles size={15} className="text-[#20402D]" />
             Помощь стилиста
           </button>
         </div>

@@ -17,11 +17,11 @@ export default function FAQPage() {
     <div className="bg-[#F3F3F3] min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-4xl mx-auto space-y-12">
         <div className="text-center">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-2">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-2">
             Служба заботы TALLORA
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Спрашивай <span className="italic text-[#B8914A]">смело</span>
+            Спрашивай <span className="text-[#20402D]">смело</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-lg mx-auto">
             Всё о подборе размера 37–44, доставке, возврате и клубе Privé.
@@ -42,8 +42,8 @@ export default function FAQPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 text-xs uppercase tracking-wider border transition-all ${
                 activeTab === tab.id
-                  ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
-                  : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
+                  ? "bg-[#20402D] text-white border-[#20402D]"
+                  : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
               }`}
             >
               {tab.label}
@@ -64,7 +64,7 @@ export default function FAQPage() {
                   <span className="font-serif text-base sm:text-lg text-[#2B2620]">
                     {item.question}
                   </span>
-                  <span className="font-mono text-xl text-[#8F6D2F] shrink-0">
+                  <span className="font-mono text-xl text-[#20402D] shrink-0">
                     {isOpen ? "−" : "+"}
                   </span>
                 </button>
@@ -82,7 +82,7 @@ export default function FAQPage() {
         <div className="bg-[#EFE6D6] text-[#2B2620] p-8 border border-[#E2E2E2] flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left rounded-[24px]">
           <div>
             <h3 className="font-serif text-xl sm:text-2xl text-[#2B2620] flex items-center gap-2 justify-center sm:justify-start">
-              <Sparkles size={20} className="text-[#8F6D2F]" />
+              <Sparkles size={20} className="text-[#20402D]" />
               Остались вопросы? Напишите нам
             </h3>
             <p className="text-xs text-[#2B2620]/70 mt-1 max-w-md">
@@ -91,7 +91,7 @@ export default function FAQPage() {
           </div>
           <button
             onClick={() => setIsVeraOpen(true)}
-            className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] px-6 py-3.5 text-xs uppercase tracking-[0.2em] font-medium shrink-0 cursor-pointer rounded-full"
+            className="bg-[#20402D] hover:bg-[#183326] text-white px-6 py-3.5 text-xs uppercase tracking-[0.2em] font-medium shrink-0 cursor-pointer rounded-full"
           >
             Спросить стилиста Веру
           </button>

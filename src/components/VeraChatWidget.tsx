@@ -102,24 +102,24 @@ export default function VeraChatWidget() {
       {!isVeraOpen && (
         <button
           onClick={() => setIsVeraOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-white text-[#2B2620] px-4 py-3 rounded-full shadow-[0_12px_40px_-12px_rgba(43,38,32,0.35)] border border-[#2B2620]/8 hover:border-[#DAB16B] transition-all group cursor-pointer"
+          className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-white text-[#2B2620] px-4 py-3 rounded-full shadow-[0_12px_40px_-12px_rgba(43,38,32,0.35)] border border-[#2B2620]/8 hover:border-[#20402D] transition-all group cursor-pointer"
           aria-label="Вера, стилист TALLORA"
         >
           <div className="relative">
-            <span className="w-8 h-8 rounded-full bg-[#DAB16B] flex items-center justify-center text-[#2B2620] text-xs font-serif font-bold">
+            <span className="w-8 h-8 rounded-full bg-[#20402D] flex items-center justify-center text-white text-xs font-serif font-bold">
               В
             </span>
             <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
           </div>
           <div className="text-left hidden sm:block">
             <span className="block text-xs font-semibold tracking-wide">
-              <span className="text-[#8F6D2F] font-normal">Стилист</span> Вера
+              <span className="text-[#20402D] font-normal">Стилист</span> Вера
             </span>
             <span className="block text-[10px] text-[#2B2620]/55">
               Подбор размера & образа
             </span>
           </div>
-          <Sparkles size={16} className="text-[#B8914A] group-hover:rotate-12 transition-transform" />
+          <Sparkles size={16} className="text-[#20402D] group-hover:rotate-12 transition-transform" />
         </button>
       )}
 
@@ -130,7 +130,7 @@ export default function VeraChatWidget() {
           <div className="bg-[#EFE6D6] text-[#2B2620] p-4 flex items-center justify-between border-b border-[#E2E2E2]">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-[#DAB16B] flex items-center justify-center font-serif text-base text-[#2B2620] font-bold">
+                <div className="w-10 h-10 rounded-full bg-[#20402D] flex items-center justify-center font-serif text-base text-white font-bold">
                   В
                 </div>
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#2B2620]" />
@@ -139,7 +139,7 @@ export default function VeraChatWidget() {
                 <h3 className="font-serif text-sm tracking-wider uppercase text-[#2B2620]">
                   Стилист Вера
                 </h3>
-                <p className="text-[10px] text-[#8F6D2F] tracking-widest uppercase">
+                <p className="text-[10px] text-[#20402D] tracking-widest uppercase">
                   Подбор размера и образа 37–44
                 </p>
               </div>
@@ -164,15 +164,15 @@ export default function VeraChatWidget() {
                 }`}
               >
                 {msg.sender === "vera" && (
-                  <div className="w-6 h-6 rounded-full bg-[#DAB16B] text-[#2B2620] font-serif text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
+                  <div className="w-6 h-6 rounded-full bg-[#20402D] text-white font-serif text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
                     В
                   </div>
                 )}
                 <div
                   className={`max-w-[80%] p-3 rounded-sm leading-relaxed shadow-xs ${
                     msg.sender === "user"
-                      ? "bg-[#DAB16B] text-[#2B2620]"
-                      : "bg-[#FFFFFF] text-[#2B2620] border border-[#E2E2E2]"
+                      ? "bg-[#20402D] text-white"
+                      : "bg-[#FFFFFF] text-white border border-[#E2E2E2]"
                   }`}
                 >
                   <p>{msg.text}</p>
@@ -184,7 +184,7 @@ export default function VeraChatWidget() {
                             setIsVeraOpen(false);
                             setIsSizeModalOpen(true);
                           }}
-                          className="w-full text-center py-1.5 px-3 bg-[#DAB16B] text-[#2B2620] text-[11px] font-medium tracking-wider uppercase hover:bg-[#C99B4F] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
+                          className="w-full text-center py-1.5 px-3 bg-[#20402D] text-white text-[11px] font-medium tracking-wider uppercase hover:bg-[#183326] transition-colors flex items-center justify-center gap-1.5 cursor-pointer"
                         >
                           <span>{msg.action.label}</span>
                           <ArrowRight size={12} />
@@ -194,7 +194,7 @@ export default function VeraChatWidget() {
                         <Link
                           href="/catalog"
                           onClick={() => setIsVeraOpen(false)}
-                          className="w-full text-center py-1.5 px-3 bg-[#DAB16B] text-[#2B2620] text-[11px] font-medium tracking-wider uppercase hover:bg-[#C99B4F] transition-colors flex items-center justify-center gap-1.5"
+                          className="w-full text-center py-1.5 px-3 bg-[#20402D] text-white text-[11px] font-medium tracking-wider uppercase hover:bg-[#183326] transition-colors flex items-center justify-center gap-1.5"
                         >
                           <span>{msg.action.label}</span>
                           <ArrowRight size={12} />
@@ -217,7 +217,7 @@ export default function VeraChatWidget() {
               <button
                 key={i}
                 onClick={() => handleSend(prompt)}
-                className="whitespace-nowrap px-2.5 py-1 text-[10px] border border-[#D4D4D4] bg-[#FFFFFF] rounded-full text-[#2B2620] hover:border-[#DAB16B] hover:text-[#8F6D2F] transition-colors shrink-0"
+                className="whitespace-nowrap px-2.5 py-1 text-[10px] border border-[#D4D4D4] bg-[#FFFFFF] rounded-full text-[#2B2620] hover:border-[#20402D] hover:text-[#20402D] transition-colors shrink-0"
               >
                 {prompt}
               </button>
@@ -237,12 +237,12 @@ export default function VeraChatWidget() {
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Напишите вопрос Вере..."
-              className="flex-1 bg-white border border-[#D4D4D4] px-3 py-2 text-xs text-[#2B2620] placeholder:text-[#999999] focus:outline-none focus:border-[#DAB16B] rounded-xl"
+              className="flex-1 bg-white border border-[#D4D4D4] px-3 py-2 text-xs text-[#2B2620] placeholder:text-[#999999] focus:outline-none focus:border-[#20402D] rounded-xl"
             />
             <button
               type="submit"
               disabled={!input.trim()}
-              className="bg-[#DAB16B] disabled:opacity-40 text-[#2B2620] p-2 hover:bg-[#C99B4F] transition-colors cursor-pointer"
+              className="bg-[#20402D] disabled:opacity-40 text-white p-2 hover:bg-[#183326] transition-colors cursor-pointer"
               aria-label="Отправить"
             >
               <Send size={15} />

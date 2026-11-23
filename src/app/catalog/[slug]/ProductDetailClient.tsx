@@ -77,11 +77,11 @@ export default function ProductDetailClient({ product }: Props) {
     <div className="bg-[#F3F3F3] min-h-screen pb-24">
       {/* Breadcrumbs */}
       <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 text-[11px] text-[#2B2620]/60 flex items-center gap-2 overflow-hidden whitespace-nowrap">
-        <Link href="/" className="hover:text-[#8F6D2F]">Главная</Link>
+        <Link href="/" className="hover:text-[#20402D]">Главная</Link>
         <span>/</span>
-        <Link href="/catalog" className="hover:text-[#8F6D2F]">Каталог</Link>
+        <Link href="/catalog" className="hover:text-[#20402D]">Каталог</Link>
         <span>/</span>
-        <Link href={`/catalog?category=${product.categorySlug}`} className="hover:text-[#8F6D2F]">{product.category}</Link>
+        <Link href={`/catalog?category=${product.categorySlug}`} className="hover:text-[#20402D]">{product.category}</Link>
         <span>/</span>
         <span className="text-[#2B2620] font-medium truncate">{product.name}</span>
       </div>
@@ -98,7 +98,7 @@ export default function ProductDetailClient({ product }: Props) {
                   onClick={() => setActiveImageIdx(idx)}
                   className={`relative w-16 h-20 sm:w-20 sm:h-26 rounded-xl border shrink-0 bg-[#EAEAEA] overflow-hidden transition-all ${
                     activeImageIdx === idx
-                      ? "border-[#DAB16B] ring-1 ring-[#DAB16B]"
+                      ? "border-[#20402D] ring-1 ring-[#20402D]"
                       : "border-[#E2E2E2] opacity-60 hover:opacity-100"
                   }`}
                 >
@@ -120,7 +120,7 @@ export default function ProductDetailClient({ product }: Props) {
                 />
 
                 {product.badge && (
-                  <div className="absolute top-4 left-4 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
+                  <div className="absolute top-4 left-4 bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
                     {product.badge}
                   </div>
                 )}
@@ -130,12 +130,12 @@ export default function ProductDetailClient({ product }: Props) {
 
           {/* RIGHT: BUYING PANEL & SIZE PICKER */}
           <div className="lg:col-span-5 bg-[#FFFFFF] p-5 sm:p-8 rounded-[24px] border border-[#2B2620]/8 lg:sticky lg:top-28">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
               {product.typeLabel} · {product.heelHeight === "Без каблука" ? "без каблука" : `каблук ${product.heelHeight}`}
             </span>
 
             <h1 className="font-serif text-[34px] sm:text-5xl text-[#2B2620] leading-[1] mb-4">
-              {product.typeLabel} <span className="italic">{product.model}</span>
+              {product.typeLabel} <span className="">{product.model}</span>
               <span className="block text-lg sm:text-xl text-[#2B2620]/55 mt-2 first-letter:uppercase">{product.color}</span>
             </h1>
 
@@ -151,15 +151,12 @@ export default function ProductDetailClient({ product }: Props) {
                   </span>
                 )}
               </div>
-              <span className="text-[11px] bg-[#DAB16B]/15 text-[#8F6D2F] px-3 py-1 rounded-full font-semibold tracking-wide">
-                +{product.clubBonus} баллов PRIVÉ
-              </span>
             </div>
 
             {/* FIT HINT BOX */}
             <div className="bg-[#F5F0E8] p-4 rounded-2xl mb-6">
               <div className="flex items-center gap-2 text-xs font-semibold text-[#2B2620] mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#DAB16B]" />
+                <span className="w-2 h-2 rounded-full bg-[#20402D] text-white" />
                 Посадка по колодке:
               </div>
               <p className="text-xs text-[#2B2620]/80 leading-relaxed">
@@ -175,7 +172,7 @@ export default function ProductDetailClient({ product }: Props) {
                 </span>
                 <button
                   onClick={() => setIsSizeModalOpen(true)}
-                  className="text-xs text-[#8F6D2F] underline flex items-center gap-1 hover:opacity-80"
+                  className="text-xs text-[#20402D] underline flex items-center gap-1 hover:opacity-80"
                 >
                   <Ruler size={13} />
                   Подобрать размер в см
@@ -192,8 +189,8 @@ export default function ProductDetailClient({ product }: Props) {
                       !s.inStock
                         ? "opacity-35 line-through bg-[#F3F3F3] border-transparent cursor-not-allowed text-[#2B2620]/50"
                         : chosenSize === s.size
-                        ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B] font-bold shadow-xs"
-                        : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
+                        ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
+                        : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
                     }`}
                   >
                     <span className="block">{s.size}</span>
@@ -211,7 +208,7 @@ export default function ProductDetailClient({ product }: Props) {
                   <span>
                     Выбран размер: <strong className="text-[#2B2620]">{chosenSize}</strong>
                     {product.sizes.find((s) => s.size === chosenSize)?.stockCount === 1 && (
-                      <span className="text-[#8F6D2F] font-semibold ml-2">
+                      <span className="text-[#20402D] font-semibold ml-2">
                         – последняя пара!
                       </span>
                     )}
@@ -219,7 +216,7 @@ export default function ProductDetailClient({ product }: Props) {
                 )}
                 <button
                   onClick={() => setNotifyModalOpen(true)}
-                  className="text-[#8F6D2F] hover:underline flex items-center gap-1 text-[10px]"
+                  className="text-[#20402D] hover:underline flex items-center gap-1 text-[10px]"
                 >
                   <Bell size={11} /> Сообщить о поступлении
                 </button>
@@ -231,7 +228,7 @@ export default function ProductDetailClient({ product }: Props) {
               <button
                 onClick={handleAddToCart}
                 disabled={!chosenSize || soldOut}
-                className="w-full h-14 rounded-full bg-[#DAB16B] hover:bg-[#C99B4F] disabled:opacity-40 text-[#2B2620] px-6 text-[12px] uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full h-14 rounded-full bg-[#20402D] hover:bg-[#183326] disabled:opacity-40 text-white px-6 text-[12px] uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>{soldOut ? "Скоро снова" : `Хочу в ${chosenSize} размере`}</span>
                 <ArrowRight size={15} />
@@ -241,7 +238,7 @@ export default function ProductDetailClient({ product }: Props) {
                 onClick={() => setIsVeraOpen(true)}
                 className="w-full h-12 rounded-full bg-transparent hover:bg-[#F5F0E8] text-[#2B2620] border border-[#2B2620]/20 px-6 text-[11px] uppercase tracking-[0.18em] transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
-                <Sparkles size={14} className="text-[#8F6D2F]" />
+                <Sparkles size={14} className="text-[#20402D]" />
                 <span>Спросить Веру о посадке</span>
               </button>
             </div>
@@ -249,15 +246,15 @@ export default function ProductDetailClient({ product }: Props) {
             {/* TRUST & LOGISTICS PERKS */}
             <div className="space-y-3 pt-4 border-t border-[#E2E2E2] text-xs text-[#2B2620]/80">
               <div className="flex items-center gap-3">
-                <RefreshCw size={16} className="text-[#8F6D2F] shrink-0" />
+                <RefreshCw size={16} className="text-[#20402D] shrink-0" />
                 <span><strong>Возврат 14 дней</strong> – если пара без следов носки</span>
               </div>
               <div className="flex items-center gap-3">
-                <Truck size={16} className="text-[#8F6D2F] shrink-0" />
+                <Truck size={16} className="text-[#20402D] shrink-0" />
                 <span><strong>СДЭК по всей России</strong>, по Москве курьером 700 ₽ - от 3 пар бесплатно и с примеркой</span>
               </div>
               <div className="flex items-center gap-3">
-                <ShieldCheck size={16} className="text-[#8F6D2F] shrink-0" />
+                <ShieldCheck size={16} className="text-[#20402D] shrink-0" />
                 <span><strong>{product.material}</strong></span>
               </div>
             </div>
@@ -270,29 +267,29 @@ export default function ProductDetailClient({ product }: Props) {
             <button
               onClick={() => setActiveTab("desc")}
               className={`pb-2 transition-colors relative ${
-                activeTab === "desc" ? "text-[#8F6D2F] font-bold" : "text-[#2B2620]/70"
+                activeTab === "desc" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
               }`}
             >
               О модели
-              {activeTab === "desc" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#DAB16B]" />}
+              {activeTab === "desc" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
             </button>
             <button
               onClick={() => setActiveTab("details")}
               className={`pb-2 transition-colors relative ${
-                activeTab === "details" ? "text-[#8F6D2F] font-bold" : "text-[#2B2620]/70"
+                activeTab === "details" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
               }`}
             >
               Материалы и колодка
-              {activeTab === "details" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#DAB16B]" />}
+              {activeTab === "details" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
             </button>
             <button
               onClick={() => setActiveTab("care")}
               className={`pb-2 transition-colors relative ${
-                activeTab === "care" ? "text-[#8F6D2F] font-bold" : "text-[#2B2620]/70"
+                activeTab === "care" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
               }`}
             >
               Уход и хранение
-              {activeTab === "care" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#DAB16B]" />}
+              {activeTab === "care" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
             </button>
           </div>
 
@@ -325,7 +322,7 @@ export default function ProductDetailClient({ product }: Props) {
               <ul className="space-y-2.5 max-w-2xl text-xs sm:text-sm">
                 {(product.details.length ? product.details : [product.material]).map((item, idx) => (
                   <li key={idx} className="flex items-center gap-2">
-                    <Check size={15} className="text-[#8F6D2F] shrink-0" />
+                    <Check size={15} className="text-[#20402D] shrink-0" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -344,7 +341,7 @@ export default function ProductDetailClient({ product }: Props) {
         <section className="mt-20">
           <div className="flex justify-between items-end mb-8">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
                 Только что в каталоге
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
@@ -363,7 +360,7 @@ export default function ProductDetailClient({ product }: Props) {
         <section className="mt-20">
           <div className="flex justify-between items-end mb-8">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-1">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
                 Вам может понравиться
               </span>
               <h2 className="font-serif text-2xl sm:text-4xl text-[#2B2620]">
@@ -386,7 +383,7 @@ export default function ProductDetailClient({ product }: Props) {
           <div className="relative w-full max-w-md bg-[#FFFFFF] border border-[#E2E2E2] shadow-2xl p-6 sm:p-8 rounded-[24px]">
             <button
               onClick={() => setNotifyModalOpen(false)}
-              className="absolute top-4 right-4 text-[#2B2620]/60 hover:text-[#8F6D2F]"
+              className="absolute top-4 right-4 text-[#2B2620]/60 hover:text-[#20402D]"
             >
               ✕
             </button>
@@ -409,11 +406,11 @@ export default function ProductDetailClient({ product }: Props) {
                   onChange={(e) => setNotifyEmail(e.target.value)}
                   placeholder="Ваш e-mail или номер телефона"
                   required
-                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
+                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#20402D] rounded-xl"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-[#DAB16B] text-[#2B2620] py-3 text-xs uppercase tracking-wider font-medium"
+                  className="w-full bg-[#20402D] text-white py-3 text-xs uppercase tracking-wider font-medium"
                 >
                   Уведомить меня
                 </button>

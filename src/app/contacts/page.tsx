@@ -18,11 +18,11 @@ export default function ContactsPage() {
     <div className="bg-[#F3F3F3] min-h-screen py-16 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto space-y-14">
         <div className="text-center">
-          <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] font-semibold block mb-2">
+          <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-2">
             Связь с нами
           </span>
           <h1 className="font-serif text-3xl sm:text-6xl text-[#2B2620]">
-            Мы <span className="italic text-[#B8914A]">на связи</span>
+            Мы <span className="text-[#20402D]">на связи</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-3 max-w-md mx-auto">
             Подберём пару по твоему размеру в Telegram или MAX, ответим на звонок – или приезжай примерить в шоурум.
@@ -33,7 +33,7 @@ export default function ContactsPage() {
           {/* Left info (5 cols) */}
           <div className="md:col-span-5 bg-[#FFFFFF] p-6 sm:p-8 border border-[#E2E2E2] space-y-6 rounded-[24px]">
             <div>
-              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block mb-1">
+              <span className="text-[10px] uppercase tracking-widest text-[#20402D] font-bold block mb-1">
                 Интернет-магазин
               </span>
               <h3 className="font-serif text-xl text-[#2B2620]">Доставка по всей России</h3>
@@ -43,7 +43,7 @@ export default function ContactsPage() {
             </div>
 
             <div className="pt-2 border-t border-[#E2E2E2]">
-              <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] font-bold block mb-1 mt-4">
+              <span className="text-[10px] uppercase tracking-widest text-[#20402D] font-bold block mb-1 mt-4">
                 Примерка вживую
               </span>
               <h3 className="font-serif text-xl text-[#2B2620]">{SHOWROOM.name}</h3>
@@ -54,16 +54,16 @@ export default function ContactsPage() {
             </div>
 
             <div className="space-y-3 text-xs text-[#2B2620]/80 pt-2 border-t border-[#E2E2E2]">
-              <a href={CONTACTS.phoneHref} className="flex items-center gap-3 hover:text-[#8F6D2F]">
-                <Phone size={16} className="text-[#8F6D2F] shrink-0" />
+              <a href={CONTACTS.phoneHref} className="flex items-center gap-3 hover:text-[#20402D]">
+                <Phone size={16} className="text-[#20402D] shrink-0" />
                 <span>{CONTACTS.phone}</span>
               </a>
-              <a href={`mailto:${CONTACTS.email}`} className="flex items-center gap-3 hover:text-[#8F6D2F]">
-                <Mail size={16} className="text-[#8F6D2F] shrink-0" />
+              <a href={`mailto:${CONTACTS.email}`} className="flex items-center gap-3 hover:text-[#20402D]">
+                <Mail size={16} className="text-[#20402D] shrink-0" />
                 <span>{CONTACTS.email}</span>
               </a>
-              <Link href="/delivery" className="flex items-center gap-3 hover:text-[#8F6D2F]">
-                <Truck size={16} className="text-[#8F6D2F] shrink-0" />
+              <Link href="/delivery" className="flex items-center gap-3 hover:text-[#20402D]">
+                <Truck size={16} className="text-[#20402D] shrink-0" />
                 <span>Условия доставки и возврата</span>
               </Link>
             </div>
@@ -77,7 +77,7 @@ export default function ContactsPage() {
                   href={CONTACTS.telegram}
                   target="_blank"
                   rel="noreferrer"
-                  className="bg-[#DAB16B] text-[#2B2620] px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-[#C99B4F] transition-colors"
+                  className="bg-[#20402D] text-white px-4 py-2 rounded-full text-xs uppercase tracking-wider hover:bg-[#183326] transition-colors"
                 >
                   Telegram
                 </a>
@@ -127,7 +127,7 @@ export default function ContactsPage() {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Ваше имя"
-                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
+                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#20402D] rounded-xl"
                     />
                   </div>
 
@@ -141,7 +141,7 @@ export default function ContactsPage() {
                       value={form.phone}
                       onChange={(e) => setForm({ ...form, phone: e.target.value })}
                       placeholder="+7 (999) 000-00-00"
-                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
+                      className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#20402D] rounded-xl"
                     />
                   </div>
                 </div>
@@ -155,13 +155,13 @@ export default function ContactsPage() {
                     value={form.message}
                     onChange={(e) => setForm({ ...form, message: e.target.value })}
                     placeholder="Подскажите, как сядут туфли Lana на стопу 27 см?"
-                    className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#DAB16B] rounded-xl"
+                    className="w-full bg-white border border-[#E2E2E2] p-3 text-xs focus:outline-none focus:border-[#20402D] rounded-xl"
                   />
                 </div>
 
                 <button
                   type="submit"
-                  className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer"
+                  className="w-full bg-[#20402D] hover:bg-[#183326] text-white py-4 text-xs uppercase tracking-[0.2em] font-medium transition-colors cursor-pointer"
                 >
                   Отправить заявку
                 </button>

@@ -12,7 +12,7 @@ const cormorant = Cormorant_Garamond({
   subsets: ["latin", "cyrillic"],
   display: "swap",
   weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
+  style: ["normal"],
 });
 
 const oswald = Oswald({

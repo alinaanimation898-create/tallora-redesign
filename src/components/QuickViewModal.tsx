@@ -35,7 +35,7 @@ export default function QuickViewModal() {
       <div className="relative w-full max-w-4xl bg-[#FFFFFF] border border-[#E2E2E2] shadow-2xl p-6 sm:p-8 rounded-sm max-h-[92vh] overflow-y-auto">
         <button
           onClick={() => setQuickViewProduct(null)}
-          className="absolute top-5 right-5 text-[#2B2620]/60 hover:text-[#8F6D2F] transition-colors p-1 z-10"
+          className="absolute top-5 right-5 text-[#2B2620]/60 hover:text-[#20402D] transition-colors p-1 z-10"
           aria-label="Закрыть"
         >
           <X size={24} />
@@ -53,7 +53,7 @@ export default function QuickViewModal() {
                 className="object-cover"
               />
               {product.badge && (
-                <div className="absolute top-3 left-3 bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full font-semibold">
+                <div className="absolute top-3 left-3 bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-2.5 py-1 rounded-full font-semibold">
                   {product.badge}
                 </div>
               )}
@@ -67,7 +67,7 @@ export default function QuickViewModal() {
                   onClick={() => setActiveImageIdx(idx)}
                   className={`relative w-14 h-18 border shrink-0 overflow-hidden ${
                     activeImageIdx === idx
-                      ? "border-[#DAB16B] ring-1 ring-[#DAB16B]"
+                      ? "border-[#20402D] ring-1 ring-[#20402D]"
                       : "border-[#E2E2E2] opacity-60 hover:opacity-100"
                   }`}
                 >
@@ -79,7 +79,7 @@ export default function QuickViewModal() {
 
           {/* Right: Info, Size selector, Buy */}
           <div className="flex flex-col">
-            <span className="text-[11px] uppercase tracking-[0.2em] text-[#8F6D2F] font-semibold mb-1">
+            <span className="text-[11px] uppercase tracking-[0.2em] text-[#20402D] font-semibold mb-1">
               {product.category} · Высота каблука {product.heelHeight}
             </span>
             <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] leading-snug mb-3">
@@ -96,9 +96,6 @@ export default function QuickViewModal() {
                   {product.oldPrice.toLocaleString("ru-RU")} ₽
                 </span>
               )}
-              <span className="text-xs bg-[#DAB16B]/10 text-[#8F6D2F] px-2 py-0.5 font-medium ml-auto">
-                +{product.clubBonus} баллов PRIVÉ
-              </span>
             </div>
 
             {/* Fit guidance banner */}
@@ -122,7 +119,7 @@ export default function QuickViewModal() {
                     setQuickViewProduct(null);
                     setIsSizeModalOpen(true);
                   }}
-                  className="text-xs text-[#8F6D2F] underline flex items-center gap-1 hover:opacity-80"
+                  className="text-xs text-[#20402D] underline flex items-center gap-1 hover:opacity-80"
                 >
                   <HelpCircle size={13} />
                   Подобрать размер в см
@@ -139,8 +136,8 @@ export default function QuickViewModal() {
                       !s.inStock
                         ? "opacity-30 line-through bg-gray-100 border-[#E2E2E2] cursor-not-allowed text-gray-400"
                         : activeSize === s.size
-                        ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B] font-bold shadow-xs"
-                        : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
+                        ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
+                        : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
                     }`}
                   >
                     {s.size}
@@ -154,7 +151,7 @@ export default function QuickViewModal() {
               <button
                 onClick={handleAddToCart}
                 disabled={!activeSize}
-                className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] disabled:opacity-40 text-[#2B2620] py-4 px-6 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full bg-[#20402D] hover:bg-[#183326] disabled:opacity-40 text-white py-4 px-6 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer"
               >
                 <span>Добавить в корзину ({activeSize} размер)</span>
                 <ArrowRight size={15} />
@@ -163,7 +160,7 @@ export default function QuickViewModal() {
               <Link
                 href={`/catalog/${product.slug}`}
                 onClick={() => setQuickViewProduct(null)}
-                className="w-full text-center block text-xs uppercase tracking-wider text-[#2B2620]/70 hover:text-[#8F6D2F] py-1"
+                className="w-full text-center block text-xs uppercase tracking-wider text-[#2B2620]/70 hover:text-[#20402D] py-1"
               >
                 Подробнее о модели, материалы и отзывы →
               </Link>
@@ -172,11 +169,11 @@ export default function QuickViewModal() {
             {/* Trust highlights */}
             <div className="grid grid-cols-2 gap-3 pt-4 border-t border-[#E2E2E2] text-[11px] text-[#2B2620]/70">
               <div className="flex items-center gap-2">
-                <RefreshCw size={15} className="text-[#8F6D2F] shrink-0" />
+                <RefreshCw size={15} className="text-[#20402D] shrink-0" />
                 <span>Возврат 14 дней · СДЭК по всей России</span>
               </div>
               <div className="flex items-center gap-2">
-                <ShieldCheck size={15} className="text-[#8F6D2F] shrink-0" />
+                <ShieldCheck size={15} className="text-[#20402D] shrink-0" />
                 <span>{product.material}</span>
               </div>
             </div>

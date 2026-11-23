@@ -54,11 +54,11 @@ function CatalogContent() {
       <div className="bg-[#F5F0E8] text-[#2B2620] py-10 sm:py-14 px-5 sm:px-6 lg:px-8 border-b border-[#E2E2E2]">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] block mb-2 font-medium">
+            <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] block mb-2 font-medium">
               Размеры 37 – 44
             </span>
             <h1 className="font-serif text-[44px] leading-[0.95] sm:text-7xl font-light tracking-[-0.01em] text-[#2B2620]">
-              Выбирай <span className="italic text-[#B8914A]">смело</span>
+              Выбирай <span className="text-[#20402D]">смело</span>
             </h1>
             <p className="mt-3 text-sm text-[#2B2620]/65 max-w-md">Все модели – от 37 до 44. Отметь свой размер, и мы покажем только твои пары.</p>
           </div>
@@ -66,7 +66,7 @@ function CatalogContent() {
           <div className="flex items-center gap-4 text-xs text-[#2B2620]/70">
             <button
               onClick={() => setIsSizeModalOpen(true)}
-              className="flex items-center gap-1.5 text-[#8F6D2F] hover:underline"
+              className="flex items-center gap-1.5 text-[#20402D] hover:underline"
             >
               <Ruler size={14} />
               <span>Калькулятор стопы (см)</span>
@@ -74,9 +74,9 @@ function CatalogContent() {
             <span className="opacity-40">|</span>
             <button
               onClick={() => setIsVeraOpen(true)}
-              className="flex items-center gap-1.5 text-[#2B2620] hover:text-[#8F6D2F]"
+              className="flex items-center gap-1.5 text-[#2B2620] hover:text-[#20402D]"
             >
-              <Sparkles size={14} className="text-[#8F6D2F]" />
+              <Sparkles size={14} className="text-[#20402D]" />
               <span>Спросить стилиста Веру</span>
             </button>
           </div>
@@ -88,7 +88,7 @@ function CatalogContent() {
         <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
           <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto no-scrollbar py-0.5 min-w-0 -ml-1 pl-1">
             <span className="text-[11px] uppercase tracking-wider font-semibold text-[#2B2620] shrink-0 mr-1 flex items-center gap-1">
-              <Ruler size={13} className="text-[#8F6D2F]" />
+              <Ruler size={13} className="text-[#20402D]" />
               <span className="hidden sm:inline">Размер:</span>
             </span>
 
@@ -96,8 +96,8 @@ function CatalogContent() {
               onClick={() => setSelectedSize(null)}
               className={`px-3.5 h-8 rounded-full text-[11px] uppercase tracking-wider transition-all border shrink-0 ${
                 selectedSize === null
-                  ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
-                  : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
+                  ? "bg-[#20402D] text-white border-[#20402D]"
+                  : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
               }`}
             >
               Все
@@ -109,8 +109,8 @@ function CatalogContent() {
                 onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
                 className={`w-9 h-8 rounded-full font-display text-sm transition-all border shrink-0 flex items-center justify-center ${
                   selectedSize === sz
-                    ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B] font-bold shadow-xs"
-                    : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
+                    ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
+                    : "bg-white text-white border-[#E2E2E2] hover:border-[#2B2620]"
                 }`}
               >
                 {sz}
@@ -120,7 +120,7 @@ function CatalogContent() {
 
           <div className="flex items-center gap-3">
             {selectedSize && (
-              <span className="hidden md:inline text-[11px] text-[#8F6D2F] font-medium bg-[#DAB16B]/10 px-2.5 py-1">
+              <span className="hidden md:inline text-[11px] text-[#20402D] font-medium bg-[#20402D]/10 px-2.5 py-1">
                 Показываем только наличие в р. {selectedSize}
               </span>
             )}
@@ -146,7 +146,7 @@ function CatalogContent() {
                 onClick={() => setActiveCategory(cat.slug)}
                 className={`px-3.5 py-1.5 text-xs uppercase tracking-wider whitespace-nowrap transition-all border ${
                   activeCategory === cat.slug
-                    ? "bg-[#DAB16B] text-[#2B2620] border-[#DAB16B]"
+                    ? "bg-[#20402D] text-white border-[#20402D]"
                     : "bg-[#FFFFFF] text-[#2B2620]/80 border-[#E2E2E2] hover:border-[#2B2620]"
                 }`}
               >
@@ -212,7 +212,7 @@ function CatalogContent() {
                     key={h.id}
                     onClick={() => setActiveHeel(h.id)}
                     className={`py-1.5 px-2 text-xs border ${
-                      activeHeel === h.id ? "bg-[#DAB16B] text-[#2B2620]" : "border-[#E2E2E2]"
+                      activeHeel === h.id ? "bg-[#20402D] text-white" : "border-[#E2E2E2]"
                     }`}
                   >
                     {h.label}
@@ -237,7 +237,7 @@ function CatalogContent() {
 
             <button
               onClick={() => setMobileFilterOpen(false)}
-              className="w-full bg-[#DAB16B] text-[#2B2620] py-2.5 text-xs uppercase tracking-wider font-medium"
+              className="w-full bg-[#20402D] text-white py-2.5 text-xs uppercase tracking-wider font-medium"
             >
               Применить ({filteredProducts.length} пар)
             </button>
@@ -252,7 +252,7 @@ function CatalogContent() {
           {selectedSize && (
             <button
               onClick={() => setSelectedSize(null)}
-              className="text-[#8F6D2F] hover:underline flex items-center gap-1"
+              className="text-[#20402D] hover:underline flex items-center gap-1"
             >
               Сбросить фильтр размера ({selectedSize}) <X size={13} />
             </button>
@@ -271,13 +271,13 @@ function CatalogContent() {
             <div className="pt-2 flex justify-center gap-3">
               <button
                 onClick={() => setSelectedSize(null)}
-                className="bg-[#DAB16B] text-[#2B2620] px-6 py-3 text-xs uppercase tracking-wider"
+                className="bg-[#20402D] text-white px-6 py-3 text-xs uppercase tracking-wider"
               >
                 Показать все размеры
               </button>
               <button
                 onClick={() => setIsVeraOpen(true)}
-                className="border border-[#DAB16B] text-[#8F6D2F] px-6 py-3 text-xs uppercase tracking-wider"
+                className="border border-[#20402D] text-[#20402D] px-6 py-3 text-xs uppercase tracking-wider"
               >
                 Спросить стилиста Веру
               </button>

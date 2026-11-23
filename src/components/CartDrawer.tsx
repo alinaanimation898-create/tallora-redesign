@@ -46,7 +46,7 @@ export default function CartDrawer() {
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="text-[#2B2620]/60 hover:text-[#8F6D2F] transition-colors p-1"
+              className="text-[#2B2620]/60 hover:text-[#20402D] transition-colors p-1"
               aria-label="Закрыть"
             >
               <X size={22} />
@@ -56,7 +56,7 @@ export default function CartDrawer() {
           {/* Delivery progress bar */}
           <div className="bg-[#EFE6D6] text-[#2B2620] px-5 py-2.5 text-[11px] flex items-center justify-between">
             {cartPairs >= 3 ? (
-              <span className="text-[#8F6D2F] flex items-center gap-1.5 font-medium">
+              <span className="text-[#20402D] flex items-center gap-1.5 font-medium">
                 <ShieldCheck size={14} /> По Москве – бесплатная доставка и примерка
               </span>
             ) : (
@@ -77,7 +77,7 @@ export default function CartDrawer() {
                 <Link
                   href="/catalog"
                   onClick={() => setIsCartOpen(false)}
-                  className="inline-block bg-[#DAB16B] text-[#2B2620] px-6 py-3 text-xs uppercase tracking-[0.2em] hover:bg-[#C99B4F] transition-colors"
+                  className="inline-block bg-[#20402D] text-white px-6 py-3 text-xs uppercase tracking-[0.2em] hover:bg-[#183326] transition-colors"
                 >
                   В каталог
                 </Link>
@@ -103,13 +103,13 @@ export default function CartDrawer() {
                         <Link
                           href={`/catalog/${item.product.slug}`}
                           onClick={() => setIsCartOpen(false)}
-                          className="font-serif text-sm text-[#2B2620] hover:text-[#8F6D2F] line-clamp-1"
+                          className="font-serif text-sm text-[#2B2620] hover:text-[#20402D] line-clamp-1"
                         >
                           {item.product.name}
                         </Link>
                         <button
                           onClick={() => removeFromCart(item.product.id, item.selectedSize)}
-                          className="text-gray-400 hover:text-[#8F6D2F] transition-colors p-1"
+                          className="text-gray-400 hover:text-[#20402D] transition-colors p-1"
                           aria-label="Удалить"
                         >
                           <Trash2 size={15} />
@@ -117,7 +117,7 @@ export default function CartDrawer() {
                       </div>
 
                       <div className="flex items-center gap-2 mt-1 text-xs">
-                        <span className="font-semibold px-2 py-0.5 bg-[#F3F3F3] border border-[#E2E2E2] text-[#8F6D2F] rounded-2xl">
+                        <span className="font-semibold px-2 py-0.5 bg-[#F3F3F3] border border-[#E2E2E2] text-[#20402D] rounded-2xl">
                           Размер: {item.selectedSize}
                         </span>
                         <span className="text-[#888888]">{item.product.heelHeight}</span>
@@ -158,7 +158,7 @@ export default function CartDrawer() {
           {cart.length > 0 && (
             <div className="p-5 border-t border-[#E2E2E2] bg-[#F3F3F3] space-y-3">
               {isPriveMember && (
-                <div className="flex justify-between items-center text-xs text-[#8F6D2F] bg-[#DAB16B]/10 p-2.5 border border-[#DAB16B]/30">
+                <div className="flex justify-between items-center text-xs text-[#20402D] bg-[#20402D]/10 p-2.5 border border-[#20402D]/30">
                   <span className="flex items-center gap-1 font-medium">
                     <Sparkles size={13} /> Скидка TALLORA PRIVÉ (5%):
                   </span>
@@ -180,7 +180,7 @@ export default function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={() => setIsCartOpen(false)}
-                className="w-full bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] py-4 px-6 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg"
+                className="w-full bg-[#20402D] hover:bg-[#183326] text-white py-4 px-6 text-xs uppercase tracking-[0.2em] font-medium transition-colors flex items-center justify-center gap-2 cursor-pointer shadow-lg"
               >
                 <span>Оформить заказ в 1 клик</span>
                 <ArrowRight size={16} />

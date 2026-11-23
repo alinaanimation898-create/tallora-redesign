@@ -32,11 +32,11 @@ export default function HomeSizeCalculator() {
       <div className="max-w-[1400px] mx-auto relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left: controls */}
         <div className="lg:col-span-7">
-          <span className="text-[11px] uppercase tracking-[0.35em] text-[#8F6D2F] block mb-5">
+          <span className="text-[11px] uppercase tracking-[0.35em] text-[#20402D] block mb-5">
             Точный подбор с первого раза
           </span>
           <h2 className="font-serif font-light text-[clamp(44px,6vw,96px)] leading-[0.9]">
-            Твой размер <span className="italic text-[#B8914A]">в сантиметрах</span>
+            Твой размер <span className="text-[#20402D]">в сантиметрах</span>
           </h2>
           <p className="text-[#2B2620]/60 text-[15px] mt-5 max-w-md leading-relaxed">
             Встань на лист бумаги, отметь пятку и самый длинный палец – и передвинь ползунок.
@@ -53,7 +53,7 @@ export default function HomeSizeCalculator() {
 
             <div className="relative h-10 flex items-center">
               <div className="absolute inset-x-0 h-[3px] rounded-full bg-[#2B2620]/10" />
-              <div className="absolute left-0 h-[3px] rounded-full bg-[#DAB16B]" style={{ width: `${pct}%` }} />
+              <div className="absolute left-0 h-[3px] rounded-full bg-[#20402D] text-white" style={{ width: `${pct}%` }} />
               <div
                 className="absolute w-7 h-7 -ml-3.5 rounded-full bg-white shadow-[0_0_0_6px_rgba(218,177,107,0.35)] pointer-events-none"
                 style={{ left: `${pct}%` }}
@@ -89,7 +89,7 @@ export default function HomeSizeCalculator() {
                   type="button"
                   onClick={() => setWidth(w.id)}
                   className={`h-11 px-5 sm:px-7 rounded-full text-[11px] tracking-[0.2em] uppercase font-semibold transition-all cursor-pointer ${
-                    width === w.id ? "bg-[#DAB16B] text-[#2B2620]" : "text-[#2B2620]/70 hover:text-[#2B2620]"
+                    width === w.id ? "bg-[#20402D] text-white" : "text-[#2B2620]/70 hover:text-[#2B2620]"
                   }`}
                 >
                   {w.label}
@@ -101,32 +101,32 @@ export default function HomeSizeCalculator() {
 
         {/* Right: result */}
         <div className="lg:col-span-5">
-          <div className="relative rounded-[32px] bg-[#DAB16B] p-8 sm:p-10 overflow-hidden">
+          <div className="relative rounded-[32px] bg-[#20402D] p-8 sm:p-10 overflow-hidden text-white">
             <div
               aria-hidden
-              className="absolute -right-6 -bottom-16 font-display text-[280px] leading-none text-[#2B2620]/10 select-none"
+              className="absolute -right-6 -bottom-16 font-display text-[280px] leading-none text-white/10 select-none"
             >
               {result.size}
             </div>
-            <span className="relative text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/70">Твой размер Tallora</span>
-            <div key={result.size} className="relative font-display text-[150px] sm:text-[180px] leading-[0.85] mt-4 fade-swap text-[#2B2620]">
+            <span className="relative text-[11px] uppercase tracking-[0.3em] text-white/70">Твой размер Tallora</span>
+            <div key={result.size} className="relative font-display text-[150px] sm:text-[180px] leading-[0.85] mt-4 fade-swap text-white">
               {result.size}
             </div>
-            <p className="relative text-sm text-[#2B2620]/75 mt-4 max-w-[260px]">{result.desc}</p>
+            <p className="relative text-sm text-white/80 mt-4 max-w-[260px]">{result.desc}</p>
 
             <button
               onClick={handleApply}
               className="group relative mt-8 w-full h-14 pl-7 pr-2 rounded-full bg-white text-[#2B2620] flex items-center justify-between text-[12px] uppercase tracking-[0.2em] font-semibold cursor-pointer"
             >
               Обувь {result.size} размера
-              <span className="w-10 h-10 rounded-full bg-[#DAB16B] text-[#2B2620] flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-500">
+              <span className="w-10 h-10 rounded-full bg-[#20402D] text-white flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-500">
                 <ArrowRight size={16} />
               </span>
             </button>
 
             <button
               onClick={() => setIsVeraOpen(true)}
-              className="relative mt-4 w-full text-center text-[11px] uppercase tracking-[0.18em] text-[#2B2620]/75 hover:text-[#2B2620] flex items-center justify-center gap-2 cursor-pointer"
+              className="relative mt-4 w-full text-center text-[11px] uppercase tracking-[0.18em] text-white/80 hover:text-white flex items-center justify-center gap-2 cursor-pointer"
             >
               <Sparkles size={13} />
               Спросить стилиста Веру о посадке

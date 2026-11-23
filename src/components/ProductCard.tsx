@@ -64,7 +64,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
             </span>
           )}
           {product.badge && !/^NEW$/i.test(product.badge) && (
-            <span className="bg-[#DAB16B] text-[#2B2620] text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
+            <span className="bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
               {product.badge.replace(/\s*-\s*/, " −")}
             </span>
           )}
@@ -117,8 +117,8 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
                     !s.inStock
                       ? "text-[#F3F3F3]/40 line-through cursor-not-allowed"
                       : selectedSize === s.size
-                      ? "bg-[#DAB16B] text-[#2B2620]"
-                      : "bg-[#F3F3F3] text-[#2B2620] hover:bg-[#DAB16B] hover:text-[#2B2620]"
+                      ? "bg-[#20402D] text-white"
+                      : "bg-[#F3F3F3] text-white hover:bg-[#20402D] hover:text-white"
                   }`}
                   title={s.inStock ? `Купить размер ${s.size}` : "Размер разобрали"}
                 >
@@ -138,9 +138,9 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
               {type}
             </span>
             <h3 className={`font-serif text-[22px] sm:text-[26px] leading-[1] mt-1 ${dark ? "text-[#F3F3F3]" : "text-[#2B2620]"}`}>
-              <span className={product.model ? "italic" : ""}>{model}</span>
+              <span className={product.model ? "" : ""}>{model}</span>
               {rest.length > 0 && (
-                <span className={`block text-[13px] sm:text-[15px] leading-snug mt-1 not-italic truncate first-letter:uppercase ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
+                <span className={`block text-[13px] sm:text-[15px] leading-snug mt-1 truncate first-letter:uppercase ${dark ? "text-[#F3F3F3]/60" : "text-[#2B2620]/55"}`}>
                   {rest.join(" ")}
                 </span>
               )}
@@ -159,7 +159,6 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
         </div>
         <div className={`mt-2 sm:mt-3 pt-2 sm:pt-3 border-t flex items-center justify-between text-[10px] sm:text-[11px] ${dark ? "border-white/10 text-[#F3F3F3]/55" : "border-[#2B2620]/10 text-[#2B2620]/50"}`}>
           <span>{soldOut ? "Скоро снова" : `Размеры ${sizeRange}`}</span>
-          <span className="hidden sm:inline text-[#C99B4F] font-medium">+{product.clubBonus} ✦</span>
         </div>
       </Link>
 

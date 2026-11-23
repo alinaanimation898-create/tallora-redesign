@@ -6,15 +6,15 @@
   --color-milk: #F3F3F3;
   --color-milk-card: #FFFFFF;
   --color-bone: #EAEAEA;
-  --color-lacquer: #DAB16B;
-  --color-lacquer-hot: #C99B4F;
+  --color-lacquer: #20402D;
+  --color-lacquer-hot: #183326;
   --color-lacquer-deep: #20402D;
-  --color-wine: #DAB16B;
+  --color-wine: #20402D;
   --color-wine-dark: #20402D;
-  --color-wine-light: #C99B4F;
-  --color-nude: #E3C78F;
+  --color-wine-light: #183326;
+  --color-nude: #CFE0D4;
   --color-blush: #E9E4DA;
-  --color-beige: #E3C78F;
+  --color-beige: #CFE0D4;
   --color-beige-light: #EAEAEA;
   --color-beige-dark: #A8957F;
   --color-border-subtle: #E2E2E2;
@@ -43,7 +43,7 @@ html {
 }
 
 ::selection {
-  background-color: #DAB16B;
+  background-color: #20402D;
   color: #0B0A0A;
 }
 

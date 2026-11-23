@@ -12,11 +12,11 @@ export default function LookbookPage() {
       <div className="max-w-7xl mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#8F6D2F] font-medium block mb-2">
+          <span className="text-xs uppercase tracking-[0.3em] text-[#20402D] font-medium block mb-2">
             Lookbook Tallora
           </span>
           <h1 className="font-serif text-4xl sm:text-7xl font-light text-[#2B2620]">
-            Lookbook <span className="italic">Tallora</span>
+            Lookbook <span className="">Tallora</span>
           </h1>
           <p className="text-sm text-[#2B2620]/70 mt-4 leading-relaxed font-light">
             Для повседневной жизни и особых случаев. Мы объединили стиль и удобство, чтобы каждая девушка
@@ -50,13 +50,13 @@ export default function LookbookPage() {
                 {/* Content info below */}
                 <div className="p-6 sm:p-8 flex flex-col justify-between flex-1">
                   <div>
-                    <span className="text-[10px] uppercase tracking-widest text-[#8F6D2F] block mb-1">
+                    <span className="text-[10px] uppercase tracking-widest text-[#20402D] block mb-1">
                       Кадр 0{index + 1}
                     </span>
                     <h2 className="font-serif text-2xl sm:text-3xl text-[#2B2620] mb-3">
                       {item.title}
                     </h2>
-                    <blockquote className="text-xs sm:text-sm text-[#2B2620]/80 italic border-l-2 border-[#DAB16B] pl-4 py-1 mb-6">
+                    <blockquote className="text-xs sm:text-sm text-[#2B2620]/80 border-l-2 border-[#20402D] pl-4 py-1 mb-6">
                       «{item.quote}»
                     </blockquote>
                   </div>
@@ -68,9 +68,9 @@ export default function LookbookPage() {
                         <Image src={product.images[0]} alt={product.name} fill className="object-cover" />
                       </div>
                       <div>
-                        <h4 className="font-serif text-base text-[#2B2620]">{product.typeLabel} <span className="italic">{product.model}</span></h4>
+                        <h4 className="font-serif text-base text-[#2B2620]">{product.typeLabel} <span className="">{product.model}</span></h4>
                         <span className="block text-[11px] text-[#2B2620]/55">{product.color}</span>
-                        <span className="text-xs text-[#8F6D2F] font-mono">
+                        <span className="text-xs text-[#20402D] font-mono">
                           {product.price.toLocaleString("ru-RU")} ₽
                         </span>
                       </div>
@@ -78,7 +78,7 @@ export default function LookbookPage() {
 
                     <Link
                       href={`/catalog/${product.slug}`}
-                      className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] text-xs uppercase tracking-wider py-2.5 px-4 rounded-full transition-colors flex items-center gap-1.5 shrink-0"
+                      className="bg-[#20402D] hover:bg-[#183326] text-white text-xs uppercase tracking-wider py-2.5 px-4 rounded-full transition-colors flex items-center gap-1.5 shrink-0"
                     >
                       <span>Купить</span>
                       <ArrowRight size={13} />
@@ -100,7 +100,7 @@ export default function LookbookPage() {
           </p>
           <Link
             href="/catalog"
-            className="inline-block bg-[#F3F3F3] hover:bg-[#E3C78F] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors rounded-full"
+            className="inline-block bg-[#F3F3F3] hover:bg-[#CFE0D4] text-[#2B2620] px-8 py-3.5 text-xs uppercase tracking-[0.2em] font-medium transition-colors rounded-full"
           >
             Перейти в каталог (37–44)
           </Link>

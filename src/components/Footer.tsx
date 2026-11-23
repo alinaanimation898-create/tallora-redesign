@@ -23,12 +23,12 @@ export default function Footer() {
         {/* Top section: Big editorial brand quote and newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
           <div className="lg:col-span-7 space-y-5">
-            <span className="text-[#8F6D2F] text-xs uppercase tracking-[0.3em] font-medium block">
+            <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
               Tallora – обувь для высоких девушек
             </span>
             <h2 className="font-serif text-4xl sm:text-6xl font-light leading-[0.95] text-[#2B2620]">
               Мой стиль · Мой размер <br className="hidden sm:inline" />
-              <span className="italic font-normal text-[#8F6D2F]">Моя свобода</span>
+              <span className="font-normal text-[#20402D]">Моя свобода</span>
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">
               Стильная и удобная женская обувь 37–44 размера из натуральной кожи и замши. Без пластика.
@@ -38,7 +38,7 @@ export default function Footer() {
 
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#8F6D2F] block mb-2 font-medium">
+              <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] block mb-2 font-medium">
                 Клуб TALLORA PRIVÉ
               </span>
               <p className="text-sm text-[#2B2620]/80 mb-5 leading-relaxed">
@@ -46,13 +46,13 @@ export default function Footer() {
               </p>
 
               {subscribed ? (
-                <div className="flex items-center gap-2 p-4 rounded-2xl bg-white border border-[#DAB16B] text-xs text-[#2B2620]">
-                  <CheckCircle2 size={16} className="text-[#8F6D2F]" />
+                <div className="flex items-center gap-2 p-4 rounded-2xl bg-white border border-[#20402D] text-xs text-[#2B2620]">
+                  <CheckCircle2 size={16} className="text-[#20402D]" />
                   <span>Вы в клубе! Мы пришлём письмо со скидкой 5% на первый заказ.</span>
                 </div>
               ) : (
                 <form onSubmit={handleSubscribe} className="space-y-3">
-                  <div className="flex h-14 rounded-full border border-[#2B2620]/20 focus-within:border-[#B8914A] p-1.5 transition-colors">
+                  <div className="flex h-14 rounded-full border border-[#2B2620]/20 focus-within:border-[#20402D] p-1.5 transition-colors">
                     <input
                       type="email"
                       value={email}
@@ -63,7 +63,7 @@ export default function Footer() {
                     />
                     <button
                       type="submit"
-                      className="bg-[#DAB16B] hover:bg-[#C99B4F] text-[#2B2620] px-6 rounded-full text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer"
+                      className="bg-[#20402D] hover:bg-[#183326] text-white px-6 rounded-full text-[11px] uppercase tracking-[0.2em] font-semibold transition-colors cursor-pointer"
                     >
                       Вступить
                     </button>
@@ -84,12 +84,12 @@ export default function Footer() {
               Коллекция
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
-              <li><Link href="/catalog?category=tufli" className="hover:text-[#8F6D2F] transition-colors">Туфли</Link></li>
-              <li><Link href="/catalog?category=bosonozhki" className="hover:text-[#8F6D2F] transition-colors">Босоножки и сандали</Link></li>
-              <li><Link href="/catalog?category=lofery" className="hover:text-[#8F6D2F] transition-colors">Лоферы</Link></li>
-              <li><Link href="/catalog?category=baletki" className="hover:text-[#8F6D2F] transition-colors">Балетки</Link></li>
-              <li><Link href="/catalog?category=sapogi" className="hover:text-[#8F6D2F] transition-colors">Сапоги и ботильоны</Link></li>
-              <li><Link href="/catalog" className="text-[#8F6D2F] hover:underline pt-1 inline-block">Все модели (37–44)</Link></li>
+              <li><Link href="/catalog?category=tufli" className="hover:text-[#20402D] transition-colors">Туфли</Link></li>
+              <li><Link href="/catalog?category=bosonozhki" className="hover:text-[#20402D] transition-colors">Босоножки и сандали</Link></li>
+              <li><Link href="/catalog?category=lofery" className="hover:text-[#20402D] transition-colors">Лоферы</Link></li>
+              <li><Link href="/catalog?category=baletki" className="hover:text-[#20402D] transition-colors">Балетки</Link></li>
+              <li><Link href="/catalog?category=sapogi" className="hover:text-[#20402D] transition-colors">Сапоги и ботильоны</Link></li>
+              <li><Link href="/catalog" className="text-[#20402D] hover:underline pt-1 inline-block">Все модели (37–44)</Link></li>
             </ul>
           </div>
 
@@ -98,11 +98,11 @@ export default function Footer() {
               Сервис и подбор
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
-              <li><Link href="/size-guide" className="hover:text-[#8F6D2F] transition-colors">Калькулятор стопы по см</Link></li>
-              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Доставка по России</Link></li>
-              <li><Link href="/delivery" className="hover:text-[#8F6D2F] transition-colors">Возврат 14 дней</Link></li>
-              <li><Link href="/prive" className="hover:text-[#8F6D2F] transition-colors">Бонусная программа PRIVÉ</Link></li>
-              <li><Link href="/faq" className="hover:text-[#8F6D2F] transition-colors">Частые вопросы (FAQ)</Link></li>
+              <li><Link href="/size-guide" className="hover:text-[#20402D] transition-colors">Калькулятор стопы по см</Link></li>
+              <li><Link href="/delivery" className="hover:text-[#20402D] transition-colors">Доставка по России</Link></li>
+              <li><Link href="/delivery" className="hover:text-[#20402D] transition-colors">Возврат 14 дней</Link></li>
+              <li><Link href="/prive" className="hover:text-[#20402D] transition-colors">Бонусная программа PRIVÉ</Link></li>
+              <li><Link href="/faq" className="hover:text-[#20402D] transition-colors">Частые вопросы (FAQ)</Link></li>
             </ul>
           </div>
 
@@ -111,10 +111,10 @@ export default function Footer() {
               О бренде
             </h4>
             <ul className="space-y-3 text-[#2B2620]/70">
-              <li><Link href="/about" className="hover:text-[#8F6D2F] transition-colors">О нашем бренде</Link></li>
-              <li><Link href="/about#interview" className="hover:text-[#8F6D2F] transition-colors">Интервью с основателем</Link></li>
-              <li><Link href="/lookbook" className="hover:text-[#8F6D2F] transition-colors">Галерея образов</Link></li>
-              <li><Link href="/size-guide" className="hover:text-[#8F6D2F] transition-colors">Руководство по выбору</Link></li>
+              <li><Link href="/about" className="hover:text-[#20402D] transition-colors">О нашем бренде</Link></li>
+              <li><Link href="/about#interview" className="hover:text-[#20402D] transition-colors">Интервью с основателем</Link></li>
+              <li><Link href="/lookbook" className="hover:text-[#20402D] transition-colors">Галерея образов</Link></li>
+              <li><Link href="/size-guide" className="hover:text-[#20402D] transition-colors">Руководство по выбору</Link></li>
             </ul>
           </div>
 
@@ -122,10 +122,10 @@ export default function Footer() {
             <h4 className="font-display text-sm tracking-[0.2em] uppercase text-[#2B2620] mb-5">
               Контакты
             </h4>
-            <a href={CONTACTS.phoneHref} className="block font-display text-2xl text-[#2B2620] mb-2 hover:text-[#8F6D2F]">
+            <a href={CONTACTS.phoneHref} className="block font-display text-2xl text-[#2B2620] mb-2 hover:text-[#20402D]">
               {CONTACTS.phone}
             </a>
-            <a href={`mailto:${CONTACTS.email}`} className="block text-[#2B2620]/70 mb-3 hover:text-[#8F6D2F]">
+            <a href={`mailto:${CONTACTS.email}`} className="block text-[#2B2620]/70 mb-3 hover:text-[#20402D]">
               {CONTACTS.email}
             </a>
             <div className="flex gap-4 pt-2">
@@ -133,7 +133,7 @@ export default function Footer() {
                 href={CONTACTS.telegram}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1 text-[#8F6D2F] hover:underline"
+                className="flex items-center gap-1 text-[#20402D] hover:underline"
               >
                 Telegram <ArrowUpRight size={13} />
               </a>
@@ -141,7 +141,7 @@ export default function Footer() {
                 href={CONTACTS.max}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1 text-[#8F6D2F] hover:underline"
+                className="flex items-center gap-1 text-[#20402D] hover:underline"
               >
                 MAX <ArrowUpRight size={13} />
               </a>
