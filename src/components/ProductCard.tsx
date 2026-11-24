@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { ChevronLeft, ChevronRight } from "lucide-react";
@@ -18,6 +18,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
   const { selectedSize } = useShop();
   const dark = tone === "dark";
   const [idx, setIdx] = useState(0);
+  const [hover, setHover] = useState(false);
 
   const images = product.images.length ? product.images : [""];
   const many = images.length > 1;
@@ -26,6 +27,13 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
   const soldOut = product.sizes.every((s) => !s.inStock);
   const sizes = [...product.sizes].sort((a, b) => a.size - b.size);
   const model = product.model || product.typeLabel;
+
+  // Slideshow while the pointer is over the photo; arrows still work by hand
+  useEffect(() => {
+    if (!hover || images.length < 2) return;
+    const t = setInterval(() => setIdx((i) => (i + 1) % images.length), 1300);
+    return () => clearInterval(t);
+  }, [hover, images.length]);
 
   const go = (e: React.MouseEvent, dir: 1 | -1) => {
     e.preventDefault();
@@ -38,7 +46,17 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
 
   return (
     <div className="group/card @container flex flex-col relative">
-      <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[18px] sm:rounded-[22px] bg-[#ECE9E4]">
+      <div
+        className="relative aspect-[3/4] w-full overflow-hidden rounded-[18px] sm:rounded-[22px] bg-[#F3F3F3]"
+        onMouseEnter={() => {
+          setHover(true);
+          if (images.length > 1) setIdx((i) => (i + 1) % images.length);
+        }}
+        onMouseLeave={() => {
+          setHover(false);
+          setIdx(0);
+        }}
+      >
         <Link href={`/catalog/${product.slug}`} className="block w-full h-full relative" aria-label={product.name}>
           {images.map((src, i) => (i === idx || i === (idx + 1) % images.length) && (
             <Image

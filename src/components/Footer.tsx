@@ -2,11 +2,13 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { ArrowUpRight, CheckCircle2 } from "lucide-react";
 import { CONTACTS } from "@/data/mockData";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
+  const isHome = usePathname() === "/";
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -22,7 +24,7 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
         {/* Top section: Big editorial brand quote and newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
-          <div className="lg:col-span-7 space-y-5">
+          <div className={`${isHome ? "lg:col-span-12" : "lg:col-span-7"} space-y-5`}>
             <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
               Tallora - обувь для высоких девушек
             </span>
@@ -36,6 +38,7 @@ export default function Footer() {
             </p>
           </div>
 
+          {!isHome && (
           <div className="lg:col-span-5 flex flex-col justify-between">
             <div>
               <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] block mb-2 font-medium">
@@ -75,6 +78,7 @@ export default function Footer() {
               )}
             </div>
           </div>
+          )}
         </div>
 
         {/* Middle navigation columns */}

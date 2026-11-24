@@ -3,417 +3,324 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Ruler,
-  HelpCircle,
-  Truck,
-  RefreshCw,
-  ShieldCheck,
-  Sparkles,
-  ArrowRight,
-  Bell,
-  Star,
-  Check,
-  ChevronDown,
-} from "lucide-react";
+import { Ruler, Truck, RefreshCw, ShieldCheck, ArrowRight, Bell, Plus, X } from "lucide-react";
 import { Product, ShoeSize } from "@/types";
 import { ruBadge } from "@/lib/badge";
 import { PRODUCTS } from "@/data/mockData";
 import { useShop } from "@/context/ShopContext";
 import ProductCard from "@/components/ProductCard";
+import { asset } from "@/lib/asset";
 
 interface Props {
   product: Product;
 }
 
-export default function ProductDetailClient({ product }: Props) {
-  const {
-    selectedSize,
-    addToCart,
-    setIsSizeModalOpen,
-    setIsVeraOpen,
-    isPriveMember,
-  } = useShop();
-
-  const [activeImageIdx, setActiveImageIdx] = useState(0);
-  const [chosenSize, setChosenSize] = useState<ShoeSize | null>(
-    selectedSize || product.sizes.find((s) => s.inStock)?.size || 42
+function Accordion({ title, children, open = false }: { title: string; children: React.ReactNode; open?: boolean }) {
+  return (
+    <details open={open} className="group border-b border-[#2B2620]/12">
+      <summary className="flex items-center justify-between py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+        <span className="font-display uppercase text-[18px] tracking-[0.02em] text-[#2B2620]">{title}</span>
+        <Plus size={18} className="text-[#20402D] transition-transform duration-300 group-open:rotate-45" />
+      </summary>
+      <div className="pb-6 text-[15px] text-[#2B2620]/75 leading-relaxed">{children}</div>
+    </details>
   );
-  const [notifyModalOpen, setNotifyModalOpen] = useState(false);
-  const [notifyEmail, setNotifyEmail] = useState("");
-  const [notifySuccess, setNotifySuccess] = useState(false);
-  const [activeTab, setActiveTab] = useState<"desc" | "details" | "care">("desc");
+}
 
-  // Related products
-  // Other colours of the same model first, then the rest of the category.
+export default function ProductDetailClient({ product }: Props) {
+  const { selectedSize, addToCart, setIsSizeModalOpen, setIsVeraOpen } = useShop();
+
+  const sizes = [...product.sizes].sort((a, b) => a.size - b.size);
+  const firstInStock = sizes.find((s) => s.inStock)?.size ?? null;
+  const userInStock = selectedSize && sizes.some((s) => s.size === selectedSize && s.inStock) ? selectedSize : null;
+  const [chosenSize, setChosenSize] = useState<ShoeSize | null>(userInStock ?? firstInStock);
+  const [slide, setSlide] = useState(0);
+  const [added, setAdded] = useState(false);
+  const [notifyOpen, setNotifyOpen] = useState(false);
+  const [notifyContact, setNotifyContact] = useState("");
+  const [notifyDone, setNotifyDone] = useState(false);
+
+  const soldOut = sizes.every((s) => !s.inStock);
+  const discount = product.oldPrice ? Math.round((1 - product.price / product.oldPrice) * 100) : 0;
+  const model = product.model || product.typeLabel;
+  const chosen = sizes.find((s) => s.size === chosenSize);
+
   const sameModel = PRODUCTS.filter((p) => p.id !== product.id && p.model && p.model === product.model);
-  const relatedProducts = [
+  const related = [
     ...sameModel,
     ...PRODUCTS.filter((p) => p.id !== product.id && p.categorySlug === product.categorySlug && !sameModel.includes(p)),
   ].slice(0, 4);
-  const wornWithProducts = PRODUCTS.filter((p) => p.categorySlug !== product.categorySlug && p.isNew).slice(0, 4);
-  const sizeNums = product.sizes.map((s) => s.size);
-  const sizeRange = sizeNums.length ? `${Math.min(...sizeNums)}–${Math.max(...sizeNums)}` : "";
-  const soldOut = product.sizes.every((s) => !s.inStock);
 
-  const handleAddToCart = () => {
-    if (chosenSize) {
-      addToCart(product, chosenSize);
-    }
+  const add = () => {
+    if (!chosenSize) return;
+    addToCart(product, chosenSize);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2200);
   };
 
-  const handleNotifySubmit = (e: React.FormEvent) => {
+  const submitNotify = (e: React.FormEvent) => {
     e.preventDefault();
-    if (notifyEmail) {
-      setNotifySuccess(true);
-      setTimeout(() => {
-        setNotifySuccess(false);
-        setNotifyModalOpen(false);
-        setNotifyEmail("");
-      }, 2500);
-    }
+    if (!notifyContact) return;
+    setNotifyDone(true);
+    setTimeout(() => {
+      setNotifyDone(false);
+      setNotifyOpen(false);
+      setNotifyContact("");
+    }, 2500);
   };
 
   return (
     <div className="bg-[#F3F3F3] min-h-screen pb-24">
-      {/* Breadcrumbs */}
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 py-4 text-[11px] text-[#2B2620]/60 flex items-center gap-2 overflow-hidden whitespace-nowrap">
-        <Link href="/" className="hover:text-[#20402D]">Главная</Link>
-        <span>/</span>
-        <Link href="/catalog" className="hover:text-[#20402D]">Каталог</Link>
-        <span>/</span>
-        <Link href={`/catalog?category=${product.categorySlug}`} className="hover:text-[#20402D]">{product.category}</Link>
-        <span>/</span>
-        <span className="text-[#2B2620] font-medium truncate">{product.name}</span>
-      </div>
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8">
+        {/* Breadcrumbs */}
+        <nav className="py-5 text-[12px] text-[#2B2620]/45 flex items-center gap-2 overflow-hidden whitespace-nowrap">
+          <Link href="/" className="hover:text-[#20402D]">Главная</Link>
+          <span>/</span>
+          <Link href="/catalog" className="hover:text-[#20402D]">Каталог</Link>
+          <span>/</span>
+          <Link href={`/catalog?category=${product.categorySlug}`} className="hover:text-[#20402D]">{product.category}</Link>
+          <span>/</span>
+          <span className="text-[#2B2620]/70 truncate">{product.name}</span>
+        </nav>
 
-      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8 pt-2 sm:pt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-start">
-          {/* LEFT: 6-8 PHOTOS GALLERY */}
-          <div className="lg:col-span-7 flex flex-col-reverse md:flex-row gap-3 md:gap-4">
-            {/* Thumbnails column */}
-            <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-y-auto max-h-[700px] no-scrollbar shrink-0">
-              {product.images.map((img, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => setActiveImageIdx(idx)}
-                  className={`relative w-16 h-20 sm:w-20 sm:h-26 rounded-xl border shrink-0 bg-[#EAEAEA] overflow-hidden transition-all ${
-                    activeImageIdx === idx
-                      ? "border-[#20402D] ring-1 ring-[#20402D]"
-                      : "border-[#E2E2E2] opacity-60 hover:opacity-100"
-                  }`}
-                >
-                  <Image src={img} alt={`${product.name} - фото ${idx + 1}`} fill sizes="80px" className="object-cover" />
-                </button>
-              ))}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-start">
+          {/* Gallery */}
+          <div className="lg:col-span-7">
+            {/* Mobile: swipe */}
+            <div className="lg:hidden -mx-5 sm:-mx-8">
+              <div
+                className="flex overflow-x-auto snap-x snap-mandatory no-scrollbar"
+                onScroll={(e) => {
+                  const el = e.currentTarget;
+                  setSlide(Math.round(el.scrollLeft / el.clientWidth));
+                }}
+              >
+                {product.images.map((img, i) => (
+                  <div key={img} className="relative shrink-0 w-full aspect-[4/5] snap-center">
+                    <Image src={img} alt={i === 0 ? product.name : ""} fill preload={i === 0} sizes="100vw" className="object-cover" />
+                  </div>
+                ))}
+              </div>
+              <div className="mt-3 flex justify-center gap-1.5">
+                {product.images.map((_, i) => (
+                  <span key={i} className={`h-[3px] rounded-full transition-all ${i === slide ? "w-6 bg-[#20402D]" : "w-3 bg-[#2B2620]/20"}`} />
+                ))}
+              </div>
             </div>
 
-            {/* Main Stage Image - 3:4 High Editorial Display */}
-            <div className="flex-1">
-              <div className="relative aspect-[3/4] w-full bg-[#EAEAEA] rounded-[22px] overflow-hidden">
-                <Image
-                  src={product.images[activeImageIdx] || product.images[0]}
-                  alt={product.name}
-                  fill
-                  preload
-                  sizes="(max-width: 1024px) 100vw, 55vw"
-                  className="object-cover object-center"
-                />
-
-                {product.badge && (
-                  <div className="absolute top-4 left-4 bg-[#20402D] text-white text-[10px] uppercase tracking-[0.2em] px-3 py-1.5 rounded-full font-semibold">
-                    {ruBadge(product.badge)}
-                  </div>
-                )}
-              </div>
+            {/* Desktop: editorial grid */}
+            <div className="hidden lg:grid grid-cols-2 gap-3">
+              {product.images.map((img, i) => (
+                <div key={img} className={`relative overflow-hidden rounded-[22px] bg-[#F3F3F3] ${i === 0 ? "col-span-2 aspect-[5/4]" : "aspect-[4/5]"}`}>
+                  <Image src={img} alt={i === 0 ? product.name : ""} fill preload={i === 0} sizes={i === 0 ? "58vw" : "29vw"} className="object-cover" />
+                  {i === 0 && (product.isNew || product.badge) && (
+                    <div className="absolute top-5 left-5 flex gap-1.5">
+                      {product.isNew && <span className="bg-white text-[#2B2620] text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-semibold">Новинка</span>}
+                      {product.badge && !/^NEW$/i.test(product.badge) && (
+                        <span className="bg-[#20402D] text-white text-[10px] uppercase tracking-[0.18em] px-3 py-1.5 rounded-full font-semibold">{ruBadge(product.badge)}</span>
+                      )}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* RIGHT: BUYING PANEL & SIZE PICKER */}
-          <div className="lg:col-span-5 bg-[#FFFFFF] p-5 sm:p-8 rounded-[24px] border border-[#2B2620]/8 lg:sticky lg:top-28">
-            <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
-              {product.typeLabel} · {product.heelHeight === "Без каблука" ? "без каблука" : `каблук ${product.heelHeight}`}
+          {/* Info */}
+          <div className="lg:col-span-5 lg:sticky lg:top-28">
+            <span className="text-[11px] uppercase tracking-[0.22em] text-[#2B2620]/50 first-letter:uppercase">
+              {product.typeLabel} · {product.color}
             </span>
+            <h1 className="mt-3 font-display uppercase text-[clamp(44px,5vw,76px)] leading-[1] tracking-[-0.01em] text-[#2B2620]">{model}</h1>
 
-            <h1 className="uppercase font-display text-[34px] sm:text-5xl text-[#2B2620] leading-[1] mb-4">
-              {product.typeLabel} <span className="">{product.model}</span>
-              <span className="block text-lg sm:text-xl text-[#2B2620]/55 mt-2 first-letter:uppercase">{product.color}</span>
-            </h1>
-
-            {/* Price & Club Perks */}
-            <div className="flex items-baseline justify-between py-3 border-y border-[#E2E2E2] mb-5">
-              <div className="flex items-baseline gap-3">
-                <span className="font-display text-3xl text-[#2B2620]">
-                  {product.price.toLocaleString("ru-RU")} ₽
-                </span>
-                {product.oldPrice && (
-                  <span className="text-sm text-[#2B2620]/40 line-through font-display">
-                    {product.oldPrice.toLocaleString("ru-RU")} ₽
-                  </span>
-                )}
-              </div>
+            <div className="mt-5 flex items-baseline gap-3">
+              <span className={`font-display text-[34px] leading-none ${product.oldPrice ? "text-[#20402D]" : "text-[#2B2620]"}`}>
+                {product.price.toLocaleString("ru-RU")} ₽
+              </span>
+              {product.oldPrice && (
+                <>
+                  <span className="text-[16px] text-[#2B2620]/40 line-through">{product.oldPrice.toLocaleString("ru-RU")} ₽</span>
+                  <span className="h-7 px-2.5 rounded-full bg-[#20402D] text-white text-[12px] font-semibold flex items-center">−{discount}%</span>
+                </>
+              )}
             </div>
 
-            {/* FIT HINT BOX */}
-            <div className="bg-[#F5F0E8] p-4 rounded-2xl mb-6">
-              <div className="flex items-center gap-2 text-xs font-semibold text-[#2B2620] mb-1">
-                <span className="w-2 h-2 rounded-full bg-[#20402D] text-white" />
-                Посадка по колодке:
+            {/* Sizes */}
+            <div className="mt-9">
+              <div className="flex items-end justify-between mb-3">
+                <span className="text-[11px] uppercase tracking-[0.22em] text-[#2B2620]/50">Размер · длина стельки</span>
+                <button onClick={() => setIsSizeModalOpen(true)} className="flex items-center gap-1.5 text-[13px] text-[#20402D] hover:underline cursor-pointer">
+                  <Ruler size={14} /> Подобрать размер
+                </button>
               </div>
-              <p className="text-xs text-[#2B2620]/80 leading-relaxed">
+              <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
+                {sizes.map((s) => {
+                  const active = chosenSize === s.size;
+                  return (
+                    <button
+                      key={s.size}
+                      disabled={!s.inStock}
+                      onClick={() => setChosenSize(s.size)}
+                      className={`h-[62px] rounded-2xl border flex flex-col items-center justify-center transition-colors ${
+                        !s.inStock
+                          ? "border-transparent bg-[#2B2620]/[0.04] text-[#2B2620]/30 cursor-not-allowed"
+                          : active
+                          ? "bg-[#20402D] border-[#20402D] text-white"
+                          : "bg-white border-[#2B2620]/10 text-[#2B2620] hover:border-[#20402D] cursor-pointer"
+                      }`}
+                    >
+                      <span className={`font-display text-[19px] leading-none ${!s.inStock ? "line-through" : ""}`}>{s.size}</span>
+                      {s.lengthCm && <span className={`mt-1 text-[11px] ${active ? "text-white/75" : "opacity-60"}`}>{s.lengthCm} см</span>}
+                    </button>
+                  );
+                })}
+              </div>
+              <p className="mt-3 flex items-center gap-2 text-[13px] text-[#2B2620]/60">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#20402D]" />
                 {product.fitHintText}
               </p>
             </div>
 
-            {/* SIZE SELECTOR WITH LABELS */}
-            <div className="mb-6">
-              <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1 mb-3">
-                <span className="text-[11px] uppercase tracking-wider font-semibold text-[#2B2620]">
-                  Размер · длина стельки{sizeRange && ` (${sizeRange})`}:
-                </span>
-                <button
-                  onClick={() => setIsSizeModalOpen(true)}
-                  className="text-xs text-[#20402D] underline flex items-center gap-1 hover:opacity-80"
-                >
-                  <Ruler size={13} />
-                  Подобрать размер в см
+            {/* Buy */}
+            <div className="mt-8 space-y-3">
+              {soldOut ? (
+                <button onClick={() => setNotifyOpen(true)} className="w-full h-16 rounded-full bg-[#2B2620] text-white text-[13px] uppercase tracking-[0.2em] font-semibold flex items-center justify-center gap-2 cursor-pointer">
+                  <Bell size={16} /> Сообщить о поступлении
                 </button>
-              </div>
-
-              <div className="grid grid-cols-4 sm:grid-cols-5 gap-2">
-                {[...product.sizes].sort((a, b) => a.size - b.size).map((s) => (
-                  <button
-                    key={s.size}
-                    disabled={!s.inStock}
-                    onClick={() => setChosenSize(s.size)}
-                    className={`py-2.5 rounded-2xl font-display text-base border text-center transition-all relative ${
-                      !s.inStock
-                        ? "opacity-35 line-through bg-[#F3F3F3] border-transparent cursor-not-allowed text-[#2B2620]/50"
-                        : chosenSize === s.size
-                        ? "bg-[#20402D] text-white border-[#20402D] font-bold shadow-xs"
-                        : "bg-white text-[#2B2620] border-[#E2E2E2] hover:border-[#2B2620]"
-                    }`}
-                  >
-                    <span className="block">{s.size}</span>
-                    {s.lengthCm && <span className="block text-[10px] font-sans opacity-60 no-underline">{s.lengthCm} см</span>}
-                    {s.stockCount === 1 && s.inStock && (
-                      <span className="absolute -top-1.5 -right-1 w-2.5 h-2.5 rounded-full bg-amber-500" title="Осталась 1 пара!" />
-                    )}
-                  </button>
-                ))}
-              </div>
-
-              {/* Status for chosen size */}
-              <div className="mt-2.5 flex items-center justify-between text-[11px] text-[#2B2620]/70">
-                {chosenSize && (
-                  <span>
-                    Выбран размер: <strong className="text-[#2B2620]">{chosenSize}</strong>
-                    {product.sizes.find((s) => s.size === chosenSize)?.stockCount === 1 && (
-                      <span className="text-[#20402D] font-semibold ml-2">
-                        - последняя пара!
-                      </span>
-                    )}
+              ) : (
+                <button
+                  onClick={add}
+                  disabled={!chosenSize}
+                  className="btn-shine w-full h-16 rounded-full bg-[#20402D] hover:bg-[#183326] disabled:opacity-40 text-white flex items-center justify-between pl-8 pr-2 transition-colors cursor-pointer"
+                >
+                  <span className="text-[13px] uppercase tracking-[0.2em] font-semibold">
+                    {added ? "Добавлено в корзину" : `В корзину${chosenSize ? ` · ${chosenSize}` : ""}`}
                   </span>
-                )}
-                <button
-                  onClick={() => setNotifyModalOpen(true)}
-                  className="text-[#20402D] hover:underline flex items-center gap-1 text-[10px]"
-                >
-                  <Bell size={11} /> Сообщить о поступлении
+                  <span className="h-12 pl-5 pr-2 rounded-full bg-white text-[#20402D] flex items-center gap-3 font-display text-[18px]">
+                    {product.price.toLocaleString("ru-RU")} ₽
+                    <span className="w-8 h-8 rounded-full bg-[#20402D] text-white flex items-center justify-center"><ArrowRight size={15} /></span>
+                  </span>
                 </button>
+              )}
+              <div className="flex items-center justify-between gap-3">
+                <button onClick={() => setIsVeraOpen(true)} className="flex items-center gap-3 text-left cursor-pointer group">
+                  <span className="relative w-10 h-10 rounded-full overflow-hidden shrink-0">
+                    <Image src={asset("/tallora/vera.webp")} alt="Стилист Вера" fill sizes="40px" className="object-cover" />
+                  </span>
+                  <span className="text-[13px] leading-tight">
+                    <span className="block font-semibold text-[#2B2620] group-hover:text-[#20402D]">Помощь стилиста</span>
+                    <span className="text-[#2B2620]/55">Подскажем по посадке и образу</span>
+                  </span>
+                </button>
+                {!soldOut && chosen && !chosen.inStock ? null : !soldOut && (
+                  <button onClick={() => setNotifyOpen(true)} className="text-[12px] text-[#2B2620]/55 hover:text-[#20402D] flex items-center gap-1.5 cursor-pointer">
+                    <Bell size={13} /> Ждёшь свой размер?
+                  </button>
+                )}
               </div>
             </div>
 
-            {/* BUY ACTIONS */}
-            <div className="space-y-3 mb-6">
-              <button
-                onClick={handleAddToCart}
-                disabled={!chosenSize || soldOut}
-                className="w-full h-14 rounded-full bg-[#20402D] hover:bg-[#183326] disabled:opacity-40 text-white px-6 text-[12px] uppercase tracking-[0.2em] font-semibold transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <span>{soldOut ? "Скоро снова" : `Хочу в ${chosenSize} размере`}</span>
-                <ArrowRight size={15} />
-              </button>
-
-              <button
-                onClick={() => setIsVeraOpen(true)}
-                className="w-full h-12 rounded-full bg-transparent hover:bg-[#F5F0E8] text-[#2B2620] border border-[#2B2620]/20 px-6 text-[11px] uppercase tracking-[0.18em] transition-colors flex items-center justify-center gap-2 cursor-pointer"
-              >
-                <Sparkles size={14} className="text-[#20402D]" />
-                <span>Спросить Веру о посадке</span>
-              </button>
-            </div>
-
-            {/* TRUST & LOGISTICS PERKS */}
-            <div className="space-y-3 pt-4 border-t border-[#E2E2E2] text-xs text-[#2B2620]/80">
-              <div className="flex items-center gap-3">
-                <RefreshCw size={16} className="text-[#20402D] shrink-0" />
-                <span><strong>Возврат 14 дней</strong> - если пара без следов носки</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <Truck size={16} className="text-[#20402D] shrink-0" />
-                <span><strong>СДЭК по всей России</strong>, по Москве курьером 700 ₽ - от 3 пар бесплатно и с примеркой</span>
-              </div>
-              <div className="flex items-center gap-3">
-                <ShieldCheck size={16} className="text-[#20402D] shrink-0" />
-                <span><strong>{product.material}</strong></span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* TABS: Description, Details & Care */}
-        <div className="mt-16 bg-[#FFFFFF] p-6 sm:p-10 border border-[#E2E2E2] rounded-[24px]">
-          <div className="flex gap-8 border-b border-[#E2E2E2] pb-3 text-xs uppercase tracking-[0.2em] font-medium">
-            <button
-              onClick={() => setActiveTab("desc")}
-              className={`pb-2 transition-colors relative ${
-                activeTab === "desc" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
-              }`}
-            >
-              О модели
-              {activeTab === "desc" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
-            </button>
-            <button
-              onClick={() => setActiveTab("details")}
-              className={`pb-2 transition-colors relative ${
-                activeTab === "details" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
-              }`}
-            >
-              Материалы и колодка
-              {activeTab === "details" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
-            </button>
-            <button
-              onClick={() => setActiveTab("care")}
-              className={`pb-2 transition-colors relative ${
-                activeTab === "care" ? "text-[#20402D] font-bold" : "text-[#2B2620]/70"
-              }`}
-            >
-              Уход и хранение
-              {activeTab === "care" && <span className="absolute bottom-0 left-0 w-full h-[2px] bg-[#20402D] text-white" />}
-            </button>
-          </div>
-
-          <div className="pt-6 text-sm leading-relaxed text-[#2B2620]/80">
-            {activeTab === "desc" && (
-              <div className="space-y-4 max-w-3xl">
-                <p>{product.description}</p>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-4 text-xs">
-                  <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] rounded-2xl">
-                    <span className="text-[#888888] block text-[10px] uppercase">Цвет</span>
-                    <strong className="text-[#2B2620]">{product.color}</strong>
-                  </div>
-                  <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] rounded-2xl">
-                    <span className="text-[#888888] block text-[10px] uppercase">Высота каблука</span>
-                    <strong className="text-[#2B2620]">{product.heelHeight}</strong>
-                  </div>
-                  <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] rounded-2xl">
-                    <span className="text-[#888888] block text-[10px] uppercase">Сезон</span>
-                    <strong className="text-[#2B2620]">{product.season}</strong>
-                  </div>
-                  <div className="bg-[#F3F3F3] p-3 border border-[#E2E2E2] rounded-2xl">
-                    <span className="text-[#888888] block text-[10px] uppercase">Материал</span>
-                    <strong className="text-[#2B2620]">{product.material}</strong>
-                  </div>
+            {/* Perks */}
+            <div className="mt-8 grid grid-cols-3 gap-2">
+              {[
+                { icon: RefreshCw, t: "14 дней", d: "на возврат" },
+                { icon: Truck, t: "СДЭК", d: "по всей России" },
+                { icon: ShieldCheck, t: "Москва", d: "примерка от 3 пар" },
+              ].map(({ icon: Icon, t, d }) => (
+                <div key={t} className="rounded-2xl bg-white px-3 py-4 text-center">
+                  <Icon size={18} className="mx-auto text-[#20402D]" />
+                  <span className="mt-2 block font-display uppercase text-[15px] leading-none">{t}</span>
+                  <span className="mt-1 block text-[11px] text-[#2B2620]/55">{d}</span>
                 </div>
-              </div>
-            )}
+              ))}
+            </div>
 
-            {activeTab === "details" && (
-              <ul className="space-y-2.5 max-w-2xl text-xs sm:text-sm">
-                {(product.details.length ? product.details : [product.material]).map((item, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <Check size={15} className="text-[#20402D] shrink-0" />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            )}
-
-            {activeTab === "care" && (
-              <div className="max-w-2xl text-xs sm:text-sm space-y-2">
+            {/* Details */}
+            <div className="mt-8 border-t border-[#2B2620]/12">
+              <Accordion title="О модели" open>
+                <p>{product.description}</p>
+                <dl className="mt-5 grid grid-cols-2 gap-x-6 gap-y-3 text-[14px]">
+                  {[
+                    ["Цвет", product.color],
+                    ["Каблук", product.heelHeight],
+                    ["Сезон", product.season],
+                    ["Материал", product.material],
+                  ].map(([k, v]) => (
+                    <div key={k} className="border-t border-[#2B2620]/10 pt-2">
+                      <dt className="text-[11px] uppercase tracking-[0.16em] text-[#2B2620]/45">{k}</dt>
+                      <dd className="mt-0.5 text-[#2B2620] first-letter:uppercase">{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </Accordion>
+              <Accordion title="Материалы и колодка">
+                <ul className="space-y-2">
+                  {(product.details.length ? product.details : [product.material]).map((item, i) => (
+                    <li key={i} className="flex gap-3">
+                      <span className="mt-2 w-1.5 h-1.5 rounded-full bg-[#20402D] shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </Accordion>
+              <Accordion title="Уход и хранение">
                 <p>{product.care}</p>
-              </div>
-            )}
+              </Accordion>
+              <Accordion title="Доставка и возврат">
+                <p>
+                  По всей России – СДЭК до двери или пункта выдачи. По Москве – курьер за 700 ₽, от 3 пар бесплатно и с
+                  примеркой. Вернуть пару без следов носки можно в течение 14 дней.{" "}
+                  <Link href="/delivery" className="text-[#20402D] underline">Подробнее</Link>
+                </p>
+              </Accordion>
+            </div>
           </div>
         </div>
 
-        {/* НОСЯТ С ЭТИМ */}
-        <section className="mt-20">
-          <div className="flex justify-between items-end mb-8">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
-                Только что в каталоге
-              </span>
-              <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
-                Забирай первой
+        {/* Related */}
+        {related.length > 0 && (
+          <section className="mt-24">
+            <div className="flex items-end justify-between gap-4 mb-8">
+              <h2 className="font-display uppercase text-[clamp(32px,4vw,56px)] leading-[1.05] text-[#2B2620]">
+                {sameModel.length ? <>Другие цвета <span className="text-accent">и похожие</span></> : <>Похожие <span className="text-accent">модели</span></>}
               </h2>
+              <Link href={`/catalog?category=${product.categorySlug}`} className="shrink-0 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#20402D] hover:border-[#20402D]">
+                Все {product.category.toLowerCase()}
+              </Link>
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {wornWithProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </section>
-
-        {/* ПОХОЖИЕ МОДЕЛИ */}
-        <section className="mt-20">
-          <div className="flex justify-between items-end mb-8">
-            <div>
-              <span className="text-xs uppercase tracking-[0.25em] text-[#20402D] font-semibold block mb-1">
-                Вам может понравиться
-              </span>
-              <h2 className="uppercase font-display text-2xl sm:text-4xl text-[#2B2620]">
-                {sameModel.length ? "Другие цвета и похожие" : "Похожие модели"}
-              </h2>
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-3 sm:gap-x-6 gap-y-10">
+              {related.map((p) => (
+                <ProductCard key={p.id} product={p} />
+              ))}
             </div>
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {relatedProducts.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </section>
-
+          </section>
+        )}
       </div>
 
-      {/* NOTIFY ABOUT SIZE MODAL */}
-      {notifyModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2B2620]/45 backdrop-blur-sm animate-fadeIn">
-          <div className="relative w-full max-w-md bg-[#FFFFFF] border border-[#E2E2E2] shadow-2xl p-6 sm:p-8 rounded-[24px]">
-            <button
-              onClick={() => setNotifyModalOpen(false)}
-              className="absolute top-4 right-4 text-[#2B2620]/60 hover:text-[#20402D]"
-            >
-              ✕
+      {/* Notify modal */}
+      {notifyOpen && (
+        <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4 bg-[#2B2620]/45 backdrop-blur-sm animate-fadeIn" onClick={() => setNotifyOpen(false)}>
+          <div className="relative w-full max-w-md bg-white rounded-t-[28px] sm:rounded-[28px] p-7 sm:p-8" onClick={(e) => e.stopPropagation()}>
+            <button onClick={() => setNotifyOpen(false)} aria-label="Закрыть" className="absolute top-5 right-5 w-10 h-10 rounded-full hover:bg-[#F3F3F3] flex items-center justify-center">
+              <X size={18} />
             </button>
-            <h3 className="font-display text-xl text-[#2B2620] mb-2">
-              Сообщить о поступлении
+            <h3 className="font-display uppercase text-[30px] leading-[1.05] pr-10">
+              Сообщим <span className="text-accent">о поступлении</span>
             </h3>
-            <p className="text-xs text-[#2B2620]/70 mb-4">
-              Оставьте контакты, и мы уведомим вас первым о поступлении нужного размера модели <strong>{product.name}</strong>.
-            </p>
-
-            {notifySuccess ? (
-              <div className="p-3 bg-emerald-50 text-emerald-800 border border-emerald-200 text-xs">
-                ✓ Спасибо! Мы пришлем персональное уведомление и забронируем пару
-              </div>
+            <p className="mt-3 text-[14px] text-[#2B2620]/65">Оставь почту или телефон – напишем первой, когда {model} появится в нужном размере</p>
+            {notifyDone ? (
+              <p className="mt-6 rounded-2xl bg-[#20402D] text-white p-4 text-[14px]">Готово! Мы напишем, как только пара появится</p>
             ) : (
-              <form onSubmit={handleNotifySubmit} className="space-y-3">
+              <form onSubmit={submitNotify} className="mt-6 space-y-3">
                 <input
-                  type="email"
-                  value={notifyEmail}
-                  onChange={(e) => setNotifyEmail(e.target.value)}
-                  placeholder="Ваш e-mail или номер телефона"
+                  value={notifyContact}
+                  onChange={(e) => setNotifyContact(e.target.value)}
+                  placeholder="E-mail или телефон"
                   required
-                  className="w-full p-3 bg-white border border-[#E2E2E2] text-xs focus:outline-none focus:border-[#20402D] rounded-xl"
+                  className="w-full h-13 px-5 py-4 rounded-full bg-[#F3F3F3] text-[14px] focus:outline-none focus:ring-2 focus:ring-[#20402D]/30"
                 />
-                <button
-                  type="submit"
-                  className="w-full bg-[#20402D] text-white py-3 text-xs uppercase tracking-wider font-medium"
-                >
-                  Уведомить меня
+                <button type="submit" className="w-full h-13 py-4 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.2em] font-semibold">
+                  Сообщить мне
                 </button>
               </form>
             )}

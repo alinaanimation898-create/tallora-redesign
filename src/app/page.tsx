@@ -618,21 +618,21 @@ export default function HomePage() {
               <Sparkles size={13} /> Закрытый клуб для своих
             </span>
             <h2 className="mt-6 font-display uppercase leading-[1.1] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
-            <p className="mt-8 font-display text-[26px] sm:text-[34px] leading-[1.3]">
+            <p className="mt-8 font-display uppercase text-[26px] sm:text-[34px] leading-[1.25]">
               Новинки раньше всех
               <br />
               Распродажи первой
               <br />
-              <span className="text-[#20402D]">Скидка всегда</span>
+              <span className="text-accent">Скидка всегда</span>
             </p>
-            <div className="mt-12 grid grid-cols-3 gap-3 sm:gap-4 max-w-xl">
+            <div className="mt-12 grid grid-cols-3 max-w-xl border-t border-[#2B2620]/15">
               {[
                 ["5%", "на первый заказ"],
                 ["до 10%", "бонусами с покупок"],
                 ["Первой", "о новых коллекциях"],
               ].map(([v, l]) => (
-                <div key={l} className="rounded-[20px] bg-white/70 border border-[#2B2620]/8 px-4 py-5 sm:px-5 sm:py-6">
-                  <span className="font-display text-[28px] sm:text-[40px] leading-none block text-[#20402D]">{v}</span>
+                <div key={l} className="pt-5 pr-3 sm:pr-5 [&:not(:first-child)]:pl-3 sm:[&:not(:first-child)]:pl-5 [&:not(:first-child)]:border-l border-[#2B2620]/15">
+                  <span className="font-display uppercase text-[30px] sm:text-[44px] leading-none block text-accent">{v}</span>
                   <span className="mt-3 text-[10px] sm:text-[11px] uppercase tracking-[0.14em] text-[#2B2620]/65 leading-snug block">{l}</span>
                 </div>
               ))}

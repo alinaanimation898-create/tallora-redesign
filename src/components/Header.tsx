@@ -2,22 +2,30 @@
 
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { ShoppingBag, Ruler, Menu, X, Sparkles, ChevronDown } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { ShoppingBag, Ruler, Menu, X, ChevronDown } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
 import Logo from "@/components/Logo";
 import { ShoeSize } from "@/types";
 
 export default function Header() {
   const pathname = usePathname();
+  const router = useRouter();
   const {
     selectedSize,
     setSelectedSize,
     cartCount,
     setIsCartOpen,
     setIsSizeModalOpen,
-    setIsVeraOpen,
   } = useShop();
+
+  /** Picking a size anywhere in the header opens the catalog filtered by it. */
+  const pickSize = (sz: ShoeSize) => {
+    setSelectedSize(sz);
+    setSizeDropdownOpen(false);
+    setMobileMenuOpen(false);
+    router.push("/catalog");
+  };
 
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [sizeDropdownOpen, setSizeDropdownOpen] = useState(false);
@@ -138,10 +146,7 @@ export default function Header() {
                     {sizes.map((sz) => (
                       <button
                         key={sz}
-                        onClick={() => {
-                          setSelectedSize(sz === selectedSize ? null : sz);
-                          setSizeDropdownOpen(false);
-                        }}
+                        onClick={() => pickSize(sz)}
                         className={`h-10 rounded-full font-display text-base transition-colors ${
                           selectedSize === sz
                             ? "bg-[#20402D] text-white"
@@ -165,16 +170,6 @@ export default function Header() {
               )}
             </div>
 
-            <button
-              onClick={() => setIsVeraOpen(true)}
-              className={`hidden md:flex items-center gap-1.5 h-10 px-3 rounded-full transition-colors ${
-                onDark ? "text-[#F3F3F3] hover:bg-white/10" : "text-[#2B2620] hover:bg-[#2B2620]/5"
-              }`}
-              title="Помощь стилиста Веры"
-            >
-              <Sparkles size={15} className="text-[#183326]" />
-              <span className="hidden xl:inline tracking-[0.18em] uppercase text-[11px] font-medium">Помощь стилиста</span>
-            </button>
 
             <button
               onClick={() => setIsCartOpen(true)}
@@ -230,7 +225,7 @@ export default function Header() {
               {sizes.map((sz) => (
                 <button
                   key={sz}
-                  onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
+                  onClick={() => pickSize(sz)}
                   className={`h-11 rounded-full font-display text-base transition-all ${
                     selectedSize === sz ? "bg-[#20402D] text-white" : "border border-[#2B2620]/15"
                   }`}
@@ -241,16 +236,6 @@ export default function Header() {
             </div>
           </div>
 
-          <button
-            onClick={() => {
-              setMobileMenuOpen(false);
-              setIsVeraOpen(true);
-            }}
-            className="mt-6 w-full h-12 rounded-full bg-[#20402D] text-white flex items-center justify-center gap-2 uppercase tracking-[0.2em] text-[11px] font-semibold"
-          >
-            <Sparkles size={15} className="text-[#20402D]" />
-            Помощь стилиста
-          </button>
         </div>
       )}
     </header>

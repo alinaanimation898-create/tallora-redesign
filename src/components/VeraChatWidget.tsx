@@ -4,6 +4,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Sparkles, X, Send, Bot, User, ArrowRight, Check } from "lucide-react";
 import { useShop } from "@/context/ShopContext";
 import Link from "next/link";
+import Image from "next/image";
+import { asset } from "@/lib/asset";
 
 interface Message {
   id: string;
@@ -102,45 +104,40 @@ export default function VeraChatWidget() {
       {!isVeraOpen && (
         <button
           onClick={() => setIsVeraOpen(true)}
-          className="fixed bottom-6 right-6 z-40 flex items-center gap-2.5 bg-white text-[#2B2620] px-4 py-3 rounded-full shadow-[0_12px_40px_-12px_rgba(43,38,32,0.35)] border border-[#2B2620]/8 hover:border-[#20402D] transition-all group cursor-pointer"
-          aria-label="Вера, стилист TALLORA"
+          className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3 bg-white text-[#2B2620] pl-1.5 pr-1.5 sm:pr-5 py-1.5 rounded-full shadow-[0_14px_40px_-14px_rgba(43,38,32,0.45)] border border-[#2B2620]/8 hover:border-[#20402D] transition-all group cursor-pointer"
+          aria-label="Помощь стилиста"
         >
-          <div className="relative">
-            <span className="w-8 h-8 rounded-full bg-[#20402D] flex items-center justify-center text-white text-xs font-display font-bold">
-              В
+          <span className="relative w-12 h-12 shrink-0">
+            <span className="absolute inset-0 rounded-full overflow-hidden ring-2 ring-[#20402D]/15">
+              <Image src={asset("/tallora/vera.webp")} alt="Стилист Вера" fill sizes="48px" className="object-cover" />
             </span>
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-500 border-2 border-white" />
-          </div>
-          <div className="text-left hidden sm:block">
-            <span className="block text-xs font-semibold tracking-wide">
-              <span className="text-[#20402D] font-normal">Стилист</span> Вера
-            </span>
-            <span className="block text-[10px] text-[#2B2620]/55">
-              Подбор размера & образа
-            </span>
-          </div>
-          <Sparkles size={16} className="text-[#20402D] group-hover:rotate-12 transition-transform" />
+            <span className="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-white" />
+          </span>
+          <span className="text-left hidden sm:block">
+            <span className="block font-display uppercase text-[15px] leading-none tracking-[0.02em]">Помощь стилиста</span>
+            <span className="block mt-1 text-[11px] text-[#2B2620]/55">Вера онлайн · размер и образ</span>
+          </span>
         </button>
       )}
 
       {/* Chat Window Drawer / Popover */}
       {isVeraOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-[92vw] sm:w-[420px] h-[580px] max-h-[85vh] bg-[#FFFFFF] border border-[#E2E2E2] shadow-2xl rounded-sm flex flex-col overflow-hidden animate-fadeIn">
+        <div className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-[420px] h-[600px] max-h-[85vh] bg-[#FFFFFF] shadow-2xl rounded-[28px] flex flex-col overflow-hidden animate-fadeIn">
           {/* Header */}
           <div className="bg-[#EFE6D6] text-[#2B2620] p-4 flex items-center justify-between border-b border-[#E2E2E2]">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="w-10 h-10 rounded-full bg-[#20402D] flex items-center justify-center font-display text-base text-white font-bold">
-                  В
+                <div className="relative w-11 h-11 rounded-full overflow-hidden">
+                  <Image src={asset("/tallora/vera.webp")} alt="Стилист Вера" fill sizes="44px" className="object-cover" />
                 </div>
                 <div className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 border border-[#2B2620]" />
               </div>
               <div>
                 <h3 className="font-display text-sm tracking-wider uppercase text-[#2B2620]">
-                  Стилист Вера
+                  Помощь стилиста
                 </h3>
                 <p className="text-[10px] text-[#20402D] tracking-widest uppercase">
-                  Подбор размера и образа 37–44
+                  Вера · подбор размера и образа
                 </p>
               </div>
             </div>
@@ -164,15 +161,15 @@ export default function VeraChatWidget() {
                 }`}
               >
                 {msg.sender === "vera" && (
-                  <div className="w-6 h-6 rounded-full bg-[#20402D] text-white font-display text-[10px] font-bold flex items-center justify-center shrink-0 mt-0.5">
-                    В
+                  <div className="relative w-7 h-7 rounded-full overflow-hidden shrink-0 mt-0.5">
+                    <Image src={asset("/tallora/vera.webp")} alt="" fill sizes="28px" className="object-cover" />
                   </div>
                 )}
                 <div
-                  className={`max-w-[80%] p-3 rounded-sm leading-relaxed shadow-xs ${
+                  className={`max-w-[80%] px-4 py-3 rounded-[20px] leading-relaxed ${
                     msg.sender === "user"
                       ? "bg-[#20402D] text-white"
-                      : "bg-[#FFFFFF] text-[#2B2620] border border-[#E2E2E2]"
+                      : "bg-[#F3F3F3] text-[#2B2620] rounded-bl-[6px]"
                   }`}
                 >
                   <p>{msg.text}</p>

@@ -1,40 +1,57 @@
 "use client";
 
-import React, { useState, useMemo, Suspense } from "react";
-import { useSearchParams } from "next/navigation";
-import { Filter, X, Ruler, Sparkles } from "lucide-react";
-import { PRODUCTS, CATEGORIES } from "@/data/mockData";
+import React, { useMemo, useState, Suspense } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { SlidersHorizontal, X, Ruler, ArrowRight, ChevronDown } from "lucide-react";
+import { PRODUCTS, CATEGORIES, SITE_PHOTOS } from "@/data/mockData";
 import { ShoeSize } from "@/types";
 import ProductCard from "@/components/ProductCard";
 import { useShop } from "@/context/ShopContext";
+import { asset } from "@/lib/asset";
+
+const SIZES: ShoeSize[] = [37, 38, 39, 40, 41, 42, 43, 44];
+const HEELS = [
+  { id: "all", label: "Любой" },
+  { id: "flat", label: "До 3 см" },
+  { id: "medium", label: "4–7 см" },
+  { id: "high", label: "От 8 см" },
+];
+const SORTS = [
+  { id: "popular", label: "Как в магазине" },
+  { id: "new", label: "Сначала новинки" },
+  { id: "price-asc", label: "Сначала доступные" },
+  { id: "price-desc", label: "Сначала дорогие" },
+];
+
+const countIn = (slug: string) => (slug === "all" ? PRODUCTS.length : PRODUCTS.filter((p) => p.categorySlug === slug).length);
+const plural = (n: number) =>
+  n % 10 === 1 && n % 100 !== 11 ? "модель" : [2, 3, 4].includes(n % 10) && ![12, 13, 14].includes(n % 100) ? "модели" : "моделей";
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <span className="block text-[11px] uppercase tracking-[0.22em] text-[#2B2620]/45 mb-3">{children}</span>;
+}
 
 function CatalogContent() {
   const searchParams = useSearchParams();
-  const initialCategory = searchParams.get("category") || "all";
-  const initialSizeParam = searchParams.get("size");
-
+  const router = useRouter();
   const { selectedSize, setSelectedSize, setIsSizeModalOpen, setIsVeraOpen } = useShop();
 
-  const [activeCategory, setActiveCategory] = useState<string>(initialCategory);
+  // Category lives in the URL, so footer links, the header and the back button all stay in sync
+  const activeCategory = searchParams.get("category") || "all";
   const [activeHeel, setActiveHeel] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("popular");
-  const [mobileFilterOpen, setMobileFilterOpen] = useState<boolean>(false);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
-  const sizes: ShoeSize[] = [37, 38, 39, 40, 41, 42, 43, 44];
+  const chooseCategory = (slug: string) => {
+    router.replace(slug === "all" ? "/catalog" : `/catalog?category=${slug}`, { scroll: false });
+  };
 
-  // Filter & sort logic
-  const filteredProducts = useMemo(() => {
+  const products = useMemo(() => {
     return PRODUCTS.filter((item) => {
-      // Category filter
-      if (activeCategory !== "all" && item.categorySlug !== activeCategory) {
-        return false;
-      }
-      // Persistent Size filter
-      if (selectedSize) {
-        const hasSize = item.sizes.some((s) => s.size === selectedSize && s.inStock);
-        if (!hasSize) return false;
-      }
-      // Heel height filter
+      if (activeCategory !== "all" && item.categorySlug !== activeCategory) return false;
+      if (selectedSize && !item.sizes.some((s) => s.size === selectedSize && s.inStock)) return false;
       const heel = parseFloat(item.heelHeight) || 0;
       if (activeHeel === "flat" && heel > 3) return false;
       if (activeHeel === "medium" && (heel <= 3 || heel > 7)) return false;
@@ -48,175 +65,287 @@ function CatalogContent() {
     });
   }, [activeCategory, selectedSize, activeHeel, sortBy]);
 
-  const countIn = (slug: string) => (slug === "all" ? PRODUCTS.length : PRODUCTS.filter((p) => p.categorySlug === slug).length);
-  const catName = CATEGORIES.find((c) => c.slug === activeCategory)?.name ?? "Каталог";
-  const heelOptions = [
-    { id: "all", label: "Любой каблук" },
-    { id: "flat", label: "До 3 см" },
-    { id: "medium", label: "4–7 см" },
-    { id: "high", label: "От 8 см" },
-  ];
-  const sortOptions = [
-    { id: "popular", label: "Как в магазине" },
-    { id: "new", label: "Сначала новинки" },
-    { id: "price-asc", label: "Сначала доступные" },
-    { id: "price-desc", label: "Сначала дорогие" },
-  ];
-  const pill = (active: boolean) =>
-    `h-9 px-4 rounded-full text-[12px] border transition-colors whitespace-nowrap cursor-pointer ${
-      active ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/12 text-[#2B2620] hover:border-[#2B2620]/40"
-    }`;
+  const title = activeCategory === "all" ? "Каталог" : CATEGORIES.find((c) => c.slug === activeCategory)?.name ?? "Каталог";
+  const activeFilters = (selectedSize ? 1 : 0) + (activeHeel !== "all" ? 1 : 0);
+  const showStory = activeCategory === "all" && !selectedSize && activeHeel === "all" && products.length > 8;
+
+  const sizeGrid = (
+    <div className="grid grid-cols-4 gap-1.5">
+      {SIZES.map((sz) => (
+        <button
+          key={sz}
+          onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
+          className={`h-11 rounded-full font-display text-[15px] border transition-colors cursor-pointer ${
+            selectedSize === sz ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620] hover:border-[#20402D]"
+          }`}
+        >
+          {sz}
+        </button>
+      ))}
+    </div>
+  );
+
+  const heelPills = (
+    <div className="flex flex-wrap gap-1.5">
+      {HEELS.map((h) => (
+        <button
+          key={h.id}
+          onClick={() => setActiveHeel(h.id)}
+          className={`h-9 px-4 rounded-full text-[13px] border transition-colors cursor-pointer ${
+            activeHeel === h.id ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620] hover:border-[#20402D]"
+          }`}
+        >
+          {h.label}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-[#F3F3F3] pb-24">
-      {/* Title */}
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8 pt-10 sm:pt-14">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-5">
+      <div className="max-w-[1440px] mx-auto px-5 sm:px-8">
+        {/* Heading */}
+        <div className="pt-8 sm:pt-12 pb-6 sm:pb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
           <div>
-            <span className="text-[11px] uppercase tracking-[0.3em] text-[#2B2620]/50">Tallora · размеры 37–44</span>
-            <h1 className="mt-3 font-display uppercase text-[clamp(48px,8vw,120px)] leading-[1.1] tracking-[-0.02em] text-[#2B2620]">
-              {activeCategory === "all" ? "Каталог" : catName}
-              <sup className="ml-2 align-top text-[0.22em] tracking-normal text-[#20402D]">{filteredProducts.length}</sup>
+            <nav className="text-[12px] text-[#2B2620]/45 flex items-center gap-2">
+              <Link href="/" className="hover:text-[#20402D]">Главная</Link>
+              <span>/</span>
+              <button onClick={() => chooseCategory("all")} className="hover:text-[#20402D] cursor-pointer">Каталог</button>
+              {activeCategory !== "all" && (
+                <>
+                  <span>/</span>
+                  <span className="text-[#2B2620]/70">{title}</span>
+                </>
+              )}
+            </nav>
+            <h1 className="mt-3 font-display uppercase text-[clamp(40px,5.5vw,80px)] leading-[1.02] tracking-[-0.01em] text-[#2B2620]">
+              {title}
             </h1>
           </div>
-          <div className="flex items-center gap-2">
-            <button onClick={() => setIsSizeModalOpen(true)} className="h-11 px-5 rounded-full bg-white border border-[#2B2620]/12 hover:border-[#20402D] text-[12px] flex items-center gap-2 cursor-pointer">
-              <Ruler size={14} className="text-[#20402D]" /> Подобрать размер
-            </button>
-            <button onClick={() => setIsVeraOpen(true)} className="h-11 px-5 rounded-full bg-white border border-[#2B2620]/12 hover:border-[#20402D] text-[12px] flex items-center gap-2 cursor-pointer">
-              <Sparkles size={14} className="text-[#20402D]" /> Помощь стилиста
-            </button>
-          </div>
+          <p className="text-[14px] text-[#2B2620]/55 md:text-right max-w-xs">
+            {products.length} {plural(products.length)} · размеры 37–44 · натуральная кожа и замша
+          </p>
         </div>
 
-        {/* Category tabs */}
-        <nav className="mt-8 sm:mt-10 -mx-5 px-5 sm:mx-0 sm:px-0 flex gap-6 sm:gap-8 overflow-x-auto no-scrollbar border-b border-[#2B2620]/10">
-          {CATEGORIES.map((cat) => {
-            const active = activeCategory === cat.slug;
-            return (
+        {/* Mobile: categories + filters button */}
+        <div className="lg:hidden sticky top-[88px] sm:top-[96px] z-30 -mx-5 px-5 sm:-mx-8 sm:px-8 py-3 bg-[#F3F3F3]/92 backdrop-blur-md flex items-center gap-2">
+          <div className="flex gap-1.5 overflow-x-auto no-scrollbar min-w-0">
+            {CATEGORIES.map((c) => (
               <button
-                key={cat.slug}
-                onClick={() => setActiveCategory(cat.slug)}
-                className={`relative shrink-0 pb-3 text-[12px] sm:text-[13px] uppercase tracking-[0.14em] transition-colors cursor-pointer ${
-                  active ? "text-[#2B2620]" : "text-[#2B2620]/45 hover:text-[#2B2620]"
+                key={c.slug}
+                onClick={() => chooseCategory(c.slug)}
+                className={`shrink-0 h-9 px-4 rounded-full text-[13px] border cursor-pointer ${
+                  activeCategory === c.slug ? "bg-[#2B2620] border-[#2B2620] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620]"
                 }`}
               >
-                {cat.slug === "all" ? "Все" : cat.name}
-                <span className={`ml-1 text-[10px] ${active ? "text-[#20402D]" : "text-[#2B2620]/35"}`}>{countIn(cat.slug)}</span>
-                {active && <span className="absolute left-0 right-0 -bottom-px h-[2px] bg-[#20402D]" />}
-              </button>
-            );
-          })}
-        </nav>
-      </div>
-
-      {/* Sticky toolbar */}
-      <div className="sticky top-[88px] sm:top-[96px] z-30 bg-[#F3F3F3]/90 backdrop-blur-md">
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 py-3 flex items-center justify-between gap-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar min-w-0 -ml-1 pl-1 py-0.5">
-            <span className="hidden sm:inline text-[11px] uppercase tracking-[0.18em] text-[#2B2620]/50 mr-2 shrink-0">Мой размер</span>
-            <button onClick={() => setSelectedSize(null)} className={`${pill(selectedSize === null)} shrink-0`}>Все</button>
-            {sizes.map((sz) => (
-              <button
-                key={sz}
-                onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
-                className={`shrink-0 w-9 h-9 rounded-full font-display text-[14px] border transition-colors flex items-center justify-center cursor-pointer ${
-                  selectedSize === sz ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/12 text-[#2B2620] hover:border-[#2B2620]/40"
-                }`}
-              >
-                {sz}
+                {c.slug === "all" ? "Все" : c.name}
               </button>
             ))}
           </div>
-
-          <div className="hidden md:flex items-center gap-2 shrink-0">
-            <select value={activeHeel} onChange={(e) => setActiveHeel(e.target.value)} className="h-9 pl-4 pr-8 rounded-full bg-white border border-[#2B2620]/12 text-[12px] text-[#2B2620] focus:outline-none focus:border-[#20402D] cursor-pointer">
-              {heelOptions.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
-            </select>
-            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)} className="h-9 pl-4 pr-8 rounded-full bg-white border border-[#2B2620]/12 text-[12px] text-[#2B2620] focus:outline-none focus:border-[#20402D] cursor-pointer">
-              {sortOptions.map((o) => <option key={o.id} value={o.id}>{o.label}</option>)}
-            </select>
-          </div>
-          <button
-            onClick={() => setMobileFilterOpen(!mobileFilterOpen)}
-            className="md:hidden shrink-0 h-9 px-3.5 rounded-full flex items-center gap-1.5 border border-[#2B2620]/12 bg-white text-[12px] text-[#2B2620]"
-            aria-label="Фильтры"
-          >
-            <Filter size={14} /> Фильтры
+          <button onClick={() => setSheetOpen(true)} className="shrink-0 h-9 px-3.5 rounded-full bg-[#20402D] text-white text-[13px] flex items-center gap-1.5 cursor-pointer">
+            <SlidersHorizontal size={14} />
+            {activeFilters > 0 ? activeFilters : "Фильтр"}
           </button>
         </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] xl:grid-cols-[270px_1fr] gap-10 xl:gap-14">
+          {/* Sidebar */}
+          <aside className="hidden lg:block">
+            <div className="sticky top-32 space-y-9 pb-10">
+              <div>
+                <Label>Категории</Label>
+                <ul className="space-y-0.5">
+                  {CATEGORIES.map((c) => {
+                    const active = activeCategory === c.slug;
+                    return (
+                      <li key={c.slug}>
+                        <button
+                          onClick={() => chooseCategory(c.slug)}
+                          className={`group w-full flex items-center justify-between py-1.5 text-left cursor-pointer transition-colors ${
+                            active ? "text-[#20402D]" : "text-[#2B2620]/70 hover:text-[#2B2620]"
+                          }`}
+                        >
+                          <span className="font-display uppercase text-[19px] tracking-[0.02em] flex items-center gap-2.5">
+                            <span className={`h-px transition-all ${active ? "w-5 bg-[#20402D]" : "w-0 bg-[#2B2620] group-hover:w-3"}`} />
+                            {c.slug === "all" ? "Все модели" : c.name}
+                          </span>
+                          <span className="text-[12px] text-[#2B2620]/35">{countIn(c.slug)}</span>
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+
+              <div>
+                <div className="flex items-baseline justify-between">
+                  <Label>Мой размер</Label>
+                  {selectedSize && (
+                    <button onClick={() => setSelectedSize(null)} className="text-[12px] text-[#20402D] hover:underline cursor-pointer">
+                      сбросить
+                    </button>
+                  )}
+                </div>
+                {sizeGrid}
+                <button onClick={() => setIsSizeModalOpen(true)} className="mt-3 flex items-center gap-1.5 text-[13px] text-[#20402D] hover:underline cursor-pointer">
+                  <Ruler size={14} /> Подобрать размер в см
+                </button>
+              </div>
+
+              <div>
+                <Label>Каблук</Label>
+                {heelPills}
+              </div>
+
+              <div>
+                <Label>Сортировка</Label>
+                <div className="relative">
+                  <select
+                    value={sortBy}
+                    onChange={(e) => setSortBy(e.target.value)}
+                    className="w-full h-11 pl-4 pr-10 rounded-full bg-white border border-[#2B2620]/10 text-[14px] text-[#2B2620] appearance-none focus:outline-none focus:border-[#20402D] cursor-pointer"
+                  >
+                    {SORTS.map((o) => (
+                      <option key={o.id} value={o.id}>{o.label}</option>
+                    ))}
+                  </select>
+                  <ChevronDown size={15} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2B2620]/50" />
+                </div>
+              </div>
+
+              <button
+                onClick={() => setIsVeraOpen(true)}
+                className="w-full rounded-[22px] bg-[#20402D] text-white p-5 text-left flex items-center gap-4 cursor-pointer hover:bg-[#183326] transition-colors"
+              >
+                <span className="relative w-14 h-14 rounded-full overflow-hidden shrink-0 ring-2 ring-white/20">
+                  <Image src={asset("/tallora/vera.webp")} alt="Стилист Вера" fill sizes="56px" className="object-cover" />
+                </span>
+                <span>
+                  <span className="block font-display uppercase text-[18px] leading-tight">Помощь стилиста</span>
+                  <span className="block text-[12px] text-white/70 mt-1 leading-snug">Вера подберёт пару под размер и образ</span>
+                </span>
+              </button>
+            </div>
+          </aside>
+
+          {/* Products */}
+          <div className="min-w-0">
+            {activeFilters > 0 && (
+              <div className="mb-6 flex flex-wrap items-center gap-2">
+                {selectedSize && (
+                  <button onClick={() => setSelectedSize(null)} className="h-9 pl-4 pr-3 rounded-full bg-white border border-[#2B2620]/10 text-[13px] flex items-center gap-2 cursor-pointer">
+                    {selectedSize} размер в наличии <X size={13} />
+                  </button>
+                )}
+                {activeHeel !== "all" && (
+                  <button onClick={() => setActiveHeel("all")} className="h-9 pl-4 pr-3 rounded-full bg-white border border-[#2B2620]/10 text-[13px] flex items-center gap-2 cursor-pointer">
+                    Каблук {HEELS.find((h) => h.id === activeHeel)?.label.toLowerCase()} <X size={13} />
+                  </button>
+                )}
+              </div>
+            )}
+
+            {products.length === 0 ? (
+              <div className="text-center py-24 bg-white rounded-[28px] space-y-4">
+                <p className="font-display uppercase text-3xl text-[#2B2620]">В этом размере пока пусто</p>
+                <p className="text-sm text-[#2B2620]/60 max-w-md mx-auto">Сбрось фильтры или спроси стилиста, когда придёт новая партия</p>
+                <div className="pt-2 flex flex-wrap justify-center gap-3">
+                  <button
+                    onClick={() => {
+                      setSelectedSize(null);
+                      setActiveHeel("all");
+                    }}
+                    className="h-12 px-6 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em] cursor-pointer"
+                  >
+                    Показать всё
+                  </button>
+                  <button onClick={() => setIsVeraOpen(true)} className="h-12 px-6 rounded-full border border-[#20402D] text-[#20402D] text-[12px] uppercase tracking-[0.18em] cursor-pointer">
+                    Помощь стилиста
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-3 sm:gap-x-6 gap-y-10 sm:gap-y-14">
+                {products.map((product, i) => (
+                  <React.Fragment key={product.id}>
+                    {showStory && i === 5 && (
+                      <Link href="/catalog?category=tufli" className="group relative col-span-2 xl:col-span-1 rounded-[22px] overflow-hidden bg-[#2B2620] min-h-[340px] flex">
+                        <Image src={SITE_PHOTOS.walk} alt="Туфли Tallora" fill sizes="(max-width: 1280px) 100vw, 33vw" className="object-cover object-[50%_60%] transition-transform duration-[1.2s] group-hover:scale-105" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-[#2B2620]/85 via-[#2B2620]/10 to-transparent" />
+                        <div className="relative mt-auto p-6 text-white">
+                          <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">На шпильке · 37–44</span>
+                          <span className="mt-2 block font-display uppercase text-[34px] leading-[1.05]">
+                            Время <span className="text-accent-light">выделяться</span>
+                          </span>
+                          <span className="mt-4 inline-flex items-center gap-2 text-[12px] uppercase tracking-[0.18em]">
+                            Смотреть туфли <ArrowRight size={14} />
+                          </span>
+                        </div>
+                      </Link>
+                    )}
+                    <ProductCard product={product} />
+                  </React.Fragment>
+                ))}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
-      <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-        {/* Mobile filters */}
-        {mobileFilterOpen && (
-          <div className="md:hidden bg-white p-5 my-3 rounded-[22px] border border-[#2B2620]/8 space-y-5 animate-fadeIn">
-            <div className="flex justify-between items-center">
-              <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">Фильтры</span>
-              <button onClick={() => setMobileFilterOpen(false)} aria-label="Закрыть"><X size={18} /></button>
+      {/* Mobile filter sheet */}
+      {sheetOpen && (
+        <div className="lg:hidden fixed inset-0 z-50 flex items-end bg-[#2B2620]/40 backdrop-blur-sm animate-fadeIn" onClick={() => setSheetOpen(false)}>
+          <div className="w-full bg-[#F3F3F3] rounded-t-[28px] p-6 pb-8 max-h-[85vh] overflow-y-auto space-y-7" onClick={(e) => e.stopPropagation()}>
+            <div className="flex items-center justify-between">
+              <span className="font-display uppercase text-2xl">Фильтры</span>
+              <button onClick={() => setSheetOpen(false)} aria-label="Закрыть" className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                <X size={18} />
+              </button>
             </div>
             <div>
-              <span className="text-[11px] uppercase tracking-[0.16em] text-[#2B2620]/50 block mb-2">Каблук</span>
-              <div className="flex flex-wrap gap-2">
-                {heelOptions.map((h) => (
-                  <button key={h.id} onClick={() => setActiveHeel(h.id)} className={pill(activeHeel === h.id)}>{h.label}</button>
+              <Label>Мой размер</Label>
+              {sizeGrid}
+              <button
+                onClick={() => {
+                  setSheetOpen(false);
+                  setIsSizeModalOpen(true);
+                }}
+                className="mt-3 flex items-center gap-1.5 text-[13px] text-[#20402D]"
+              >
+                <Ruler size={14} /> Подобрать размер в см
+              </button>
+            </div>
+            <div>
+              <Label>Каблук</Label>
+              {heelPills}
+            </div>
+            <div>
+              <Label>Сортировка</Label>
+              <div className="flex flex-wrap gap-1.5">
+                {SORTS.map((o) => (
+                  <button
+                    key={o.id}
+                    onClick={() => setSortBy(o.id)}
+                    className={`h-9 px-4 rounded-full text-[13px] border ${sortBy === o.id ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10"}`}
+                  >
+                    {o.label}
+                  </button>
                 ))}
               </div>
             </div>
-            <div>
-              <span className="text-[11px] uppercase tracking-[0.16em] text-[#2B2620]/50 block mb-2">Сортировка</span>
-              <div className="flex flex-wrap gap-2">
-                {sortOptions.map((o) => (
-                  <button key={o.id} onClick={() => setSortBy(o.id)} className={pill(sortBy === o.id)}>{o.label}</button>
-                ))}
-              </div>
-            </div>
-            <button onClick={() => setMobileFilterOpen(false)} className="w-full h-12 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em] font-semibold">
-              Показать {filteredProducts.length} моделей
+            <button onClick={() => setSheetOpen(false)} className="w-full py-4 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em] font-semibold">
+              Показать {products.length} {plural(products.length)}
             </button>
           </div>
-        )}
-
-        {selectedSize && (
-          <div className="pt-2 pb-1 flex items-center gap-2 text-[12px] text-[#2B2620]/60">
-            Показываем пары в наличии в {selectedSize} размере
-            <button onClick={() => setSelectedSize(null)} className="text-[#20402D] hover:underline flex items-center gap-1 cursor-pointer">
-              сбросить <X size={12} />
-            </button>
-          </div>
-        )}
-
-        {/* Grid */}
-        {filteredProducts.length === 0 ? (
-          <div className="text-center py-24 mt-6 bg-white rounded-[28px] space-y-4">
-            <p className="font-display uppercase text-3xl text-[#2B2620]">В этом размере пока пусто</p>
-            <p className="text-sm text-[#2B2620]/60 max-w-md mx-auto">
-              Сбрось фильтр или спроси стилиста Веру, когда придёт новая партия
-            </p>
-            <div className="pt-2 flex flex-wrap justify-center gap-3">
-              <button onClick={() => setSelectedSize(null)} className="h-12 px-6 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em]">
-                Показать все размеры
-              </button>
-              <button onClick={() => setIsVeraOpen(true)} className="h-12 px-6 rounded-full border border-[#20402D] text-[#20402D] text-[12px] uppercase tracking-[0.18em]">
-                Спросить стилиста Веру
-              </button>
-            </div>
-          </div>
-        ) : (
-          <div className="pt-4 sm:pt-6 grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-3 sm:gap-x-6 gap-y-10 sm:gap-y-14">
-            {filteredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
 
 export default function CatalogPage() {
   return (
-    <Suspense fallback={<div className="min-h-screen p-12 text-center font-display">Загрузка каталога TALLORA...</div>}>
+    <Suspense fallback={<div className="min-h-screen p-12 text-center font-display">Загрузка каталога…</div>}>
       <CatalogContent />
     </Suspense>
   );
