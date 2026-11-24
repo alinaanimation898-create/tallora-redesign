@@ -142,15 +142,13 @@ export default function Header() {
                   <p className="text-[10px] tracking-[0.2em] uppercase text-[#2B2620]/50 mb-3">
                     Показывать мой размер
                   </p>
-                  <div className="grid grid-cols-4 gap-1.5 mb-3">
+                  <div className="grid grid-cols-4 gap-px bg-[#2B2620]/10 border border-[#2B2620]/10 rounded-[16px] overflow-hidden mb-3">
                     {sizes.map((sz) => (
                       <button
                         key={sz}
                         onClick={() => pickSize(sz)}
-                        className={`h-10 rounded-full font-display text-base transition-colors ${
-                          selectedSize === sz
-                            ? "bg-[#20402D] text-white"
-                            : "border border-[#2B2620]/12 hover:border-[#2B2620] text-[#2B2620]"
+                        className={`h-11 font-display text-[17px] transition-colors cursor-pointer ${
+                          selectedSize === sz ? "bg-[#20402D] text-white" : "bg-white text-[#2B2620] hover:bg-[#F5F0E8]"
                         }`}
                       >
                         {sz}
@@ -221,13 +219,13 @@ export default function Header() {
                 Как измерить?
               </button>
             </div>
-            <div className="grid grid-cols-4 gap-1.5">
+            <div className="grid grid-cols-4 gap-px bg-[#2B2620]/10 border border-[#2B2620]/10 rounded-[16px] overflow-hidden">
               {sizes.map((sz) => (
                 <button
                   key={sz}
                   onClick={() => pickSize(sz)}
-                  className={`h-11 rounded-full font-display text-base transition-all ${
-                    selectedSize === sz ? "bg-[#20402D] text-white" : "border border-[#2B2620]/15"
+                  className={`h-12 font-display text-[17px] transition-colors ${
+                    selectedSize === sz ? "bg-[#20402D] text-white" : "bg-white text-[#2B2620]"
                   }`}
                 >
                   {sz}

@@ -28,8 +28,9 @@ export default function Footer() {
             <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
               Tallora - обувь для высоких девушек
             </span>
-            <h2 className="uppercase font-display text-4xl sm:text-6xl leading-[1.1] text-[#2B2620]">
-              Мой стиль · Мой размер <br className="hidden sm:inline" />
+            <h2 className={`uppercase font-display text-4xl sm:text-6xl leading-[1.1] text-[#2B2620] ${isHome ? "lg:text-[clamp(44px,4.3vw,72px)] lg:whitespace-nowrap" : ""}`}>
+              Мой стиль · Мой размер{" "}
+              {isHome ? <span className="hidden lg:inline">· </span> : <br className="hidden sm:inline" />}
               <span className="font-normal text-accent">Моя свобода</span>
             </h2>
             <p className="text-[#2B2620]/70 text-sm max-w-lg leading-relaxed pt-2">

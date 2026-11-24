@@ -4,7 +4,7 @@ import React, { useMemo, useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal, X, Ruler, ArrowRight, ChevronDown } from "lucide-react";
+import { SlidersHorizontal, X, Ruler, ArrowRight } from "lucide-react";
 import { PRODUCTS, CATEGORIES, SITE_PHOTOS } from "@/data/mockData";
 import { ShoeSize } from "@/types";
 import ProductCard from "@/components/ProductCard";
@@ -19,11 +19,19 @@ const HEELS = [
   { id: "high", label: "От 8 см" },
 ];
 const SORTS = [
-  { id: "popular", label: "Как в магазине" },
-  { id: "new", label: "Сначала новинки" },
-  { id: "price-asc", label: "Сначала доступные" },
-  { id: "price-desc", label: "Сначала дорогие" },
+  { id: "new", label: "Новинки" },
+  { id: "price-asc", label: "По возрастанию цены" },
+  { id: "price-desc", label: "По убыванию цены" },
+  { id: "discount", label: "По величине скидки" },
 ];
+const discountOf = (p: { price: number; oldPrice?: number }) => (p.oldPrice ? 1 - p.price / p.oldPrice : 0);
+
+/** Tiled selector: thin shared borders, the active cell filled with emerald. */
+const TILE_WRAP = "grid gap-px bg-[#2B2620]/10 border border-[#2B2620]/10 rounded-[18px] overflow-hidden";
+const tile = (active: boolean) =>
+  `h-12 flex items-center justify-center transition-colors cursor-pointer ${
+    active ? "bg-[#20402D] text-white" : "bg-white text-[#2B2620] hover:bg-[#F5F0E8]"
+  }`;
 
 const countIn = (slug: string) => (slug === "all" ? PRODUCTS.length : PRODUCTS.filter((p) => p.categorySlug === slug).length);
 const plural = (n: number) =>
@@ -41,7 +49,7 @@ function CatalogContent() {
   // Category lives in the URL, so footer links, the header and the back button all stay in sync
   const activeCategory = searchParams.get("category") || "all";
   const [activeHeel, setActiveHeel] = useState<string>("all");
-  const [sortBy, setSortBy] = useState<string>("popular");
+  const [sortBy, setSortBy] = useState<string>("new");
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const chooseCategory = (slug: string) => {
@@ -60,8 +68,8 @@ function CatalogContent() {
     }).sort((a, b) => {
       if (sortBy === "price-asc") return a.price - b.price;
       if (sortBy === "price-desc") return b.price - a.price;
-      if (sortBy === "new") return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
-      return PRODUCTS.indexOf(a) - PRODUCTS.indexOf(b);
+      if (sortBy === "discount") return discountOf(b) - discountOf(a) || PRODUCTS.indexOf(a) - PRODUCTS.indexOf(b);
+      return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0) || PRODUCTS.indexOf(a) - PRODUCTS.indexOf(b);
     });
   }, [activeCategory, selectedSize, activeHeel, sortBy]);
 
@@ -70,15 +78,9 @@ function CatalogContent() {
   const showStory = activeCategory === "all" && !selectedSize && activeHeel === "all" && products.length > 8;
 
   const sizeGrid = (
-    <div className="grid grid-cols-4 gap-1.5">
+    <div className={`${TILE_WRAP} grid-cols-4`}>
       {SIZES.map((sz) => (
-        <button
-          key={sz}
-          onClick={() => setSelectedSize(selectedSize === sz ? null : sz)}
-          className={`h-11 rounded-full font-display text-[15px] border transition-colors cursor-pointer ${
-            selectedSize === sz ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620] hover:border-[#20402D]"
-          }`}
-        >
+        <button key={sz} onClick={() => setSelectedSize(selectedSize === sz ? null : sz)} className={`${tile(selectedSize === sz)} font-display text-[17px]`}>
           {sz}
         </button>
       ))}
@@ -86,19 +88,32 @@ function CatalogContent() {
   );
 
   const heelPills = (
-    <div className="flex flex-wrap gap-1.5">
+    <div className={`${TILE_WRAP} grid-cols-2`}>
       {HEELS.map((h) => (
-        <button
-          key={h.id}
-          onClick={() => setActiveHeel(h.id)}
-          className={`h-9 px-4 rounded-full text-[13px] border transition-colors cursor-pointer ${
-            activeHeel === h.id ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620] hover:border-[#20402D]"
-          }`}
-        >
+        <button key={h.id} onClick={() => setActiveHeel(h.id)} className={`${tile(activeHeel === h.id)} text-[13px]`}>
           {h.label}
         </button>
       ))}
     </div>
+  );
+
+  const sortList = (
+    <ul>
+      {SORTS.map((o) => {
+        const active = sortBy === o.id;
+        return (
+          <li key={o.id}>
+            <button
+              onClick={() => setSortBy(o.id)}
+              className={`group w-full flex items-center gap-2.5 py-1.5 text-left text-[14px] cursor-pointer transition-colors ${active ? "text-[#20402D] font-medium" : "text-[#2B2620]/65 hover:text-[#2B2620]"}`}
+            >
+              <span className={`h-px transition-all ${active ? "w-5 bg-[#20402D]" : "w-0 bg-[#2B2620] group-hover:w-3"}`} />
+              {o.label}
+            </button>
+          </li>
+        );
+      })}
+    </ul>
   );
 
   return (
@@ -151,7 +166,7 @@ function CatalogContent() {
         <div className="grid grid-cols-1 lg:grid-cols-[250px_1fr] xl:grid-cols-[270px_1fr] gap-10 xl:gap-14">
           {/* Sidebar */}
           <aside className="hidden lg:block">
-            <div className="sticky top-32 space-y-9 pb-10">
+            <div className="space-y-9 pb-10">
               <div>
                 <Label>Категории</Label>
                 <ul className="space-y-0.5">
@@ -199,18 +214,7 @@ function CatalogContent() {
 
               <div>
                 <Label>Сортировка</Label>
-                <div className="relative">
-                  <select
-                    value={sortBy}
-                    onChange={(e) => setSortBy(e.target.value)}
-                    className="w-full h-11 pl-4 pr-10 rounded-full bg-white border border-[#2B2620]/10 text-[14px] text-[#2B2620] appearance-none focus:outline-none focus:border-[#20402D] cursor-pointer"
-                  >
-                    {SORTS.map((o) => (
-                      <option key={o.id} value={o.id}>{o.label}</option>
-                    ))}
-                  </select>
-                  <ChevronDown size={15} className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-[#2B2620]/50" />
-                </div>
+                {sortList}
               </div>
 
               <button
@@ -265,7 +269,7 @@ function CatalogContent() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-3 sm:gap-x-6 gap-y-10 sm:gap-y-14">
+              <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-4 sm:gap-x-10 gap-y-12 sm:gap-y-16">
                 {products.map((product, i) => (
                   <React.Fragment key={product.id}>
                     {showStory && i === 5 && (
@@ -321,17 +325,7 @@ function CatalogContent() {
             </div>
             <div>
               <Label>Сортировка</Label>
-              <div className="flex flex-wrap gap-1.5">
-                {SORTS.map((o) => (
-                  <button
-                    key={o.id}
-                    onClick={() => setSortBy(o.id)}
-                    className={`h-9 px-4 rounded-full text-[13px] border ${sortBy === o.id ? "bg-[#20402D] border-[#20402D] text-white" : "bg-white border-[#2B2620]/10"}`}
-                  >
-                    {o.label}
-                  </button>
-                ))}
-              </div>
+              {sortList}
             </div>
             <button onClick={() => setSheetOpen(false)} className="w-full py-4 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em] font-semibold">
               Показать {products.length} {plural(products.length)}

@@ -138,7 +138,7 @@ export default function ProductCard({ product, tone = "light" }: ProductCardProp
             {product.oldPrice && (
               <span className={`hidden @[250px]:inline text-[12px] line-through ${muted}`}>{product.oldPrice.toLocaleString("ru-RU")}</span>
             )}
-            <span className={`font-display text-[16px] sm:text-[19px] leading-none ${product.oldPrice ? "text-[#20402D]" : ink}`}>
+            <span className={`font-display text-[16px] sm:text-[19px] leading-none ${ink}`}>
               {product.price.toLocaleString("ru-RU")} ₽
             </span>
           </span>

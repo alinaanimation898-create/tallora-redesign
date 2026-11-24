@@ -226,7 +226,7 @@ export default function HomePage() {
           onMouseEnter={() => setRailPaused(true)}
           onMouseLeave={() => setRailPaused(false)}
           onTouchStart={() => setRailPaused(true)}
-          className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 sm:px-8 scroll-px-5 sm:scroll-px-8 lg:px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))] lg:scroll-px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))]"
+          className="flex gap-5 sm:gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar px-5 sm:px-8 scroll-px-5 sm:scroll-px-8 lg:px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))] lg:scroll-px-[max(2rem,calc((100vw_-_1400px)/2_+_2rem))]"
         >
           {winter.map((product) => (
             <div key={product.id} className="snap-start shrink-0 w-[68vw] sm:w-[42vw] md:w-[30vw] lg:w-[23%]">
@@ -309,7 +309,7 @@ export default function HomePage() {
             <div key={sil.slug} className="absolute inset-0 fade-swap">
               <Image src={SIL_PHOTOS[sil.slug]?.src ?? CATEGORY_PHOTOS[sil.slug]} alt={sil.word} fill sizes="(max-width: 1024px) 100vw, 33vw" style={{ objectPosition: SIL_PHOTOS[sil.slug]?.pos ?? CATEGORY_FOCUS[sil.slug] ?? "50% 50%" }} className="object-cover" />
             </div>
-            <span className="absolute bottom-4 left-4 right-4 h-12 rounded-full bg-white/90 backdrop-blur flex items-center justify-between pl-5 pr-1.5 text-[11px] uppercase tracking-[0.2em] font-semibold">
+            <span className="absolute top-4 left-4 right-4 h-12 rounded-full bg-white/90 backdrop-blur flex items-center justify-between pl-5 pr-1.5 text-[11px] uppercase tracking-[0.2em] font-semibold">
               Все {sil.word.toLowerCase()}
               <span className="w-9 h-9 rounded-full bg-[#20402D] text-white flex items-center justify-center"><ArrowUpRight size={16} /></span>
             </span>
@@ -417,19 +417,19 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ───────────── 2. MARQUEE ───────────── */}
-      <div className="bg-[#20402D] text-white py-4 sm:py-6 overflow-hidden">
-        <div className="animate-marquee whitespace-nowrap flex items-center gap-8 sm:gap-10 font-display text-3xl sm:text-5xl font-light">
-          {[...Array(4)].map((_, i) => (
+      {/* ───────────── 2. MARQUEE - thin line ───────────── */}
+      <div className="bg-[#20402D] text-white/90 py-3 overflow-hidden">
+        <div className="animate-marquee-slow whitespace-nowrap flex items-center gap-10 text-[11px] sm:text-[12px] uppercase tracking-[0.32em]">
+          {[...Array(6)].map((_, i) => (
             <React.Fragment key={i}>
               <span>Время выделяться</span>
-              <span className="font-display text-xl sm:text-2xl">✦</span>
-              <span>Твой рост - твоя сила</span>
-              <span className="font-display text-xl sm:text-2xl">✦</span>
-              <span>37 - 44</span>
-              <span className="font-display text-xl sm:text-2xl">✦</span>
+              <span className="w-1 h-1 rounded-full bg-white/50" />
+              <span>Твой рост – твоя сила</span>
+              <span className="w-1 h-1 rounded-full bg-white/50" />
+              <span>Размеры 37–44</span>
+              <span className="w-1 h-1 rounded-full bg-white/50" />
               <span>Натуральная кожа</span>
-              <span className="font-display text-xl sm:text-2xl">✦</span>
+              <span className="w-1 h-1 rounded-full bg-white/50" />
             </React.Fragment>
           ))}
         </div>
@@ -443,8 +443,7 @@ export default function HomePage() {
           </Reveal>
           <div className="lg:col-span-7">
             <Reveal>
-              <Eyebrow>Почему Tallora</Eyebrow>
-              <h2 className="mt-5 font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.01em]">
+              <h2 className="font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.01em]">
                 Сделано <span className="text-accent">для тебя</span>
               </h2>
             </Reveal>
@@ -471,8 +470,7 @@ export default function HomePage() {
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
           <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-end mb-10 sm:mb-14">
             <div className="lg:col-span-7">
-              <Eyebrow>Отзывы</Eyebrow>
-              <h2 className="mt-5 font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.1] tracking-[-0.01em]">
+              <h2 className="font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.1] tracking-[-0.01em]">
                 Что говорят <span className="text-accent">клиентки</span>
               </h2>
             </div>

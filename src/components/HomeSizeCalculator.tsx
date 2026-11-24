@@ -32,9 +32,6 @@ export default function HomeSizeCalculator() {
       <div className="max-w-[1400px] mx-auto relative grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
         {/* Left: controls */}
         <div className="lg:col-span-7">
-          <span className="text-[11px] uppercase tracking-[0.35em] text-[#20402D] block mb-5">
-            Точный подбор с первого раза
-          </span>
           <h2 className="uppercase font-display text-[clamp(44px,6vw,96px)] leading-[1.1]">
             Твой размер <span className="text-accent">в сантиметрах</span>
           </h2>

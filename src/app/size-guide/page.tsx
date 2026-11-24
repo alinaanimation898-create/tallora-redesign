@@ -52,19 +52,8 @@ export default function SizeGuidePage() {
             ))}
           </div>
         </div>
-        <div className="lg:col-span-6 grid grid-cols-5 gap-3">
-          <div className="col-span-3 relative aspect-[3/4] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
-            <Image src={sitePhoto("tild3666-3730-4262-b466-393230646133")} alt="Ноги в босоножках Tallora" fill preload sizes="(max-width: 1024px) 60vw, 30vw" className="object-cover object-[50%_70%]" />
-          </div>
-          <div className="col-span-2 flex flex-col gap-3">
-            <div className="relative flex-1 rounded-[28px] overflow-hidden bg-[#E8E8E8]">
-              <Image src={SITE_PHOTOS.anatomy} alt="Туфли Tallora крупным планом" fill sizes="(max-width: 1024px) 40vw, 20vw" className="object-cover" />
-            </div>
-            <div className="rounded-[28px] bg-[#20402D] text-white p-5">
-              <span className="font-display text-[44px] leading-none">23–29.5</span>
-              <span className="mt-1 block text-[12px] text-white/70">см – длина стопы, на которую мы шьём</span>
-            </div>
-          </div>
+        <div className="lg:col-span-6 relative aspect-[4/5] lg:aspect-[5/6] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
+          <Image src={sitePhoto("tild3666-3730-4262-b466-393230646133")} alt="Ноги в босоножках Tallora" fill preload sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-[50%_70%]" />
         </div>
       </section>
 
@@ -129,19 +118,19 @@ export default function SizeGuidePage() {
 
       {/* Stylist */}
       <section className="max-w-[1400px] mx-auto px-5 sm:px-8 py-20">
-        <button onClick={() => setIsVeraOpen(true)} className="group w-full rounded-[32px] bg-[#20402D] text-white p-6 sm:p-10 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 text-left cursor-pointer">
-          <span className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shrink-0 ring-4 ring-white/15">
+        <button onClick={() => setIsVeraOpen(true)} className="group w-full border-t border-[#2B2620]/12 pt-12 flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-10 text-left cursor-pointer">
+          <span className="relative w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden shrink-0">
             <Image src={asset("/tallora/vera.webp")} alt="Стилист Вера" fill sizes="112px" className="object-cover" />
           </span>
           <span className="flex-1">
-            <span className="block font-display uppercase text-[clamp(32px,4vw,56px)] leading-[1.05]">
-              Сомневаешься? <span className="text-accent-light">Помощь стилиста</span>
+            <span className="block font-display uppercase text-[clamp(32px,4vw,56px)] leading-[1.05] text-[#2B2620]">
+              Сомневаешься? <span className="text-accent">Помощь стилиста</span>
             </span>
-            <span className="mt-3 block text-[15px] text-white/70 max-w-xl">
+            <span className="mt-3 block text-[15px] text-[#2B2620]/65 max-w-xl">
               Вера подскажет размер по конкретной модели, учтёт полноту и подъём стопы и подберёт пару под образ
             </span>
           </span>
-          <span className="w-14 h-14 rounded-full bg-white text-[#20402D] flex items-center justify-center shrink-0 group-hover:rotate-[-45deg] transition-transform duration-500">
+          <span className="w-14 h-14 rounded-full bg-[#20402D] text-white flex items-center justify-center shrink-0 group-hover:rotate-[-45deg] transition-transform duration-500">
             <ArrowUpRight size={22} />
           </span>
         </button>

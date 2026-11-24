@@ -15,7 +15,6 @@ const SIZES: ShoeSize[] = [37, 38, 39, 40, 41, 42, 43, 44];
 export default function LookbookPage() {
   const router = useRouter();
   const { setSelectedSize, setIsSizeModalOpen } = useShop();
-  const total = String(LOOKBOOK_ITEMS.length).padStart(2, "0");
 
   const pick = (sz: ShoeSize) => {
     setSelectedSize(sz);
@@ -59,11 +58,7 @@ export default function LookbookPage() {
               </Link>
 
               <div className={`lg:col-span-5 ${flip ? "lg:order-1" : ""}`}>
-                <span className="font-display text-[clamp(64px,8vw,120px)] leading-none text-[#2B2620]/10">
-                  {String(i + 1).padStart(2, "0")}
-                  <span className="text-[0.35em] align-top ml-1">/ {total}</span>
-                </span>
-                <span className="mt-6 block text-[11px] uppercase tracking-[0.22em] text-[#2B2620]/50">В образе</span>
+                <span className="block text-[11px] uppercase tracking-[0.22em] text-[#2B2620]/50">В образе</span>
                 <Link
                   href={`/catalog/${product.slug}`}
                   className="group mt-3 flex items-center gap-4 rounded-[24px] bg-white p-3 pr-4 hover:shadow-[0_20px_40px_-28px_rgba(43,38,32,0.5)] transition-shadow"
