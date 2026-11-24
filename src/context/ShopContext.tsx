@@ -33,7 +33,17 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isSizeModalOpen, setIsSizeModalOpen] = useState(false);
   const [isVeraOpen, setIsVeraOpen] = useState(false);
-  const [isPriveMember, setIsPriveMember] = useState(true);
+  // Privé price applies only after joining the club on /prive; remembered in this browser
+  const [isPriveMember, setIsPriveMemberState] = useState(false);
+  const setIsPriveMember = (v: boolean) => {
+    setIsPriveMemberState(v);
+    try {
+      if (v) localStorage.setItem("tallora_prive", "1");
+      else localStorage.removeItem("tallora_prive");
+    } catch {
+      // storage unavailable: membership lasts for this visit only
+    }
+  };
   const [quickViewProduct, setQuickViewProduct] = useState<Product | null>(null);
 
   // Initialize from localStorage if present
@@ -43,6 +53,7 @@ export const ShopProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (savedSize) {
         setSelectedSizeState(Number(savedSize) as ShoeSize);
       }
+      if (localStorage.getItem("tallora_prive") === "1") setIsPriveMemberState(true);
       const savedCart = localStorage.getItem("tallora_cart");
       if (savedCart) {
         setCart(JSON.parse(savedCart));

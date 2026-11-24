@@ -157,13 +157,25 @@ export default function CartDrawer() {
           {/* Footer & Checkout button */}
           {cart.length > 0 && (
             <div className="p-5 border-t border-[#E2E2E2] bg-[#F3F3F3] space-y-3">
-              {isPriveMember && (
-                <div className="flex justify-between items-center text-xs text-[#20402D] bg-[#20402D]/10 p-2.5 border border-[#20402D]/30">
-                  <span className="flex items-center gap-1 font-medium">
-                    <Sparkles size={13} /> Скидка TALLORA PRIVÉ (5%):
+              {isPriveMember ? (
+                <div className="flex justify-between items-center text-[13px] text-[#20402D] bg-[#20402D]/8 px-4 py-3 rounded-2xl">
+                  <span className="flex items-center gap-2 font-medium">
+                    <Sparkles size={14} /> Цена клуба Privé · −5%
                   </span>
-                  <span className="font-semibold">- {priveDiscount.toLocaleString("ru-RU")} ₽</span>
+                  <span className="font-semibold">−{priveDiscount.toLocaleString("ru-RU")} ₽</span>
                 </div>
+              ) : (
+                <Link
+                  href="/prive#join"
+                  onClick={() => setIsCartOpen(false)}
+                  className="group flex justify-between items-center gap-3 text-[13px] px-4 py-3 rounded-2xl border border-dashed border-[#20402D]/35 hover:bg-[#20402D]/5 transition-colors"
+                >
+                  <span className="text-[#2B2620]/75 leading-snug">
+                    <span className="flex items-center gap-1.5 font-medium text-[#20402D]"><Sparkles size={14} /> С клубом Privé</span>
+                    {(cartTotal - Math.round(cartTotal * 0.05)).toLocaleString("ru-RU")} ₽ – вступи и получи −5% на первый заказ
+                  </span>
+                  <ArrowRight size={15} className="shrink-0 text-[#20402D] group-hover:translate-x-0.5 transition-transform" />
+                </Link>
               )}
 
               <div className="flex justify-between items-baseline pt-1">

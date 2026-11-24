@@ -15,23 +15,15 @@ export default function CheckoutPage() {
   const [address, setAddress] = useState("");
   const [deliveryMethod, setDeliveryMethod] = useState<"msk_courier" | "cdek_courier" | "cdek_pvz">("cdek_pvz");
   const [paymentMethod, setPaymentMethod] = useState<"sbp" | "card">("sbp");
-  const [promoCode, setPromoCode] = useState("");
-  const [promoApplied, setPromoApplied] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
   const [orderNumber, setOrderNumber] = useState("");
 
-  const priveDiscount = promoApplied ? Math.round(cartTotal * 0.05) : 0;
+  // Club price only for members who joined on /prive
+  const priveDiscount = isPriveMember ? Math.round(cartTotal * 0.05) : 0;
   const pairs = cart.reduce((n, item) => n + item.quantity, 0);
   // tallora.ru: Moscow courier 700 ₽, free from 3 pairs; CDEK is charged at the carrier's rate.
   const deliveryCost = deliveryMethod === "msk_courier" ? (pairs >= 3 ? 0 : 700) : 0;
   const finalPrice = cartTotal - priveDiscount + deliveryCost;
-
-  const handleApplyPromo = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (promoCode.trim().toUpperCase() === "PRIVE5" || promoCode.trim().toUpperCase() === "TALLORA") {
-      setPromoApplied(true);
-    }
-  };
 
   const handleSubmitOrder = (e: React.FormEvent) => {
     e.preventDefault();
@@ -322,28 +314,20 @@ export default function CheckoutPage() {
               ))}
             </div>
 
-            {/* Promo code form */}
+            {/* Privé club */}
             <div className="mb-5 pb-5 border-b border-[#E2E2E2]">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={promoCode}
-                  onChange={(e) => setPromoCode(e.target.value)}
-                  placeholder="Промокод"
-                  className="flex-1 bg-white border border-[#E2E2E2] px-3 py-2 text-xs uppercase rounded-2xl"
-                />
-                <button
-                  type="button"
-                  onClick={handleApplyPromo}
-                  className="bg-[#20402D] text-white px-4 text-xs uppercase tracking-wider hover:bg-[#183326]"
-                >
-                  Применить
-                </button>
-              </div>
-              {promoApplied && (
-                <span className="text-[11px] text-emerald-700 flex items-center gap-1 mt-1.5 font-medium">
-                  <CheckCircle2 size={13} /> Промокод PRIVE5 применён (-5%)
+              {isPriveMember ? (
+                <span className="flex items-center gap-2 text-[13px] text-[#20402D] font-medium">
+                  <Sparkles size={14} /> Ты в клубе Privé – цена со скидкой 5% уже учтена
                 </span>
+              ) : (
+                <Link href="/prive#join" className="group flex items-center justify-between gap-3 text-[13px] px-4 py-3 rounded-2xl border border-dashed border-[#20402D]/35 hover:bg-[#20402D]/5 transition-colors">
+                  <span className="text-[#2B2620]/75 leading-snug">
+                    <span className="flex items-center gap-1.5 font-medium text-[#20402D]"><Sparkles size={14} /> С клубом Privé</span>
+                    {(cartTotal - Math.round(cartTotal * 0.05)).toLocaleString("ru-RU")} ₽ – вступи и получи −5% на первый заказ
+                  </span>
+                  <ArrowRight size={15} className="shrink-0 text-[#20402D]" />
+                </Link>
               )}
             </div>
 
@@ -353,9 +337,9 @@ export default function CheckoutPage() {
                 <span>Товары ({cart.length} поз.):</span>
                 <span>{cartTotal.toLocaleString("ru-RU")} ₽</span>
               </div>
-              {promoApplied && (
+              {isPriveMember && (
                 <div className="flex justify-between text-[#20402D] font-semibold">
-                  <span>Скидка PRIVÉ (5%):</span>
+                  <span>Цена клуба Privé (−5%):</span>
                   <span>- {priveDiscount.toLocaleString("ru-RU")} ₽</span>
                 </div>
               )}
