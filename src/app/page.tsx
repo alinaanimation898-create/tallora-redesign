@@ -171,7 +171,7 @@ export default function HomePage() {
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* ───────────── 1. HERO - text panel + one photo ───────────── */}
-      <section className="relative grid grid-cols-1 md:grid-cols-2 md:h-[100svh] md:min-h-[640px] bg-[#EFE6D6] overflow-hidden">
+      <section className="relative grid grid-cols-1 md:grid-cols-2 md:min-h-[100svh] bg-[#EFE6D6] overflow-hidden">
         <div className="relative min-h-[100svh] md:min-h-0 md:order-2 overflow-hidden">
           <Image src={SITE_PHOTOS.muse} alt="Девушка среди красных и нюдовых лодочек Tallora" fill preload sizes="(max-width: 768px) 100vw, 50vw" className="object-cover object-[40%_35%] slow-zoom" />
           <div className="md:hidden absolute inset-0 bg-gradient-to-t from-[#2B2620]/90 via-[#2B2620]/35 to-[#2B2620]/10" />
@@ -187,7 +187,7 @@ export default function HomePage() {
             Туфли, ботильоны, лоферы и сапоги 37–44 размера из натуральной кожи. Для женщин, которые
             выбирают себя каждый день и на любом каблуке
           </p>
-          <div className="hero-in mt-10 flex flex-col sm:flex-row md:flex-col 2xl:flex-row sm:items-start gap-3" style={{ animationDelay: "680ms" }}>
+          <div className="hero-in mt-10 flex flex-col sm:flex-row md:flex-col lg:flex-row lg:flex-wrap sm:items-start gap-3" style={{ animationDelay: "680ms" }}>
             <ArrowPill href="/catalog">Выбрать свою пару</ArrowPill>
             <button
               onClick={() => setIsSizeModalOpen(true)}
