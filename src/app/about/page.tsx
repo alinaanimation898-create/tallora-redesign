@@ -100,13 +100,12 @@ export default function AboutPage() {
           Наши <span className="text-accent">ценности</span>
         </h2>
         <div className="mt-10 lg:mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 border-t border-[#2B2620]/15">
-          {VALUES.map(([t, d], i) => (
+          {VALUES.map(([t, d]) => (
             <div
               key={t}
               className="py-8 sm:pr-8 lg:px-8 lg:first:pl-0 border-b sm:border-b-0 lg:border-l lg:first:border-l-0 border-[#2B2620]/15 sm:[&:nth-child(-n+2)]:border-b lg:[&:nth-child(-n+2)]:border-b-0"
             >
-              <span className="font-display text-[13px] tracking-[0.2em] text-[#20402D]">0{i + 1}</span>
-              <h3 className="mt-6 font-display uppercase text-[34px] lg:text-[40px] leading-none text-[#2B2620]">{t}</h3>
+              <h3 className="font-display uppercase text-[34px] lg:text-[40px] leading-none text-[#2B2620]">{t}</h3>
               <p className="mt-4 text-[15px] text-[#2B2620]/65 leading-relaxed max-w-[260px]">{d}</p>
             </div>
           ))}
