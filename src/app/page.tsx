@@ -599,15 +599,6 @@ export default function HomePage() {
                 <Clock size={18} className="text-[#20402D] shrink-0" />
                 <span>{SHOWROOM.hours}</span>
               </div>
-              <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-[#E8E8E8]">
-                <iframe
-                  src={SHOWROOM.mapEmbed}
-                  title={`${SHOWROOM.name} на Яндекс Картах`}
-                  loading="lazy"
-                  className="absolute inset-0 w-full h-full border-0"
-                  allowFullScreen
-                />
-              </div>
             </Reveal>
             <Reveal delay={200} className="mt-6 flex flex-col sm:flex-row gap-3">
               <a
