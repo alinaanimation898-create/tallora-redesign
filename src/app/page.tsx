@@ -599,9 +599,28 @@ export default function HomePage() {
                 <Clock size={18} className="text-[#20402D] shrink-0" />
                 <span>{SHOWROOM.hours}</span>
               </div>
+              <div className="relative aspect-[16/10] rounded-[18px] overflow-hidden bg-[#E8E8E8]">
+                <iframe
+                  src={SHOWROOM.mapEmbed}
+                  title={`${SHOWROOM.name} на Яндекс Картах`}
+                  loading="lazy"
+                  className="absolute inset-0 w-full h-full border-0"
+                  allowFullScreen
+                />
+              </div>
             </Reveal>
             <Reveal delay={200} className="mt-6 flex flex-col sm:flex-row gap-3">
-              <ArrowPill href="/contacts">Как добраться</ArrowPill>
+              <a
+                href={SHOWROOM.routeUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="btn-shine group h-14 pl-7 pr-2 rounded-full bg-[#20402D] hover:bg-[#183326] text-white inline-flex items-center justify-between gap-6 text-[12px] uppercase tracking-[0.22em] font-semibold transition-colors"
+              >
+                Проложить маршрут
+                <span className="w-10 h-10 rounded-full bg-white text-[#2B2620] flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-500">
+                  <ArrowRight size={16} />
+                </span>
+              </a>
               <a href={CONTACTS.telegram} target="_blank" rel="noreferrer" className="h-14 px-7 rounded-full border border-[#2B2620]/20 hover:border-[#2B2620] text-[12px] uppercase tracking-[0.22em] font-semibold flex items-center justify-center transition-colors">
                 Подобрать пару в Telegram
               </a>

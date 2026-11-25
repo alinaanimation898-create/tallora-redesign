@@ -24,11 +24,11 @@ export default function Footer() {
       <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
         {/* Top section: Big editorial brand quote and newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#2B2620]/12">
-          <div className={`${isHome ? "lg:col-span-12" : "lg:col-span-7"} space-y-5`}>
+          <div className={`${isHome ? "lg:col-span-12 text-center flex flex-col items-center" : "lg:col-span-7"} space-y-5`}>
             <span className="text-[#20402D] text-xs uppercase tracking-[0.3em] font-medium block">
               Tallora - обувь для высоких девушек
             </span>
-            <h2 className={`uppercase font-display text-4xl sm:text-6xl leading-[1.1] text-[#2B2620] ${isHome ? "lg:text-[clamp(44px,4.3vw,72px)] lg:whitespace-nowrap" : ""}`}>
+            <h2 className={`uppercase font-display text-4xl sm:text-6xl leading-[1.1] text-[#2B2620] ${isHome ? "lg:text-[clamp(44px,5.3vw,80px)] lg:whitespace-nowrap" : ""}`}>
               Мой стиль · Мой размер{" "}
               {isHome ? <span className="hidden lg:inline">· </span> : <br className="hidden sm:inline" />}
               <span className="font-normal text-accent">Моя свобода</span>

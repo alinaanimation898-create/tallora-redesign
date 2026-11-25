@@ -32,6 +32,9 @@ export const SHOWROOM = {
   address: "Большой Трёхсвятительский пер., 2/1 с1",
   hint: "Вход со стороны Малого Трёхсвятительского: чёрные железные ворота на углу с Хитровским, во двор, по красной лестнице - дверь слева",
   hours: "Ежедневно 11:00 - 21:00",
+  /** Yandex Maps: embedded map with a pin, and a route link (opens Navigator / Maps on the phone). */
+  mapEmbed: "https://yandex.ru/map-widget/v1/?text=" + encodeURIComponent("Москва, Большой Трёхсвятительский переулок, 2/1с1") + "&z=16",
+  routeUrl: "https://yandex.ru/maps/?rtext=~" + encodeURIComponent("Москва, Большой Трёхсвятительский переулок, 2/1с1") + "&rtt=auto",
 };
 
 /** Real words from clients and bloggers, reposted in t.me/tallora. */
