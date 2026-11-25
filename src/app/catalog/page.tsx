@@ -104,7 +104,7 @@ function CatalogContent() {
       <button
         onClick={() => setSortOpen((v) => !v)}
         aria-expanded={sortOpen}
-        className="h-11 pl-5 pr-4 rounded-full bg-white border border-[#2B2620]/10 hover:border-[#20402D]/40 flex items-center gap-3 text-[13px] text-[#2B2620] cursor-pointer transition-colors"
+        className="h-10 flex items-center gap-2 text-[13px] text-[#2B2620] hover:text-[#20402D] cursor-pointer transition-colors"
       >
         <span className="text-[#2B2620]/45">Сортировка:</span>
         <span className="font-medium">{sortLabel}</span>
@@ -158,27 +158,15 @@ function CatalogContent() {
               {title}
             </h1>
           </div>
-          {sortMenu}
+          <div className="hidden lg:block">{sortMenu}</div>
         </div>
 
-        {/* Mobile: categories + filters button */}
-        <div className="lg:hidden sticky top-[88px] sm:top-[96px] z-30 -mx-5 px-5 sm:-mx-8 sm:px-8 py-3 bg-[#F3F3F3]/92 backdrop-blur-md flex items-center gap-2">
-          <div className="flex gap-1.5 overflow-x-auto no-scrollbar min-w-0">
-            {CATEGORIES.map((c) => (
-              <button
-                key={c.slug}
-                onClick={() => chooseCategory(c.slug)}
-                className={`shrink-0 h-9 px-4 rounded-full text-[13px] border cursor-pointer ${
-                  activeCategory === c.slug ? "bg-[#2B2620] border-[#2B2620] text-white" : "bg-white border-[#2B2620]/10 text-[#2B2620]"
-                }`}
-              >
-                {c.slug === "all" ? "Все" : c.name}
-              </button>
-            ))}
-          </div>
+        {/* Mobile: sorting + filters button (categories live in the filter sheet) */}
+        <div className="lg:hidden sticky top-[88px] sm:top-[96px] z-30 -mx-5 px-5 sm:-mx-8 sm:px-8 py-3 bg-[#F3F3F3]/92 backdrop-blur-md flex items-center justify-between gap-2">
+          {sortMenu}
           <button onClick={() => setSheetOpen(true)} className="shrink-0 h-9 px-3.5 rounded-full bg-[#20402D] text-white text-[13px] flex items-center gap-1.5 cursor-pointer">
             <SlidersHorizontal size={14} />
-            {activeFilters > 0 ? activeFilters : "Фильтр"}
+            Фильтр{activeFilters + (activeCategory !== "all" ? 1 : 0) > 0 && <span className="ml-0.5 w-5 h-5 rounded-full bg-white text-[#20402D] text-[11px] font-semibold flex items-center justify-center">{activeFilters + (activeCategory !== "all" ? 1 : 0)}</span>}
           </button>
         </div>
 
@@ -321,6 +309,22 @@ function CatalogContent() {
               <button onClick={() => setSheetOpen(false)} aria-label="Закрыть" className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
                 <X size={18} />
               </button>
+            </div>
+            <div>
+              <Label>Категории</Label>
+              <div className={`${TILE_WRAP} grid-cols-2`}>
+                {CATEGORIES.map((c) => (
+                  <button
+                    key={c.slug}
+                    onClick={() => chooseCategory(c.slug)}
+                    className={`h-12 px-4 text-left font-display uppercase text-[15px] tracking-[0.02em] cursor-pointer transition-colors ${
+                      activeCategory === c.slug ? "bg-[#20402D] text-white" : "bg-white text-[#2B2620]"
+                    }`}
+                  >
+                    {c.slug === "all" ? "Все модели" : c.name}
+                  </button>
+                ))}
+              </div>
             </div>
             <div>
               <Label>Мой размер</Label>
