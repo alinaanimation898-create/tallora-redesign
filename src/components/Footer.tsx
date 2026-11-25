@@ -8,7 +8,9 @@ import { CONTACTS } from "@/data/mockData";
 import Logo from "@/components/Logo";
 
 export default function Footer() {
-  const isHome = usePathname() === "/";
+  const pathname = usePathname();
+  // Home and Privé show the centered slogan without the club form (the Privé page has its own).
+  const isHome = pathname === "/" || pathname === "/prive";
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 

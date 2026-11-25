@@ -67,7 +67,7 @@ export default function CartDrawer() {
           </div>
 
           {/* Cart Items List */}
-          <div className="flex-1 overflow-y-auto p-5 space-y-4">
+          <div className="flex-1 overflow-y-auto p-5 space-y-3 bg-[#F5F0E8]">
             {cart.length === 0 ? (
               <div className="text-center py-16 space-y-4">
                 <p className="font-display text-xl text-[#2B2620]/70">В корзине пока пусто</p>
@@ -86,9 +86,9 @@ export default function CartDrawer() {
               cart.map((item) => (
                 <div
                   key={`${item.product.id}-${item.selectedSize}`}
-                  className="flex gap-4 p-3 bg-white border border-[#E2E2E2] rounded-xs"
+                  className="flex gap-4 p-3 bg-white rounded-[20px]"
                 >
-                  <div className="relative w-20 h-24 bg-[#EAEAEA] shrink-0 border border-[#E2E2E2] overflow-hidden">
+                  <div className="relative w-20 h-24 bg-[#F3F3F3] shrink-0 rounded-[14px] overflow-hidden">
                     <Image
                       src={item.product.images[0]}
                       alt={item.product.name}
@@ -116,29 +116,28 @@ export default function CartDrawer() {
                         </button>
                       </div>
 
-                      <div className="flex items-center gap-2 mt-1 text-xs">
-                        <span className="font-semibold px-2 py-0.5 bg-[#F3F3F3] border border-[#E2E2E2] text-[#20402D] rounded-2xl">
-                          Размер: {item.selectedSize}
-                        </span>
-                        <span className="text-[#888888]">{item.product.heelHeight}</span>
+                      <div className="mt-1.5 flex items-baseline gap-2 text-[11px] uppercase tracking-[0.18em] text-[#2B2620]/50">
+                        <span>Размер</span>
+                        <span className="font-display text-[18px] leading-none tracking-normal text-[#20402D]">{item.selectedSize}</span>
+                        {item.product.color && <span className="truncate">· {item.product.color}</span>}
                       </div>
                     </div>
 
-                    <div className="flex items-center justify-between mt-3 pt-2 border-t border-[#F0ECE1]">
+                    <div className="flex items-center justify-between mt-3">
                       {/* Quantity counter */}
-                      <div className="flex items-center border border-[#E2E2E2]">
+                      <div className="flex items-center h-8 rounded-full border border-[#2B2620]/12 px-1">
                         <button
                           onClick={() => updateQuantity(item.product.id, item.selectedSize, -1)}
-                          className="w-6 h-6 flex items-center justify-center text-xs hover:bg-[#F3F3F3]"
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-[#F3F3F3] cursor-pointer"
                         >
                           -
                         </button>
-                        <span className="w-7 text-center text-xs font-mono">
+                        <span className="w-6 text-center text-xs">
                           {item.quantity}
                         </span>
                         <button
                           onClick={() => updateQuantity(item.product.id, item.selectedSize, 1)}
-                          className="w-6 h-6 flex items-center justify-center text-xs hover:bg-[#F3F3F3]"
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-xs hover:bg-[#F3F3F3] cursor-pointer"
                         >
                           +
                         </button>
