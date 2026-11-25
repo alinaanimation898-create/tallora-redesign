@@ -162,7 +162,10 @@ export default function HomePage() {
 
   const winter = WINTER_IDS.map(byId).filter((p) => p !== undefined);
   const sil = SILHOUETTES[spot];
-  const silProducts = PRODUCTS.filter((p) => p.categorySlug === sil.slug && p.sizes.some((z) => z.inStock)).slice(0, 2);
+  // Two different models per silhouette, so the pair of cards never repeats one shoe in two colors.
+  const silProducts = PRODUCTS.filter((p) => p.categorySlug === sil.slug && p.sizes.some((z) => z.inStock))
+    .filter((p, i, arr) => arr.findIndex((q) => (q.model || q.name) === (p.model || p.name)) === i)
+    .slice(0, 2);
   const panels = CATEGORIES.filter((c) => c.slug !== "all").map((c) => ({
     ...c,
     image: CATEGORY_PHOTOS[c.slug] ?? ("image" in c ? c.image : undefined),
@@ -305,15 +308,20 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Link href={`/catalog?category=${sil.slug}`} className="lg:col-span-4 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8] block">
-            <div key={sil.slug} className="absolute inset-0 fade-swap">
-              <Image src={SIL_PHOTOS[sil.slug]?.src ?? CATEGORY_PHOTOS[sil.slug]} alt={sil.word} fill sizes="(max-width: 1024px) 100vw, 33vw" style={{ objectPosition: SIL_PHOTOS[sil.slug]?.pos ?? CATEGORY_FOCUS[sil.slug] ?? "50% 50%" }} className="object-cover" />
-            </div>
-            <span className="absolute top-4 left-4 right-4 h-12 rounded-full bg-white/90 backdrop-blur flex items-center justify-between pl-5 pr-1.5 text-[11px] uppercase tracking-[0.2em] font-semibold">
+          <div className="lg:col-span-4 flex flex-col gap-3">
+            <Link href={`/catalog?category=${sil.slug}`} className="relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8] block">
+              <div key={sil.slug} className="absolute inset-0 fade-swap">
+                <Image src={SIL_PHOTOS[sil.slug]?.src ?? CATEGORY_PHOTOS[sil.slug]} alt={sil.word} fill sizes="(max-width: 1024px) 100vw, 33vw" style={{ objectPosition: SIL_PHOTOS[sil.slug]?.pos ?? CATEGORY_FOCUS[sil.slug] ?? "50% 50%" }} className="object-cover" />
+              </div>
+            </Link>
+            <Link
+              href={`/catalog?category=${sil.slug}`}
+              className="group h-12 rounded-full bg-white flex items-center justify-between pl-5 pr-1.5 text-[11px] uppercase tracking-[0.2em] font-semibold text-[#2B2620]"
+            >
               Все {sil.word.toLowerCase()}
-              <span className="w-9 h-9 rounded-full bg-[#20402D] text-white flex items-center justify-center"><ArrowUpRight size={16} /></span>
-            </span>
-          </Link>
+              <span className="w-9 h-9 rounded-full bg-[#20402D] text-white flex items-center justify-center group-hover:rotate-[-45deg] transition-transform duration-500"><ArrowUpRight size={16} /></span>
+            </Link>
+          </div>
 
           <div key={sil.slug} className="lg:col-span-4 grid grid-cols-2 gap-3 sm:gap-4 fade-swap">
             {silProducts.map((p) => (
