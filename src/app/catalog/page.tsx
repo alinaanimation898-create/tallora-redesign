@@ -4,7 +4,7 @@ import React, { useMemo, useState, Suspense } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
-import { SlidersHorizontal, X, Ruler, ArrowRight } from "lucide-react";
+import { SlidersHorizontal, X, Ruler, ArrowRight, ChevronDown, Check } from "lucide-react";
 import { PRODUCTS, CATEGORIES, SITE_PHOTOS } from "@/data/mockData";
 import { ShoeSize } from "@/types";
 import ProductCard from "@/components/ProductCard";
@@ -50,6 +50,7 @@ function CatalogContent() {
   const activeCategory = searchParams.get("category") || "all";
   const [activeHeel, setActiveHeel] = useState<string>("all");
   const [sortBy, setSortBy] = useState<string>("new");
+  const [sortOpen, setSortOpen] = useState(false);
   const [sheetOpen, setSheetOpen] = useState(false);
 
   const chooseCategory = (slug: string) => {
@@ -97,23 +98,43 @@ function CatalogContent() {
     </div>
   );
 
-  const sortList = (
-    <ul>
-      {SORTS.map((o) => {
-        const active = sortBy === o.id;
-        return (
-          <li key={o.id}>
-            <button
-              onClick={() => setSortBy(o.id)}
-              className={`group w-full flex items-center gap-2.5 py-1.5 text-left text-[14px] cursor-pointer transition-colors ${active ? "text-[#20402D] font-medium" : "text-[#2B2620]/65 hover:text-[#2B2620]"}`}
-            >
-              <span className={`h-px transition-all ${active ? "w-5 bg-[#20402D]" : "w-0 bg-[#2B2620] group-hover:w-3"}`} />
-              {o.label}
-            </button>
-          </li>
-        );
-      })}
-    </ul>
+  const sortLabel = SORTS.find((o) => o.id === sortBy)?.label ?? SORTS[0].label;
+  const sortMenu = (
+    <div className="relative">
+      <button
+        onClick={() => setSortOpen((v) => !v)}
+        aria-expanded={sortOpen}
+        className="h-11 pl-5 pr-4 rounded-full bg-white border border-[#2B2620]/10 hover:border-[#20402D]/40 flex items-center gap-3 text-[13px] text-[#2B2620] cursor-pointer transition-colors"
+      >
+        <span className="text-[#2B2620]/45">Сортировка:</span>
+        <span className="font-medium">{sortLabel}</span>
+        <ChevronDown size={15} className={`text-[#20402D] transition-transform ${sortOpen ? "rotate-180" : ""}`} />
+      </button>
+      {sortOpen && (
+        <>
+          <button aria-label="Закрыть" onClick={() => setSortOpen(false)} className="fixed inset-0 z-40 cursor-default" />
+          <ul className="absolute right-0 md:right-0 left-0 md:left-auto top-full mt-2 z-50 min-w-[260px] rounded-[20px] bg-white p-2 shadow-[0_24px_50px_-20px_rgba(43,38,32,0.35)]">
+            {SORTS.map((o) => {
+              const active = sortBy === o.id;
+              return (
+                <li key={o.id}>
+                  <button
+                    onClick={() => {
+                      setSortBy(o.id);
+                      setSortOpen(false);
+                    }}
+                    className={`w-full flex items-center justify-between gap-3 px-4 py-3 rounded-[14px] text-left text-[14px] cursor-pointer transition-colors ${active ? "bg-[#20402D]/[0.07] text-[#20402D] font-medium" : "text-[#2B2620]/75 hover:bg-[#F3F3F3]"}`}
+                  >
+                    {o.label}
+                    {active && <Check size={15} />}
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </>
+      )}
+    </div>
   );
 
   return (
@@ -137,9 +158,7 @@ function CatalogContent() {
               {title}
             </h1>
           </div>
-          <p className="text-[14px] text-[#2B2620]/55 md:text-right max-w-xs">
-            {products.length} {plural(products.length)} · размеры 37–44 · натуральная кожа и замша
-          </p>
+          {sortMenu}
         </div>
 
         {/* Mobile: categories + filters button */}
@@ -212,11 +231,6 @@ function CatalogContent() {
                 {heelPills}
               </div>
 
-              <div>
-                <Label>Сортировка</Label>
-                {sortList}
-              </div>
-
               <button
                 onClick={() => setIsVeraOpen(true)}
                 className="w-full rounded-[22px] bg-[#20402D] text-white p-5 text-left flex items-center gap-4 cursor-pointer hover:bg-[#183326] transition-colors"
@@ -269,7 +283,7 @@ function CatalogContent() {
                 </div>
               </div>
             ) : (
-              <div className="grid grid-cols-2 xl:grid-cols-3 gap-x-4 sm:gap-x-10 gap-y-12 sm:gap-y-16">
+              <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-5">
                 {products.map((product, i) => (
                   <React.Fragment key={product.id}>
                     {showStory && i === 5 && (
@@ -287,7 +301,9 @@ function CatalogContent() {
                         </div>
                       </Link>
                     )}
-                    <ProductCard product={product} />
+                    <div className="rounded-[22px] border border-[#20402D]/35 hover:border-[#20402D] p-2 sm:p-3 pb-3 sm:pb-4 transition-colors">
+                      <ProductCard product={product} />
+                    </div>
                   </React.Fragment>
                 ))}
               </div>
@@ -322,10 +338,6 @@ function CatalogContent() {
             <div>
               <Label>Каблук</Label>
               {heelPills}
-            </div>
-            <div>
-              <Label>Сортировка</Label>
-              {sortList}
             </div>
             <button onClick={() => setSheetOpen(false)} className="w-full py-4 rounded-full bg-[#20402D] text-white text-[12px] uppercase tracking-[0.18em] font-semibold">
               Показать {products.length} {plural(products.length)}
