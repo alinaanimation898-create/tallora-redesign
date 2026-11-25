@@ -287,8 +287,8 @@ function CatalogContent() {
                 {products.map((product, i) => (
                   <React.Fragment key={product.id}>
                     {showStory && i === 5 && (
-                      <Link href="/catalog?category=tufli" className="group relative col-span-2 xl:col-span-1 rounded-[22px] overflow-hidden bg-[#2B2620] min-h-[340px] flex">
-                        <Image src={SITE_PHOTOS.walk} alt="Туфли Tallora" fill sizes="(max-width: 1280px) 100vw, 33vw" className="object-cover object-[50%_60%] transition-transform duration-[1.2s] group-hover:scale-105" />
+                      <Link href="/catalog?category=tufli" className="group relative col-span-2 xl:col-span-1 rounded-[22px] overflow-hidden bg-[#2B2620] min-h-[440px] sm:min-h-[520px] xl:min-h-[340px] flex">
+                        <Image src={SITE_PHOTOS.walk} alt="Туфли Tallora" fill sizes="(max-width: 1280px) 100vw, 33vw" className="object-cover object-[50%_18%] xl:object-[50%_60%] transition-transform duration-[1.2s] group-hover:scale-105" />
                         <div className="absolute inset-0 bg-gradient-to-t from-[#2B2620]/85 via-[#2B2620]/10 to-transparent" />
                         <div className="relative mt-auto p-6 text-white">
                           <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">На шпильке · 37–44</span>

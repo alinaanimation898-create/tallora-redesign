@@ -171,6 +171,57 @@ export default function HomePage() {
     image: CATEGORY_PHOTOS[c.slug] ?? ("image" in c ? c.image : undefined),
   }));
 
+  const madeForYou = (
+        <section className="bg-white py-16 lg:py-28">
+          <div className="max-w-[1400px] mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E9E4DE]">
+              <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-bottom" />
+            </Reveal>
+            <div className="lg:col-span-7">
+              <Reveal>
+                <h2 className="font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.01em]">
+                  Сделано <span className="text-accent">для тебя</span>
+                </h2>
+              </Reveal>
+              <div className="mt-10 border-t border-[#2B2620]/12">
+                {ANATOMY.map((f, i) => (
+                  <Reveal key={f.n} delay={i * 100} className="py-7 border-b border-[#2B2620]/12 grid grid-cols-[48px_1fr] sm:grid-cols-[72px_1fr] gap-x-3">
+                    <span className="font-display text-[28px] sm:text-[36px] leading-none text-[#20402D]">{f.n}</span>
+                    <div>
+                      <h3 className="font-display uppercase text-[24px] sm:text-[30px] leading-tight">{f.title}</h3>
+                      <p className="mt-2 text-[15px] sm:text-[16px] text-[#2B2620]/65 leading-relaxed max-w-xl">{f.text}</p>
+                    </div>
+                  </Reveal>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+  );
+
+  const standOut = (
+        <section className="relative overflow-hidden bg-[#F5F0E8] lg:grid lg:grid-cols-[1fr_auto]">
+          <div className="relative min-h-[88svh] lg:min-h-0 lg:order-2 lg:h-[min(92vh,980px)] lg:aspect-[781/1400]">
+            <Image src={SITE_PHOTOS.walk} alt="Девушка в красных туфлях Tallora выходит из машины" fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover object-[50%_40%] lg:object-center" />
+            <div className="lg:hidden absolute inset-0 bg-gradient-to-t from-[#2B2620]/85 via-[#2B2620]/15 to-transparent" />
+          </div>
+          <div className="absolute inset-x-0 bottom-0 lg:static lg:order-1 flex items-end lg:items-center">
+            <Reveal className="w-full max-w-[700px] lg:ml-auto px-5 sm:px-8 lg:px-14 xl:px-20 pb-12 lg:py-20 text-white lg:text-[#2B2620] min-w-0">
+              <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[1.1] tracking-[-0.02em]">
+                Время
+                <span className="block text-accent-light lg:text-accent">выделяться</span>
+              </h2>
+              <p className="mt-6 max-w-sm text-[15px] text-white/85 lg:text-[#2B2620]/70 leading-relaxed">
+                Шаг, который слышно. Каблук, который держит. Пара, которую запоминают - вместе с тобой
+              </p>
+              <div className="mt-8">
+                <ArrowPill href="/catalog?category=tufli">Смотреть туфли</ArrowPill>
+              </div>
+            </Reveal>
+          </div>
+        </section>
+  );
+
   return (
     <div className="flex flex-col w-full overflow-hidden">
       {/* ───────────── 1. HERO - text panel + one photo ───────────── */}
@@ -334,26 +385,10 @@ export default function HomePage() {
       </section>
 
       {/* ───────────── 6. STAND OUT - full-bleed on mobile, split on desktop ───────────── */}
-      <section className="relative overflow-hidden bg-[#F5F0E8] lg:grid lg:grid-cols-[1fr_auto]">
-        <div className="relative min-h-[88svh] lg:min-h-0 lg:order-2 lg:h-[min(92vh,980px)] lg:aspect-[781/1400]">
-          <Image src={SITE_PHOTOS.walk} alt="Девушка в красных туфлях Tallora выходит из машины" fill sizes="(max-width: 1024px) 100vw, 560px" className="object-cover object-[50%_40%] lg:object-center" />
-          <div className="lg:hidden absolute inset-0 bg-gradient-to-t from-[#2B2620]/85 via-[#2B2620]/15 to-transparent" />
-        </div>
-        <div className="absolute inset-x-0 bottom-0 lg:static lg:order-1 flex items-end lg:items-center">
-          <Reveal className="w-full max-w-[700px] lg:ml-auto px-5 sm:px-8 lg:px-14 xl:px-20 pb-12 lg:py-20 text-white lg:text-[#2B2620] min-w-0">
-            <h2 className="font-display uppercase text-[clamp(56px,7vw,116px)] leading-[1.1] tracking-[-0.02em]">
-              Время
-              <span className="block text-accent-light lg:text-accent">выделяться</span>
-            </h2>
-            <p className="mt-6 max-w-sm text-[15px] text-white/85 lg:text-[#2B2620]/70 leading-relaxed">
-              Шаг, который слышно. Каблук, который держит. Пара, которую запоминают - вместе с тобой
-            </p>
-            <div className="mt-8">
-              <ArrowPill href="/catalog?category=tufli">Смотреть туфли</ArrowPill>
-            </div>
-          </Reveal>
-        </div>
-      </section>
+      {/* On mobile «Сделано для тебя» goes right after the silhouettes */}
+      <div className="lg:hidden">{madeForYou}</div>
+
+      <div className="hidden lg:block">{standOut}</div>
 
       {/* ───────────── 7. CATEGORIES ───────────── */}
       <section className="bg-white text-[#2B2620] py-16 lg:py-28">
@@ -444,31 +479,10 @@ export default function HomePage() {
       </div>
 
       {/* ───────────── 8. ANATOMY - photo + three promises ───────────── */}
-      <section className="bg-white py-16 lg:py-28">
-        <div className="max-w-[1400px] mx-auto px-5 sm:px-8 grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <Reveal className="lg:col-span-5 relative aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E9E4DE]">
-            <Image src={SITE_PHOTOS.redHeel} alt="Нога в красной босоножке Tallora на шпильке" fill sizes="(max-width: 1024px) 100vw, 40vw" className="object-cover object-bottom" />
-          </Reveal>
-          <div className="lg:col-span-7">
-            <Reveal>
-              <h2 className="font-display uppercase text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.01em]">
-                Сделано <span className="text-accent">для тебя</span>
-              </h2>
-            </Reveal>
-            <div className="mt-10 border-t border-[#2B2620]/12">
-              {ANATOMY.map((f, i) => (
-                <Reveal key={f.n} delay={i * 100} className="py-7 border-b border-[#2B2620]/12 grid grid-cols-[48px_1fr] sm:grid-cols-[72px_1fr] gap-x-3">
-                  <span className="font-display text-[28px] sm:text-[36px] leading-none text-[#20402D]">{f.n}</span>
-                  <div>
-                    <h3 className="font-display uppercase text-[24px] sm:text-[30px] leading-tight">{f.title}</h3>
-                    <p className="mt-2 text-[15px] sm:text-[16px] text-[#2B2620]/65 leading-relaxed max-w-xl">{f.text}</p>
-                  </div>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="hidden lg:block">{madeForYou}</div>
+
+      {/* On mobile «Время выделяться» sits right above the calculator */}
+      <div className="lg:hidden">{standOut}</div>
 
       {/* ───────────── 9. SIZE CALCULATOR ───────────── */}
       <HomeSizeCalculator />
@@ -476,31 +490,31 @@ export default function HomePage() {
       {/* ───────────── 10. REVIEWS - messages from the Telegram channel ───────────── */}
       <section className="py-16 lg:py-28 bg-[#F5F0E8]">
         <div className="max-w-[1400px] mx-auto px-5 sm:px-8">
-          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-16 items-end mb-10 sm:mb-14">
+          <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 lg:gap-16 items-end mb-6 sm:mb-14">
             <div className="lg:col-span-7">
               <h2 className="font-display uppercase text-[clamp(44px,7vw,112px)] leading-[1.1] tracking-[-0.01em]">
                 Что говорят <span className="text-accent">клиентки</span>
               </h2>
             </div>
             <div className="lg:col-span-5">
-              <p className="text-[15px] sm:text-[16px] text-[#2B2620]/70 leading-relaxed max-w-md">
+              <p className="hidden sm:block text-[15px] sm:text-[16px] text-[#2B2620]/70 leading-relaxed max-w-md">
                 Настоящие сообщения от клиенток и блогеров, которые носят Tallora. Мы собираем их в нашем Telegram-канале
               </p>
-              <a href="https://t.me/tallora" target="_blank" rel="noreferrer" className="mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#20402D] hover:border-[#20402D]">
+              <a href="https://t.me/tallora" target="_blank" rel="noreferrer" className="sm:mt-5 inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.22em] font-semibold border-b border-[#2B2620] pb-1 hover:text-[#20402D] hover:border-[#20402D]">
                 Читать все в Telegram <ArrowUpRight size={14} />
               </a>
             </div>
           </Reveal>
 
-          <div className="columns-1 md:columns-2 lg:columns-3 gap-5 [&>*]:mb-5">
+          <div className="flex md:block gap-3 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar -mx-5 px-5 sm:-mx-8 sm:px-8 md:mx-0 md:px-0 md:columns-2 lg:columns-3 md:gap-5 md:[&>*]:mb-5">
             {CLIENT_VOICES.map((v, i) => {
               const meta = VOICE_META[i % VOICE_META.length];
               return (
-                <Reveal key={i} delay={(i % 3) * 90} className="break-inside-avoid">
+                <Reveal key={i} delay={(i % 3) * 90} className="break-inside-avoid shrink-0 w-[82%] sm:w-[60%] md:w-auto snap-start">
                   <figure>
-                    <blockquote className="relative bg-white rounded-[26px] rounded-bl-[6px] p-6 sm:p-7 shadow-[0_18px_40px_-30px_rgba(43,38,32,0.5)]">
+                    <blockquote className="relative bg-white rounded-[26px] rounded-bl-[6px] p-5 sm:p-7 shadow-[0_18px_40px_-30px_rgba(43,38,32,0.5)]">
                       <span aria-hidden className="block font-display text-[56px] leading-[0.6] text-[#20402D] h-7">“</span>
-                      <p className="mt-2 text-[18px] sm:text-[19px] leading-[1.5] text-[#2B2620]">{v.text}</p>
+                      <p className="mt-2 text-[16px] sm:text-[19px] leading-[1.5] text-[#2B2620] line-clamp-6 md:line-clamp-none">{v.text}</p>
                       <Link href={`/catalog?category=${meta.slug}`} className="mt-5 inline-flex items-center gap-2 h-9 pl-3.5 pr-2 rounded-full bg-[#F5F0E8] text-[11px] uppercase tracking-[0.16em] text-[#2B2620] hover:bg-[#20402D] hover:text-white transition-colors">
                         {v.product} <ArrowUpRight size={13} />
                       </Link>
@@ -518,7 +532,7 @@ export default function HomePage() {
                 </Reveal>
               );
             })}
-            <Reveal className="break-inside-avoid">
+            <Reveal className="break-inside-avoid shrink-0 w-[82%] sm:w-[60%] md:w-auto snap-start">
               <a href={CONTACTS.telegram} target="_blank" rel="noreferrer" className="group block rounded-[26px] bg-[#20402D] text-white p-7 sm:p-8">
                 <span className="text-[11px] uppercase tracking-[0.22em] text-white/70">Уже носишь Tallora?</span>
                 <span className="mt-4 block font-display uppercase text-[34px] leading-[1.02]">Расскажи о своей паре</span>
@@ -627,14 +641,17 @@ export default function HomePage() {
           <Image src={SITE_PHOTOS.redBoots} alt="Девушка в замшевых сапогах Tallora" fill sizes="(max-width: 1024px) 100vw, 48vw" className="object-cover object-[50%_25%] lg:object-[50%_55%]" />
           <div className="hidden lg:block absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[#F5F0E8] to-transparent" />
           <div className="lg:hidden absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#F5F0E8] to-transparent" />
+          <span className="lg:hidden absolute top-5 left-5 inline-flex items-center gap-2 h-9 px-4 rounded-full bg-white/90 backdrop-blur text-[10px] uppercase tracking-[0.3em] text-[#20402D]">
+            <Sparkles size={12} /> Закрытый клуб для своих
+          </span>
         </div>
 
         <div className="relative z-10 max-w-[1400px] mx-auto px-5 sm:px-8 w-full -mt-16 pb-16 lg:mt-0 lg:py-28">
           <Reveal className="lg:max-w-[46%]">
-            <span className="inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-[#20402D]">
+            <span className="hidden lg:inline-flex items-center gap-2 text-[11px] uppercase tracking-[0.35em] text-[#20402D]">
               <Sparkles size={13} /> Закрытый клуб для своих
             </span>
-            <h2 className="mt-6 font-display uppercase leading-[1.1] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
+            <h2 className="lg:mt-6 font-display uppercase leading-[1.1] tracking-[-0.03em] text-[clamp(88px,13vw,200px)]">Privé</h2>
             <p className="mt-8 font-display uppercase text-[26px] sm:text-[34px] leading-[1.25]">
               Новинки раньше всех
               <br />
