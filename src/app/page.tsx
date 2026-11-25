@@ -570,12 +570,12 @@ export default function HomePage() {
 
       {/* ───────────── 12. SHOWROOM & COMMUNITY ───────────── */}
       <section className="bg-white py-16 lg:py-28 px-5 sm:px-8">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
-          <Reveal className="lg:col-span-6 relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
+        {/* Mobile: heading, photo, then showroom and buttons. Desktop: photo left, everything else right. */}
+        <div className="max-w-[1400px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-y-8 lg:gap-x-16 lg:gap-y-0">
+          <Reveal className="order-2 lg:order-none lg:col-start-1 lg:col-span-6 lg:row-start-1 lg:row-span-2 lg:self-center relative aspect-[4/5] sm:aspect-[5/4] lg:aspect-[4/5] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
             <Image src={SITE_PHOTOS.queen} alt="Девушка в кресле примеряет туфли Tallora" fill sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-[50%_40%]" />
           </Reveal>
-          <div className="lg:col-span-6">
-            <Reveal>
+          <Reveal className="order-1 lg:order-none lg:col-start-7 lg:col-span-6 lg:row-start-1 lg:self-end">
               <Eyebrow>Примерка вживую в Москве</Eyebrow>
               <h2 className="uppercase mt-5 font-display text-[clamp(44px,6vw,96px)] leading-[1.1] tracking-[-0.02em]">
                 Приходи <span className="text-accent">примерить</span>
@@ -584,8 +584,9 @@ export default function HomePage() {
                 Вся коллекция и все размеры ждут тебя в шоуруме. А ещё у нас свои вечеринки: клиентские дни
                 на складе, мастер-классы по дефиле и осанке для высоких девушек, съёмки и красивая компания
               </p>
-            </Reveal>
-            <Reveal delay={120} className="mt-8 rounded-[24px] bg-[#F5F0E8] p-6 sm:p-7 space-y-4">
+          </Reveal>
+          <div className="order-3 lg:order-none lg:col-start-7 lg:col-span-6 lg:row-start-2 lg:self-start">
+            <Reveal delay={120} className="lg:mt-8 rounded-[24px] bg-[#F5F0E8] p-6 sm:p-7 space-y-4">
               <h3 className="font-display uppercase text-2xl tracking-[0.04em]">{SHOWROOM.name}</h3>
               <div className="flex gap-3 text-sm">
                 <MapPin size={18} className="text-[#20402D] shrink-0 mt-0.5" />
