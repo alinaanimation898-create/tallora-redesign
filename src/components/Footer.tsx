@@ -10,7 +10,8 @@ import Logo from "@/components/Logo";
 export default function Footer() {
   const pathname = usePathname();
   // Home and Privé show the centered slogan without the club form (the Privé page has its own).
-  const isHome = pathname === "/" || pathname === "/prive";
+  const path = (pathname || "/").replace(/\/+$/, "") || "/";
+  const isHome = path === "/" || path === "/prive";
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
