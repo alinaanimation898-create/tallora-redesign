@@ -39,18 +39,6 @@ export default function SizeGuidePage() {
             Размер обуви – это длина стопы, а ещё её ширина и подъём. Поэтому у каждой модели Tallora мы указываем
             точную длину стельки для каждого размера. Измерь стопу один раз – и выбирай уверенно
           </p>
-          <div className="mt-8 flex flex-wrap gap-2">
-            {[37, 38, 39, 40, 41, 42, 43, 44].map((s) => (
-              <button
-                key={s}
-                onClick={() => openSize(s)}
-                className="w-12 h-12 rounded-full bg-white border border-[#2B2620]/10 hover:bg-[#20402D] hover:border-[#20402D] hover:text-white font-display text-[17px] transition-colors cursor-pointer"
-                aria-label={`Показать модели ${s} размера`}
-              >
-                {s}
-              </button>
-            ))}
-          </div>
         </div>
         <div className="lg:col-span-6 relative aspect-[4/5] lg:aspect-[5/6] rounded-[28px] overflow-hidden bg-[#E8E8E8]">
           <Image src={sitePhoto("tild3666-3730-4262-b466-393230646133")} alt="Ноги в босоножках Tallora" fill preload sizes="(max-width: 1024px) 100vw, 50vw" className="object-cover object-[50%_70%]" />
